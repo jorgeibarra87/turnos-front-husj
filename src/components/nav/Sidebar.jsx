@@ -1,64 +1,100 @@
 import { useEffect, useState } from 'react';
-import imgLogo from '../../img/favicon.ico'
-import Navbar from './Navbar'
+import imgLogo from '../../img/favicon.ico';
+import Navbar from './Navbar';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-export default function Sidebar({ componente: Componente }) {
 
+export default function Sidebar({ componente: Componente }) {
   const stateSidebar = useSelector(state => state.sidebar);
   const statelogin = useSelector(state => state.login);
   const [usuario, setUsuario] = useState(statelogin.decodeToken);
   const [submenuAbierto, setSubmenuAbierto] = useState(null);
 
+  // DEBUG temporal - ver los roles del usuario
+  //console.log('👤 Usuario authorities:', usuario?.authorities);
+
   const toggleSubmenu = (nombre) => {
     setSubmenuAbierto(prev => prev === nombre ? null : nombre);
   };
 
-    useEffect(() => {
-        const token = localStorage.getItem('tokenhusjp');
-        const usuario2 = jwtDecode(token);
-        const combinedAuthorities = usuario.authorities.concat(usuario2.authorities); 
-                
-        setUsuario({
-            ...usuario,
-            authorities: combinedAuthorities
-        })
-    }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('tokenhusjp');
+    if (token) {
+      const usuario2 = jwtDecode(token);
+      const combinedAuthorities = usuario.authorities.concat(usuario2.authorities);
 
-    const opcionesMenu = [
+      setUsuario({
+        ...usuario,
+        authorities: combinedAuthorities
+      });
+    }
+  }, []);
+
+  const opcionesMenu = [
+    {
+      nombre: 'Aplicación Turnos',
+      submenu: [
         {
-            nombre: 'InnoProduc',
-            roles: ['ROLE_ADMINISTRADOR'], // Define los roles para esta opción
-            submenu: [
-                { nombre: 'Actualizar', ruta: '/innProduc/update', roles: ['ROLE_ADMINISTRADOR', 'ROLE_INNPRODUC'] }, // Roles permitidos para esta subopción
-            ]
+          nombre: 'Supervisión',
+          submenuAdicional: [
+            { nombre: 'Gestionar Contrato', ruta: '/contratos' },
+            { nombre: 'Gestionar Reportes', ruta: '/reportesfiltro' }
+          ]
         },
-    ];
+        {
+          nombre: 'Gestores',
+          submenuAdicional: [
+            { nombre: 'Equipo Talento Humano', ruta: '/equipos' },
+            { nombre: 'Cuadros de Turno', ruta: '/' },
+            { nombre: 'Turnos', ruta: '/selector-cuadro-turno' },
+            { nombre: 'Calendario de Turno', ruta: '/calendarioturnos' }
+          ]
+        },
+        {
+          nombre: 'Ajustes',
+          submenuAdicional: [
+            { nombre: 'Personas', ruta: '/personas' },
+            { nombre: 'Personas Títulos', ruta: '/personastitulos' },
+            { nombre: 'Personas Roles', ruta: '/personasroles' },
+            { nombre: 'Personas Equipos', ruta: '/personasequipos' },
+            { nombre: 'Macroprocesos', ruta: '/macroprocesos' },
+            { nombre: 'Procesos', ruta: '/procesos' },
+            { nombre: 'Servicios', ruta: '/servicios' },
+            { nombre: 'Procesos Atención', ruta: '/procesosatencion' },
+            { nombre: 'Secciones', ruta: '/secciones' },
+            { nombre: 'Subsecciones', ruta: '/subsecciones' },
+            { nombre: 'Contratos', ruta: '/contratos' },
+            { nombre: 'Títulos', ruta: '/titulos' },
+            { nombre: 'Tipo Formación', ruta: '/tipoformacion' },
+            { nombre: 'Turnos', ruta: '/selector-cuadro-turno' },
+            { nombre: 'Cuadros Turno', ruta: '/' },
+            { nombre: 'Historial Cuadro', ruta: '/selectorCuadroHistorial' },
+            { nombre: 'Equipos', ruta: '/equipos' },
+            { nombre: 'Bloque Servicio', ruta: '/bloqueservicio' },
+            { nombre: 'Reportes', ruta: '/reportesfiltro' },
+            { nombre: 'Notificacion Correo', ruta: '/notificacionCorreo' },
+            { nombre: 'Notificacion Automática', ruta: '/notificacionAutomatica' }
+          ]
+        }
+      ]
+    }
+  ];
 
-    // Filtra las opciones del menú principal según los roles del usuario
-    const opcionesFiltradas = opcionesMenu.filter(opcion => {
-        if (!opcion.roles) return true; // Si no se especifican roles, mostrar la opción
-        return opcion.roles.some(rol => usuario.authorities.includes(rol));
-    });
+  // SIN FILTRO - Mostrar todas las opciones
+  const opcionesFiltradas = opcionesMenu;
 
-    // Filtra las subopciones del menú según los roles del usuario
-    const filtrarSubopciones = (subopciones) => {
-        return subopciones.filter(subopcion => {
-            if (!subopcion.roles) return true; // Si no se especifican roles, mostrar la subopción
-            return subopcion.roles.some(rol => usuario.authorities.includes(rol));
-        });
-    };
+  // SIN FILTRO - Mostrar todas las subopciones
+  const filtrarSubopciones = (subopciones) => {
+    return subopciones;
+  };
 
-    const filtrarSubmenuAdicional = (subopcionesadicionales) => {
-        return subopcionesadicionales.filter(subopcionadicional => {
-            if (!subopcionadicional.roles) return true;
-            return subopcionadicional.roles.some(rol => usuario.authorities.includes(rol));
-        });
-    };
+  const filtrarSubmenuAdicional = (subopcionesadicionales) => {
+    return subopcionesadicionales;
+  };
 
-    return (
-        <div className="wrapper">
+  return (
+    <div className="wrapper">
       <nav id="sidebar" className={`${stateSidebar.state ? 'active' : ''} small`}>
         <div className="sidebar-header text-center">
           <img src={imgLogo} alt='logo' style={{ width: '40px', height: '40px' }} />
@@ -83,13 +119,24 @@ export default function Sidebar({ componente: Componente }) {
                           <ul className="pl-4">
                             {filtrarSubmenuAdicional(subopcion.submenuAdicional).map((submenuadicional, subadcionalindex) => (
                               <li key={subadcionalindex}>
-                                <Link to={submenuadicional.ruta}>{submenuadicional.nombre}</Link>
+                                <Link
+                                  to={submenuadicional.ruta}
+                                  onClick={() => console.log('🔗 Navegando a:', submenuadicional.ruta)}
+                                >
+                                  {submenuadicional.nombre}
+                                </Link>
                               </li>
                             ))}
                           </ul>
                         </details>
                       ) : (
-                        <Link to={subopcion.ruta} className="block px-2 py-1 hover:bg-gray-300">{subopcion.nombre}</Link>
+                        <Link
+                          to={subopcion.ruta}
+                          className="block px-2 py-1 hover:bg-gray-300"
+                          onClick={() => console.log('🔗 Navegando a:', subopcion.ruta)}
+                        >
+                          {subopcion.nombre}
+                        </Link>
                       )}
                     </li>
                   ))}
@@ -100,24 +147,19 @@ export default function Sidebar({ componente: Componente }) {
         </ul>
       </nav>
 
-      <div id="content" className="flex flex-col h-screen"> {/* Usa flexbox para un layout de columna */}
-          <div className="navbar-fixed">
-              <Navbar />
-          </div>
-          <div className="flex-grow overflow-y-auto p-4"> {/* El contenido principal con scroll propio */}
-              {Componente && <Componente />}
-          </div>
-          <footer className="footer-dinamico flex-shrink-0"> {/* El footer queda fijo en la parte inferior */}
-              <p className="text-muted text-center">
-                  <small>Soluciones HUSJP © 2024 Hospital Universitario San Jose. Ing. Julio Alvarez. Todos los derechos reservados. EXT. 134</small>
-              </p>
-          </footer>
+      <div id="content" className="flex flex-col h-screen">
+        <div className="navbar-fixed">
+          <Navbar />
+        </div>
+        <div className="flex-grow overflow-y-auto p-4">
+          {Componente && <Componente />}
+        </div>
+        <footer className="footer-dinamico flex-shrink-0">
+          <p className="text-muted text-center">
+            <small>Soluciones HUSJP © 2024 Hospital Universitario San Jose. Ing. Julio Alvarez. Todos los derechos reservados. EXT. 134</small>
+          </p>
+        </footer>
       </div>
     </div>
-    )
+  );
 }
-
-//agregamos para que se valinden errores de prop.types
-// Sidebar.propTypes = {
-//     componente: PropTypes.elementType.isRequired,
-// }

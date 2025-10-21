@@ -1,18 +1,28 @@
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
-import store from './store'
-import RutasConfig from './components/config/RutasConfig'
+import store from './store';
+import RutasConfig from './components/config/RutasConfig';
 
 function App() {
   return (
     <>
-      <Provider store={store}>{/* Provider is used to pass the Redux store to the components */}
-        <RutasConfig />{/* RutasConfig is used to define the routes of the application */}
+      <Provider store={store}>
+        <RutasConfig />
       </Provider>
-      <ToastContainer />{/* ToastContainer is used to display toast notifications */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
