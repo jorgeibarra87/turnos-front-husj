@@ -11,8 +11,6 @@ export default function Sidebar({ componente: Componente }) {
   const [usuario, setUsuario] = useState(statelogin.decodeToken);
   const [submenuAbierto, setSubmenuAbierto] = useState(null);
 
-  // DEBUG temporal - ver los roles del usuario
-  //console.log('👤 Usuario authorities:', usuario?.authorities);
 
   const toggleSubmenu = (nombre) => {
     setSubmenuAbierto(prev => prev === nombre ? null : nombre);
@@ -121,7 +119,6 @@ export default function Sidebar({ componente: Componente }) {
                               <li key={subadcionalindex}>
                                 <Link
                                   to={submenuadicional.ruta}
-                                  onClick={() => console.log('🔗 Navegando a:', submenuadicional.ruta)}
                                 >
                                   {submenuadicional.nombre}
                                 </Link>
@@ -133,7 +130,6 @@ export default function Sidebar({ componente: Componente }) {
                         <Link
                           to={subopcion.ruta}
                           className="block px-2 py-1 hover:bg-gray-300"
-                          onClick={() => console.log('🔗 Navegando a:', subopcion.ruta)}
                         >
                           {subopcion.nombre}
                         </Link>
