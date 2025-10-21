@@ -243,7 +243,7 @@ export default function GestionCuadroHistoria() {
 
     return (
         <div className='w-full mx-auto p-4 bg-primary-blue-content bg-primary-blue-backwround bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
-            <div className='bg-white p-4 rounded-lg flex flex-col gap-6 max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
+            <div className='bg-white p-4 rounded-lg flex flex-col gap-6 max-w-8xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
                 <div className='flex items-center justify-between border-b pb-2'>
