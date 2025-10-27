@@ -54,9 +54,6 @@ import NotificacionAutomatica from './Notificaciones/NotificacionAutomatica';
 const TurnosMainLayout = () => {
     const location = useLocation();
 
-    // ✅ DEBUG: Ver qué ruta está activa
-    //console.log('📍 Ruta actual:', location.pathname);
-    //console.log('📍 Location completo:', location);
     return (
         <div className="flex-1 overflow-y-auto p-6 relative">
             <Routes>
