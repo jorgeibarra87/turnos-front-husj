@@ -331,7 +331,7 @@ export default function CrearEquipo() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-50  flex justify-center items-center'>
             {!showPersonasManager ? (
                 // Vista de selecciones inicial
                 <div className='bg-white p-4 rounded-lg flex flex-col justify-center items-center gap-4 max-w-xl w-full mx-4'>

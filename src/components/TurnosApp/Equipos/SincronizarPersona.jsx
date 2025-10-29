@@ -337,7 +337,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-primary-blue-backwround bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50'>
+        <div className='fixed inset-0 z-50 bg-opacity-80 backdrop-blur-xl bg-primary-content flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}

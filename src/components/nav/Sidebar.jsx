@@ -76,7 +76,7 @@ export default function Sidebar({ componente: Componente }) {
           ]
         }
       ]
-    }
+    },
   ];
 
   // SIN FILTRO - Mostrar todas las opciones
