@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClienteTurnos from '../../api/turnos/apiClienteTurnos';
 
 export const useCalendarioTurnos = (filtros, fechaActual) => {
     const [turnos, setTurnos] = useState([]);
@@ -18,7 +18,7 @@ export const useCalendarioTurnos = (filtros, fechaActual) => {
                 setError(null);
 
                 // Cargar TODOS los turnos
-                const response = await axios.get('http://localhost:8081/turnos');
+                const response = await apiClienteTurnos.get('/turnos');
 
                 let turnosFiltrados = response.data || [];
 
@@ -68,12 +68,12 @@ export const useCalendarioTurnos = (filtros, fechaActual) => {
                     try {
 
                         // Obtener cuadro específico para acceder al equipo
-                        const cuadroResponse = await axios.get(`http://localhost:8081/cuadro-turnos/${filtros.cuadroTurno}`);
+                        const cuadroResponse = await apiClienteTurnos.get(`/cuadro-turnos/${filtros.cuadroTurno}`);
                         const equipoId = cuadroResponse.data.idEquipo;
 
                         if (equipoId) {
                             // Obtener miembros con sus perfiles
-                            const miembrosResponse = await axios.get(`http://localhost:8081/equipo/${equipoId}/miembros-perfil`);
+                            const miembrosResponse = await apiClienteTurnos.get(`/equipo/${equipoId}/miembros-perfil`);
                             const miembrosConPerfil = miembrosResponse.data || [];
 
                             // Crear mapa: idPersona -> perfiles

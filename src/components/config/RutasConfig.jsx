@@ -78,7 +78,7 @@ export default function RutasConfig() {
         <Router>
             <Routes>
                 {/* Login */}
-                <Route path='/login' element={isLogged ? <Navigate to='/crear-turnos' /> : <Login />} />
+                <Route path='/login' element={isLogged ? <Navigate to='/cuadro-turnos' /> : <Login />} />
 
                 {/* Otras rutas existentes */}
                 <Route path='/innProduc'>

@@ -90,7 +90,7 @@ const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
     if (!isOpen || !turno) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-blue-80 backdrop-blur-3xl bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="flex justify-between items-center p-6 border-b">
@@ -231,7 +231,7 @@ const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                            className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                             disabled={loading}
                         >
                             Cancelar

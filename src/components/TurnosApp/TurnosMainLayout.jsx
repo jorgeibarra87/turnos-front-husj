@@ -9,7 +9,6 @@ import CrearCuadroMulti2 from './CuadrosTurno/CrearCuadroMulti2';
 import CrearCuadroMulti3 from './CuadrosTurno/CrearCuadroMulti3';
 import { SelectorCuadroHistorial } from './CuadrosTurno/SelectorCuadroHistorial';
 import GestionCuadroHistoria from './CuadrosTurno/GestionCuadroHistoria';
-import Pruebas from './CuadrosTurno/Pruebas';
 
 // Equipos
 import CrearEquipo from './Equipos/CrearEquipos';
@@ -69,9 +68,6 @@ const TurnosMainLayout = () => {
                 <Route path="/CrearCuadroMulti3" element={<CrearCuadroMulti3 />} />
                 <Route path="/selectorCuadroHistorial" element={<SelectorCuadroHistorial />} />
                 <Route path="/gestionCuadroHistoria/:id" element={<GestionCuadroHistoria />} />
-                <Route path="/Pruebas" element={<Pruebas />} />
-                <Route path="/Pruebas/editar/:id" element={<Pruebas />} />
-                <Route path="/Pruebas/crear" element={<Pruebas />} />
                 <Route path="/VerCuadro/:id" element={<VerCuadro />} />
 
                 {/* Rutas de Equipos */}

@@ -125,7 +125,7 @@ export default function GestionNotificaciones() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-slate-50 bg-blue-950 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-blue-80 bg-blue-950 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}

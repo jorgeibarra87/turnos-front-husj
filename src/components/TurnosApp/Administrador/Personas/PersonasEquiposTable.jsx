@@ -312,7 +312,7 @@ function FormularioUsuarioEquipo({ personas, equipos, editando, onClose, onSaved
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
+        <div className="fixed inset-0 bg-blue-80 backdrop-blur-3xl bg-opacity-30 flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg w-96">
                 <h2 className="text-lg font-bold mb-4">
                     {editando ? "Editar Relación" : "Nueva Relación"}

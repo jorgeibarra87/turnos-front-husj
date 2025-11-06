@@ -404,7 +404,7 @@ export default function CrearCuadro() {
     // Mostrar loading si esta cargando datos para editar
     if (isEditMode && loadingCuadroData) {
         return (
-            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando datos del cuadro...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -416,7 +416,7 @@ export default function CrearCuadro() {
     // Mostrar loading específico para multiproceso mientras se redirige
     if (isEditMode && cuadroOriginal?.categoria?.toLowerCase() === 'multiproceso') {
         return (
-            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Redirigiendo a edición multiproceso...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
@@ -427,7 +427,7 @@ export default function CrearCuadro() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             {!showCuadro ? (
                 // Vista de selecciones
                 <div className='bg-white p-4 rounded-lg flex flex-col justify-center items-center gap-4 max-w-xl w-full mx-4'>
@@ -591,7 +591,7 @@ export default function CrearCuadro() {
                                 {isEditMode ? <FontAwesomeIcon icon={faEdit} className="w-5 h-5 text-white" /> : <FontAwesomeIcon icon={faCheck} className="w-5 h-5 text-white" />}
                                 {isEditMode ? 'Editar Cuadro' : 'Crear Cuadro'}
                             </button>
-                            <Link to="/cuadro">
+                            <Link to="/cuadro-turnos">
                                 <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
                                     <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                     Cancelar

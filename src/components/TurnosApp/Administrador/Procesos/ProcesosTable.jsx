@@ -420,7 +420,7 @@ function CrearEditarProceso({ proceso, macroprocesos, modoEdicion, onVolver, onA
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className='text-3xl font-bold text-gray-800 text-center'>
                     {modoEdicion ? 'Editar Proceso' : 'Crear Nuevo Proceso'}
@@ -511,7 +511,7 @@ function CrearEditarProceso({ proceso, macroprocesos, modoEdicion, onVolver, onA
                     <button
                         onClick={onVolver}
                         disabled={saving}
-                        className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50"
+                        className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
                     >
                         Cancelar
                     </button>
@@ -537,7 +537,7 @@ function VerProceso({ proceso, macroprocesos, onVolver }) {
     const macroprocesoInfo = procesoUtils.getMacroprocesoInfo(proceso, macroprocesos);
 
     return (
-        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}

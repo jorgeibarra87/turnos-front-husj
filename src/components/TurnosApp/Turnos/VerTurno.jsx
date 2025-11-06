@@ -52,7 +52,7 @@ export function VerTurno() {
 
     if (loading) {
         return (
-            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando turno...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -63,7 +63,7 @@ export function VerTurno() {
 
     if (error || !turno) {
         return (
-            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold text-red-600'>Error</div>
                     <div className='text-center text-gray-600'>{error || 'Turno no encontrado'}</div>
@@ -80,7 +80,7 @@ export function VerTurno() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
@@ -124,7 +124,6 @@ export function VerTurno() {
                         </h3>
                         <div className='text-sm'>
                             <div>
-                                {/* <span className='font-medium text-gray-700'>Nombre:</span> */}
                                 <div className='mt-1 text-gray-900 text-lg'>{turno.nombrePersona || 'No asignado'}</div>
                             </div>
                         </div>

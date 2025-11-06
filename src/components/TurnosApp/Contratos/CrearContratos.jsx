@@ -320,7 +320,7 @@ export default function CrearContrato() {
 
     if (loadingData) {
         return (
-            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-opacity-100 bg-blue-80 backdrop-blur-3xl-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando datos del contrato...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -370,7 +370,7 @@ export default function CrearContrato() {
     const selectorData = getSelectorData();
 
     return (
-        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             {showMainForm ? (
                 // Formulario principal del contrato
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>

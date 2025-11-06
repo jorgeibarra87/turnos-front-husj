@@ -707,7 +707,7 @@ export default function ReportesFiltro() {
     const COLORS = ['#4CAF50', '#FF9800', '#2196F3'];
 
     return (
-        <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
+        <div className="p-6 space-y-6 bg-blue-80 min-h-screen">
             {/* Filtros */}
             <Card className="shadow-lg border-0">
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">

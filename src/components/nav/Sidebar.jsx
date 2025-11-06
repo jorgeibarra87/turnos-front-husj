@@ -96,7 +96,7 @@ export default function Sidebar({ componente: Componente }) {
       <nav id="sidebar" className={`${stateSidebar.state ? 'active' : ''} small`}>
         <div className="sidebar-header text-center">
           <img src={imgLogo} alt='logo' style={{ width: '40px', height: '40px' }} />
-          <Link to='/' className="sin-estilo">Soluciones HUSJP</Link>
+          <Link to="/" className="sin-estilo">Soluciones HUSJP</Link>
         </div>
         <ul className="list-unstyled components">
           {opcionesFiltradas.map((opcion, index) => (
