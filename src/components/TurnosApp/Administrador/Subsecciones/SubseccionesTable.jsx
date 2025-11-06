@@ -1,12 +1,13 @@
 import React from 'react';
-import { Eye, Edit, Trash2, CopyPlus, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import {
     subseccionesService,
     seccionesService,
     subseccionesValidation,
     subseccionesUtils
-} from '../../../../api/Services/apiSubseccionesService';
+} from '../../../../api/turnos/apiSubseccionesService';
 
 export default function SubseccionesTable() {
     const [subsecciones, setSubsecciones] = useState([]);
@@ -205,7 +206,7 @@ export default function SubseccionesTable() {
                 onClick={handleNuevaSubseccion}
                 className="mb-1 px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2"
             >
-                <CopyPlus size={22} color="white" strokeWidth={2} />
+                <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-white" />
                 Crear Subseccion
             </button>
 
@@ -244,7 +245,7 @@ export default function SubseccionesTable() {
                         <th className="p-3">Seccion</th>
                         <th className="p-3">Estado</th>
                         <th className="p-3 flex items-center justify-centers gap-2">
-                            <Settings size={16} />
+                            <FontAwesomeIcon icon={faCog} className="w-4 h-4 mr-2" />
                             Acciones
                         </th>
                     </tr>
@@ -273,10 +274,7 @@ export default function SubseccionesTable() {
                                     title={`Ver subseccion: ${subseccion.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Eye
-                                        size={18}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2"
-                                    />
+                                    <FontAwesomeIcon icon={faEye} className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2 w-4 h-4" />
                                 </button>
 
                                 {/* Botón Editar */}
@@ -427,7 +425,7 @@ function CrearEditarSubseccion({ subseccion, secciones, modoEdicion, onVolver, o
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className='text-3xl font-bold text-gray-800 text-center'>
                     {modoEdicion ? 'Editar Subsección' : 'Crear Nueva Subsección'}
@@ -544,7 +542,7 @@ function VerSubseccion({ subseccion, onVolver }) {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}

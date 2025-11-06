@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Save, User, ArrowLeft, Edit, CircleXIcon, Clock, FileText, CalendarClock } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faUser, faArrowLeft, faEdit, faTimesCircle, faClock, faFileAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiTurnoService } from '../../../api/Services/apiTurnoService';
+import { apiTurnoService } from '../../../api/turnos/apiTurnoService';
 
 export function FormularioTurno() {
     const navigate = useNavigate();
@@ -226,7 +227,7 @@ export function FormularioTurno() {
 
     if (isEditMode && loadingTurnoData) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando datos del turno...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -283,10 +284,10 @@ export function FormularioTurno() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-4 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <CalendarClock size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         {isEditMode ? 'Editar Turno' : 'Crear Turno'}
                     </h1>
@@ -295,7 +296,7 @@ export function FormularioTurno() {
                 {isEditMode && turnoId && (
                     <div className='text-xs bg-blue-50 border border-blue-200 rounded px-3 py-2 w-full'>
                         <div className='flex items-center gap-2 mb-2'>
-                            <Edit size={16} className="text-blue-600" />
+                            <FontAwesomeIcon icon={faEdit} className="text-blue-600" />
                             <span className='font-semibold text-blue-800'>Modo Edición Turno</span>
                         </div>
                         <div className='text-xs text-gray-700'>
@@ -421,7 +422,7 @@ export function FormularioTurno() {
                             Total Horas:
                         </label>
                         <div className="px-3 py-2 bg-blue-50 border border-blue-300 rounded-md text-sm font-semibold text-blue-800 flex items-center gap-2">
-                            <Clock size={16} />
+                            <FontAwesomeIcon icon={faClock} className="w-4 h-4" />
                             {calcularTotalHoras()} horas
                         </div>
                     </div>
@@ -457,7 +458,7 @@ export function FormularioTurno() {
                             : 'bg-green-500 hover:bg-green-600'
                             }`}
                     >
-                        <Save size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faSave} className="w-5 h-5 text-white" />
                         {saving ? (isEditMode ? 'Actualizando...' : 'Guardando...') : 'Guardar'}
                     </button>
 
@@ -465,13 +466,13 @@ export function FormularioTurno() {
                         onClick={() => navigate(-1)}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                     >
-                        <ArrowLeft size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                         Volver
                     </button>
 
                     <Link to="/selector-cuadro-turno">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                            <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                             Cancelar
                         </button>
                     </Link>

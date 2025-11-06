@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { User, ArrowLeft, Eye, Users, CalendarPlus, Calendar, Edit, CalendarSearch, CalendarSync, ChevronLeft, ChevronRight, CalendarClock } from 'lucide-react';
-import { apiTurnoService } from '../../../api/Services/apiTurnoService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faArrowLeft, faEye, faUsers, faCalendarPlus, faCalendarAlt, faEdit, faSearch, faSyncAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { apiTurnoService } from '../../../api/turnos/apiTurnoService';
 
 export default function GestionTurnos() {
     const [searchParams] = useSearchParams();
@@ -284,10 +285,10 @@ export default function GestionTurnos() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-4 rounded-lg flex flex-col gap-2 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <CalendarClock size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="text-primary-green-husj w-10 h-10" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Gestion de Turnos
                     </h1>
@@ -310,7 +311,7 @@ export default function GestionTurnos() {
                 <div className='bg-white rounded-lg border'>
                     <div className='bg-blue-50 px-6 py-2 border-b'>
                         <h2 className='text-xl font-semibold flex items-center justify-center gap-2'>
-                            <Users size={20} className="text-blue-600" />
+                            <FontAwesomeIcon icon={faUsers} className="text-blue-600 w-5 h-5" />
                             Equipo de Talento Humano
                         </h2>
                     </div>
@@ -346,7 +347,7 @@ export default function GestionTurnos() {
                                     {miembros.map((miembro, index) => (
                                         <tr key={index} className='hover:bg-gray-50 transition-colors'>
                                             <td className='px-2 py-2 text-center'>
-                                                <User size={20} className='text-gray-400' />
+                                                <FontAwesomeIcon icon={faUser} className='text-gray-400 w-5 h-5' />
                                             </td>
                                             <td className='px-2 py-2 text-sm text-gray-700'>
                                                 {miembro.titulos?.join(', ') || 'Sin perfil definido'}
@@ -364,12 +365,9 @@ export default function GestionTurnos() {
 
                 <div className='text-4xl font-bold flex items-center gap-2 pb-4 w-full justify-center'>
                     Turnos
-                    <CalendarPlus
-                        size={50}
-                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors"
-                        onClick={handleCrearTurno}
-                        title="Crear nuevo turno"
-                    />
+                    <button onClick={handleCrearTurno} title="Crear nuevo turno" className="text-green-600 hover:text-green-800">
+                        <FontAwesomeIcon icon={faCalendarPlus} className="w-12 h-12" />
+                    </button>
                 </div>
 
                 {/* Selector de elementos por página para personas */}
@@ -426,7 +424,7 @@ export default function GestionTurnos() {
                                         <div className="bg-gray-800 text-white px-4 py-3">
                                             <div className="flex justify-between items-center mb-2">
                                                 <h3 className="text-lg font-semibold flex items-center gap-2">
-                                                    <User size={20} />
+                                                    <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
                                                     {persona}
                                                 </h3>
                                                 <div className="flex gap-4 text-sm">
@@ -521,10 +519,7 @@ export default function GestionTurnos() {
                                                                         title={`Ver turno: ${persona}`}
                                                                         className="inline-block"
                                                                     >
-                                                                        <CalendarSearch
-                                                                            size={18}
-                                                                            className="text-green-600 hover:text-green-800 cursor-pointer transition-colors"
-                                                                        />
+                                                                        <FontAwesomeIcon icon={faSearch} className="text-green-600 hover:text-green-800 cursor-pointer transition-colors w-4 h-4" />
                                                                     </Link>
 
                                                                     <Link
@@ -532,10 +527,7 @@ export default function GestionTurnos() {
                                                                         title={`Editar turno: ${persona}`}
                                                                         className="inline-block"
                                                                     >
-                                                                        <CalendarSync
-                                                                            size={18}
-                                                                            className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
-                                                                        />
+                                                                        <FontAwesomeIcon icon={faSyncAlt} className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors w-4 h-4" />
                                                                     </Link>
                                                                 </div>
                                                             </td>
@@ -562,7 +554,7 @@ export default function GestionTurnos() {
                                                             : 'text-gray-600 hover:bg-gray-200'
                                                             }`}
                                                     >
-                                                        <ChevronLeft size={16} />
+                                                        <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                                                     </button>
 
                                                     {/* Números de página */}
@@ -591,7 +583,7 @@ export default function GestionTurnos() {
                                                             : 'text-gray-600 hover:bg-gray-200'
                                                             }`}
                                                     >
-                                                        <ChevronRight size={16} />
+                                                        <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -622,7 +614,7 @@ export default function GestionTurnos() {
                                         : 'text-gray-600 hover:bg-gray-100'
                                         }`}
                                 >
-                                    <ChevronLeft size={20} />
+                                    <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                                 </button>
 
                                 {getVisiblePageNumbers().map((pageNumber, index) => (
@@ -649,7 +641,7 @@ export default function GestionTurnos() {
                                         : 'text-gray-600 hover:bg-gray-100'
                                         }`}
                                 >
-                                    <ChevronRight size={20} />
+                                    <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                                 </button>
                             </div>
                         )}
@@ -660,7 +652,7 @@ export default function GestionTurnos() {
                 <div className='flex justify-center gap-4 pt-4 '>
                     <Link to="/selector-cuadro-turno">
                         <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2">
-                            <ArrowLeft size={20} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" />
                             Volver
                         </button>
                     </Link>

@@ -1,8 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
-import { CheckIcon, CircleXIcon, Save, ArrowLeft, Edit, Plus, Trash2, X, Calendar, FileText, User, Clock, Briefcase, Target } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faCheck,
+    faTimesCircle,
+    faSave,
+    faArrowLeft,
+    faEdit,
+    faPlus,
+    faTrash,
+    faTimes,
+    faCalendar,
+    faFileAlt,
+    faUser,
+    faClock,
+    faBriefcase,
+    faBullseye
+} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiService } from '../../../api/Services/apiContratoService';
+import { apiService } from '../../../api/turnos/apiContratoService';
 
 export default function CrearContrato() {
     const navigate = useNavigate();
@@ -304,7 +320,7 @@ export default function CrearContrato() {
 
     if (loadingData) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando datos del contrato...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -354,12 +370,12 @@ export default function CrearContrato() {
     const selectorData = getSelectorData();
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             {showMainForm ? (
                 // Formulario principal del contrato
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                     <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
-                        <FileText size={30} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Contrato' : 'Crear Nuevo Contrato'}
                         </h1>
@@ -370,7 +386,7 @@ export default function CrearContrato() {
                             <div className='text-sm bg-orange-50 border border-orange-200 px-4 py-2 rounded-lg'>
 
                                 <div className='flex items-center justify-center gap-2 mb-1'>
-                                    <Edit size={14} className="text-orange-600" />
+                                    <FontAwesomeIcon icon={faEdit} className="text-orange-600 w-3.5 h-3.5" />
                                     <span className='font-semibold text-orange-800'>Modificando contrato existente</span>
                                 </div>
                                 <div className='text-gray-700'>
@@ -384,7 +400,7 @@ export default function CrearContrato() {
                         {/* Año */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Calendar size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faCalendar} className="inline mr-2 w-4 h-4" />
                                 Año
                             </label>
                             <select
@@ -401,7 +417,7 @@ export default function CrearContrato() {
                         {/* Número de Contrato */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <FileText size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faFileAlt} className="inline mr-2 w-4 h-4" />
                                 Número Contrato *
                             </label>
                             <input
@@ -416,7 +432,7 @@ export default function CrearContrato() {
                         {/* Supervisor */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <User size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faUser} className="inline mr-2 w-4 h-4" />
                                 Supervisor
                             </label>
                             <input
@@ -431,7 +447,7 @@ export default function CrearContrato() {
                         {/* Apoyo Supervisión */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <User size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faUser} className="inline mr-2 w-4 h-4" />
                                 Apoyo Supervisión
                             </label>
                             <input
@@ -446,7 +462,7 @@ export default function CrearContrato() {
                         {/* Contratista */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Briefcase size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faBriefcase} className="inline mr-2 w-4 h-4" />
                                 Contratista
                             </label>
                             <input
@@ -461,7 +477,7 @@ export default function CrearContrato() {
                         {/* Fecha Inicio */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Calendar size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faCalendar} className="inline mr-2 w-4 h-4" />
                                 Fecha Inicio
                             </label>
                             <input
@@ -475,7 +491,7 @@ export default function CrearContrato() {
                         {/* Fecha Terminación */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                <Calendar size={16} className="inline mr-2" />
+                                <FontAwesomeIcon icon={faCalendar} className="inline mr-2 w-4 h-4" />
                                 Fecha Terminación
                             </label>
                             <input
@@ -490,7 +506,7 @@ export default function CrearContrato() {
                     {/* Objeto */}
                     <div className='w-full'>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            <Target size={16} className="inline mr-2" />
+                            <FontAwesomeIcon icon={faBullseye} className="inline mr-2 w-4 h-4" />
                             Objeto
                         </label>
                         <textarea
@@ -505,7 +521,7 @@ export default function CrearContrato() {
                     {/* Observaciones */}
                     <div className='w-full'>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            <FileText size={16} className="inline mr-2" />
+                            <FontAwesomeIcon icon={faFileAlt} className="inline mr-2 w-4 h-4" />
                             Observaciones
                         </label>
                         <textarea
@@ -526,14 +542,14 @@ export default function CrearContrato() {
                     <div className='flex justify-center items-center gap-4 mt-6'>
                         <button
                             onClick={handleMostrarGestorRelacionados}
-                            className="px-6 py-2 bg-primary-green-husj text-white rounded-lg hover:bg-green-600 flex items-center gap-2 transition-colors"
+                            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2 transition-colors"
                         >
-                            <Plus size={20} />
+                            <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
                             Gestionar Elementos Relacionados
                         </button>
                         <Link to="/contratos">
-                            <button className="px-6 py-2 bg-primary-red2-husj text-white rounded-lg hover:bg-red-700 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <button className="px-6 py-2 bg-red-700 text-white rounded-lg hover:bg-red-700 flex justify-center items-center gap-2 transition-colors">
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>
@@ -544,7 +560,7 @@ export default function CrearContrato() {
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                     <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                        <FileText size={30} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Gestión de Elementos Relacionados
                         </h1>
@@ -558,9 +574,9 @@ export default function CrearContrato() {
                                 <h3 className='text-lg font-semibold text-gray-800'>Especialidades</h3>
                                 <button
                                     onClick={() => handleMostrarSelector('especialidad')}
-                                    className="px-3 py-1 bg-primary-blue1-husj text-white rounded hover:bg-primary-blue3-husj flex items-center gap-1 text-sm"
+                                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-1 text-sm"
                                 >
-                                    <Plus size={14} />
+                                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                                     Agregar
                                 </button>
                             </div>
@@ -575,7 +591,7 @@ export default function CrearContrato() {
                                                 onClick={() => handleRemoverElemento(esp.idTitulo || esp.id, 'especialidad')}
                                                 className="text-red-500 hover:text-red-700"
                                             >
-                                                <X size={16} />
+                                                <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
                                             </button>
                                         </div>
                                     ))
@@ -589,9 +605,9 @@ export default function CrearContrato() {
                                 <h3 className='text-lg font-semibold text-gray-800'>Procesos</h3>
                                 <button
                                     onClick={() => handleMostrarSelector('proceso')}
-                                    className="px-3 py-1 bg-primary-blue1-husj text-white rounded hover:bg-primary-blue3-husj flex items-center gap-1 text-sm"
+                                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center gap-1 text-sm"
                                 >
-                                    <Plus size={14} />
+                                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                                     Agregar
                                 </button>
                             </div>
@@ -606,7 +622,7 @@ export default function CrearContrato() {
                                                 onClick={() => handleRemoverElemento(proceso.idProceso || proceso.id, 'proceso')}
                                                 className="text-primary-red2-husj hover:text-red-700"
                                             >
-                                                <X size={16} />
+                                                <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
                                             </button>
                                         </div>
                                     ))
@@ -683,19 +699,19 @@ export default function CrearContrato() {
                                 : 'bg-blue-500 hover:bg-blue-600'
                                 }`}
                         >
-                            <Save size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faSave} className="w-5 h-5 text-white" />
                             {saving ? (isEditMode ? 'Actualizando...' : 'Creando...') : (isEditMode ? 'Actualizar Contrato' : 'Crear Contrato')}
                         </button>
                         <button
                             onClick={handleVolver}
                             className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                         >
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver al Formulario
                         </button>
                         <Link to="/contratos">
                             <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>
@@ -705,7 +721,7 @@ export default function CrearContrato() {
                 // Selector de elementos
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                     <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                        <FileText size={30} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Seleccionar {selectorData.title}
                         </h1>
@@ -717,7 +733,7 @@ export default function CrearContrato() {
 
                     {selectorData.data.length === 0 ? (
                         <div className='bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center w-full'>
-                            <FileText size={32} className="mx-auto text-gray-400 mb-2" />
+                            <FontAwesomeIcon icon={faFileAlt} className="mx-auto text-gray-400 mb-2 w-8 h-8" />
                             <p className='text-gray-500'>No hay elementos disponibles</p>
                             <p className='text-sm text-gray-400'>
                                 {selectorType === 'proceso'
@@ -748,9 +764,9 @@ export default function CrearContrato() {
                                                         // cerrar el selector después de agregar
                                                         // setShowSelector(false);
                                                     }}
-                                                    className="px-3 py-1 bg-primary-green-husj text-white text-sm rounded hover:bg-green-600 flex items-center gap-1 mx-auto transition-colors"
+                                                    className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 flex items-center gap-1 mx-auto transition-colors"
                                                 >
-                                                    <Plus size={14} />
+                                                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                                                     Agregar
                                                 </button>
                                             </div>
@@ -766,12 +782,12 @@ export default function CrearContrato() {
                             onClick={() => setShowSelector(false)}
                             className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                         >
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver a Gestión
                         </button>
                         <Link to="/contratos">
-                            <button className="px-6 py-2 bg-primary-red-husj text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>

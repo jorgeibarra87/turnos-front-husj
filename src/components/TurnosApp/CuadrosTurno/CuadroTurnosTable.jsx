@@ -1,10 +1,11 @@
 import React from 'react';
-import { Eye, Edit, Trash2, CopyPlus, UsersIcon, BoxesIcon, ChevronLeft, ChevronRight, CalendarX, CalendarCog, CalendarCheck2 } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faBoxes, faChevronLeft, faChevronRight, faCalendarTimes, faCalendarAlt, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CrearCuadro from './CrearCuadro';
-import { apiCuadroService } from '../../../api/Services/apiCuadroService';
+import { apiCuadroService } from '../../../api/turnos/apiCuadroService';
 
 export default function TurnosTable() {
     const [cuadros, setCuadros] = useState([]);
@@ -144,7 +145,7 @@ export default function TurnosTable() {
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
             <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <CalendarCog size={40} className="text-primary-green-husj" />
+                <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Gestion Cuadros de Turno
                 </h1>
@@ -154,7 +155,7 @@ export default function TurnosTable() {
             <div className="flex justify-between items-center mb-4">
                 <Link to="/crearCuadro">
                     <button className="px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2">
-                        <CopyPlus size={22} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-white" />
                         Crear Cuadro de Turno
                     </button>
                 </Link>
@@ -184,7 +185,7 @@ export default function TurnosTable() {
                     <tr>
                         <th className="p-3">Id</th>
                         <th className="p-3">Cuadro</th>
-                        <th className="p-3 flex items-center gap-2"><UsersIcon />Equipo</th>
+                        <th className="p-3 flex items-center gap-2"><FontAwesomeIcon icon={faUsers} className="w-4 h-4" />Equipo</th>
                         <th className="p-3">Versión</th>
                         <th className="p-3">Estado</th>
                         <th className="p-3">Acciones</th>
@@ -215,10 +216,7 @@ export default function TurnosTable() {
                                     title={`Ver cuadro: ${cuadro.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Eye
-                                        size={18}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faEye} className="text-green-600 hover:text-green-800 cursor-pointer transition-colors w-4 h-4" />
                                 </Link>
 
                                 {/* Botón editar cuadro */}
@@ -228,10 +226,7 @@ export default function TurnosTable() {
                                         title={`Editar cuadro: ${cuadro.nombre}`}
                                         className="inline-block"
                                     >
-                                        <Edit
-                                            size={18}
-                                            className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
-                                        />
+                                        <FontAwesomeIcon icon={faEdit} className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors w-4 h-4" />
                                     </Link>
                                 )}
 
@@ -242,10 +237,7 @@ export default function TurnosTable() {
                                         title={`Eliminar cuadro: ${cuadro.nombre}`}
                                         className="inline-block"
                                     >
-                                        <CalendarX
-                                            size={18}
-                                            className="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                                        />
+                                        <FontAwesomeIcon icon={faCalendarTimes} className="text-red-600 hover:text-red-800 cursor-pointer transition-colors w-4 h-4" />
                                     </button>
                                 )}
 
@@ -256,10 +248,7 @@ export default function TurnosTable() {
                                         title={`Re-Abrir cuadro: ${cuadro.nombre}`}
                                         className="inline-block"
                                     >
-                                        <CalendarCheck2
-                                            size={18}
-                                            className="text-yellow-600 hover:text-yellow-800 cursor-pointer transition-colors"
-                                        />
+                                        <FontAwesomeIcon icon={faCalendarCheck} className="text-yellow-600 hover:text-yellow-800 cursor-pointer transition-colors w-4 h-4" />
                                     </button>
                                 )}
                             </td>
@@ -288,7 +277,7 @@ export default function TurnosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -317,7 +306,7 @@ export default function TurnosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -327,7 +316,7 @@ export default function TurnosTable() {
             {/* Mensaje cuando no hay cuadros */}
             {cuadros.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
-                    <BoxesIcon size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faBoxes} className="mx-auto mb-4 text-gray-300 w-12 h-12" />
                     <p className="text-lg">No hay cuadros de turno disponibles</p>
                     <p className="text-sm">Crea tu primer cuadro usando el botón de arriba</p>
                 </div>

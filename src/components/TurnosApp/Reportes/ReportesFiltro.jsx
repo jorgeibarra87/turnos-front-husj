@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "../ui/Card";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import { apiReporteService } from '../../../api/Services/apiReporteService';
-import ExcelJS from 'exceljs';
-import { FilePlus2 } from "lucide-react";
+// import { saveAs } from 'file-saver';
+// import { jsPDF } from 'jspdf';
+// import autoTable from 'jspdf-autotable';
+import { apiReporteService } from '../../../api/turnos/apiReporteService';
+// import ExcelJS from 'exceljs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import SearchableDropdown from '../Turnos/SearchableDropdown';
 
 export default function ReportesFiltro() {
@@ -107,12 +108,6 @@ export default function ReportesFiltro() {
         }
     };
 
-    const getPersonasUnicas = () => {
-        if (!reporte || !reporte.detalleTurnos.length) return [];
-        const personas = new Set();
-        reporte.detalleTurnos.forEach(turno => personas.add(turno.usuario || "Sin asignar"));
-        return Array.from(personas).sort();
-    };
 
     // Función para obtener el nombre del mes en español
     const obtenerNombreMes = (mes) => {
@@ -128,198 +123,198 @@ export default function ReportesFiltro() {
             return;
         }
 
-        try {
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Reporte Turnos');
+        // try {
+        //     const workbook = new ExcelJS.Workbook();
+        //     const worksheet = workbook.addWorksheet('Reporte Turnos');
 
-            // Obtener nombre del cuadro
-            const cuadroSeleccionado = cuadros.find(c => c.idCuadroTurno == cuadroId);
-            const nombreMes = obtenerNombreMes(mes);
-            const nombreCuadro = cuadroSeleccionado ? cuadroSeleccionado.nombre : 'CUADRO DE TURNOS';
+        //     // Obtener nombre del cuadro
+        //     const cuadroSeleccionado = cuadros.find(c => c.idCuadroTurno == cuadroId);
+        //     const nombreMes = obtenerNombreMes(mes);
+        //     const nombreCuadro = cuadroSeleccionado ? cuadroSeleccionado.nombre : 'CUADRO DE TURNOS';
 
-            // Encabezado completo
-            // Título de la organización
-            worksheet.mergeCells('A1:I1');
-            const orgCell = worksheet.getCell('A1');
-            orgCell.value = 'Hospital Universitario San José de Popayán - NIT 891580002-5';
-            orgCell.font = { bold: true, size: 12, color: { argb: 'FF000000' } };
-            orgCell.alignment = { horizontal: 'center', vertical: 'middle' };
-            orgCell.border = {
-                top: { style: 'thin', color: { argb: 'FF000000' } },
-                left: { style: 'thin', color: { argb: 'FF000000' } },
-                bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                right: { style: 'thin', color: { argb: 'FF000000' } }
-            };
+        //     // Encabezado completo
+        //     // Título de la organización
+        //     worksheet.mergeCells('A1:I1');
+        //     const orgCell = worksheet.getCell('A1');
+        //     orgCell.value = 'Hospital Universitario San José de Popayán - NIT 891580002-5';
+        //     orgCell.font = { bold: true, size: 12, color: { argb: 'FF000000' } };
+        //     orgCell.alignment = { horizontal: 'center', vertical: 'middle' };
+        //     orgCell.border = {
+        //         top: { style: 'thin', color: { argb: 'FF000000' } },
+        //         left: { style: 'thin', color: { argb: 'FF000000' } },
+        //         bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //         right: { style: 'thin', color: { argb: 'FF000000' } }
+        //     };
 
-            // Título del reporte
-            worksheet.mergeCells('A2:I2');
-            const titleCell = worksheet.getCell('A2');
-            titleCell.value = `Reporte ${nombreMes} ${anio} - Cuadro ${nombreCuadro.toUpperCase()}`;
-            titleCell.font = { bold: true, size: 14, color: { argb: 'FF2F5496' } };
-            titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-            titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF2F2F2' } };
-            titleCell.border = {
-                top: { style: 'thin', color: { argb: 'FF000000' } },
-                left: { style: 'thin', color: { argb: 'FF000000' } },
-                bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                right: { style: 'thin', color: { argb: 'FF000000' } }
-            };
+        //     // Título del reporte
+        //     worksheet.mergeCells('A2:I2');
+        //     const titleCell = worksheet.getCell('A2');
+        //     titleCell.value = `Reporte ${nombreMes} ${anio} - Cuadro ${nombreCuadro.toUpperCase()}`;
+        //     titleCell.font = { bold: true, size: 14, color: { argb: 'FF2F5496' } };
+        //     titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+        //     titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF2F2F2' } };
+        //     titleCell.border = {
+        //         top: { style: 'thin', color: { argb: 'FF000000' } },
+        //         left: { style: 'thin', color: { argb: 'FF000000' } },
+        //         bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //         right: { style: 'thin', color: { argb: 'FF000000' } }
+        //     };
 
-            // Agregar fila vacía con bordes
-            worksheet.mergeCells('A3:I3');
-            const emptyCell = worksheet.getCell('A3');
-            emptyCell.value = '';
-            emptyCell.border = {
-                top: { style: 'thin', color: { argb: 'FF000000' } },
-                left: { style: 'thin', color: { argb: 'FF000000' } },
-                bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                right: { style: 'thin', color: { argb: 'FF000000' } }
-            };
+        //     // Agregar fila vacía con bordes
+        //     worksheet.mergeCells('A3:I3');
+        //     const emptyCell = worksheet.getCell('A3');
+        //     emptyCell.value = '';
+        //     emptyCell.border = {
+        //         top: { style: 'thin', color: { argb: 'FF000000' } },
+        //         left: { style: 'thin', color: { argb: 'FF000000' } },
+        //         bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //         right: { style: 'thin', color: { argb: 'FF000000' } }
+        //     };
 
-            // Encabezados de columna
-            const headers = ['Usuario', 'Total Turnos', 'Total Horas', 'Jornada', 'Fecha Inicio', 'Hora Inicio', 'Fecha Fin', 'Hora Fin', 'Horas'];
-            const headerRow = worksheet.addRow(headers);
+        //     // Encabezados de columna
+        //     const headers = ['Usuario', 'Total Turnos', 'Total Horas', 'Jornada', 'Fecha Inicio', 'Hora Inicio', 'Fecha Fin', 'Hora Fin', 'Horas'];
+        //     const headerRow = worksheet.addRow(headers);
 
-            // Estilo de encabezados
-            headerRow.eachCell((cell, colNumber) => {
-                cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4472C4' } };
-                cell.border = {
-                    top: { style: 'thin', color: { argb: 'FF000000' } },
-                    left: { style: 'thin', color: { argb: 'FF000000' } },
-                    bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                    right: { style: 'thin', color: { argb: 'FF000000' } }
-                };
-                cell.alignment = { horizontal: 'center', vertical: 'middle' };
-            });
+        //     // Estilo de encabezados
+        //     headerRow.eachCell((cell, colNumber) => {
+        //         cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        //         cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4472C4' } };
+        //         cell.border = {
+        //             top: { style: 'thin', color: { argb: 'FF000000' } },
+        //             left: { style: 'thin', color: { argb: 'FF000000' } },
+        //             bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //             right: { style: 'thin', color: { argb: 'FF000000' } }
+        //         };
+        //         cell.alignment = { horizontal: 'center', vertical: 'middle' };
+        //     });
 
-            // Agrupar turnos por usuario
-            const turnosPorUsuario = reporte.detalleTurnos.reduce((acc, turno) => {
-                const usuario = turno.usuario || "Sin asignar";
-                if (!acc[usuario]) acc[usuario] = [];
-                acc[usuario].push(turno);
-                return acc;
-            }, {});
+        //     // Agrupar turnos por usuario
+        //     const turnosPorUsuario = reporte.detalleTurnos.reduce((acc, turno) => {
+        //         const usuario = turno.usuario || "Sin asignar";
+        //         if (!acc[usuario]) acc[usuario] = [];
+        //         acc[usuario].push(turno);
+        //         return acc;
+        //     }, {});
 
-            // Aplicar filtro de persona si está seleccionada
-            const usuariosParaExportar = personaSeleccionada ?
-                { [personaSeleccionada]: turnosPorUsuario[personaSeleccionada] } :
-                turnosPorUsuario;
+        //     // Aplicar filtro de persona si está seleccionada
+        //     const usuariosParaExportar = personaSeleccionada ?
+        //         { [personaSeleccionada]: turnosPorUsuario[personaSeleccionada] } :
+        //         turnosPorUsuario;
 
-            // Agregar datos por usuario
-            Object.entries(usuariosParaExportar).forEach(([usuario, turnos]) => {
-                if (!turnos || turnos.length === 0) return;
+        //     // Agregar datos por usuario
+        //     Object.entries(usuariosParaExportar).forEach(([usuario, turnos]) => {
+        //         if (!turnos || turnos.length === 0) return;
 
-                const totalHoras = turnos.reduce((sum, t) => sum + (t.horas || 0), 0);
+        //         const totalHoras = turnos.reduce((sum, t) => sum + (t.horas || 0), 0);
 
-                // Fila de encabezado del usuario
-                const userHeaderRow = worksheet.addRow([
-                    `Usuario: ${usuario}`,
-                    `${turnos.length} turnos`,
-                    `${totalHoras} horas`,
-                    '', '', '', '', '', ''
-                ]);
+        //         // Fila de encabezado del usuario
+        //         const userHeaderRow = worksheet.addRow([
+        //             `Usuario: ${usuario}`,
+        //             `${turnos.length} turnos`,
+        //             `${totalHoras} horas`,
+        //             '', '', '', '', '', ''
+        //         ]);
 
-                // Estilo del encabezado del usuario con bordes
-                userHeaderRow.eachCell((cell, colNumber) => {
-                    if (colNumber <= 3) {
-                        cell.font = { bold: true, color: { argb: 'FF2F5496' } };
-                        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE7E6E6' } };
-                    }
-                    cell.border = {
-                        top: { style: 'thin', color: { argb: 'FF000000' } },
-                        left: { style: 'thin', color: { argb: 'FF000000' } },
-                        bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                        right: { style: 'thin', color: { argb: 'FF000000' } }
-                    };
-                });
+        //         // Estilo del encabezado del usuario con bordes
+        //         userHeaderRow.eachCell((cell, colNumber) => {
+        //             if (colNumber <= 3) {
+        //                 cell.font = { bold: true, color: { argb: 'FF2F5496' } };
+        //                 cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE7E6E6' } };
+        //             }
+        //             cell.border = {
+        //                 top: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 left: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 right: { style: 'thin', color: { argb: 'FF000000' } }
+        //             };
+        //         });
 
-                // Agregar turnos del usuario
-                turnos
-                    .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio))
-                    .forEach((turno, index) => {
-                        const row = worksheet.addRow([
-                            '', // Celda vacía para usuario
-                            '',
-                            '',
-                            turno.jornada || 'N/A',
-                            formatearFecha(turno.fechaInicio),
-                            formatearHora(turno.fechaInicio),
-                            formatearFecha(turno.fechaFin),
-                            formatearHora(turno.fechaFin),
-                            turno.horas || 0
-                        ]);
+        //         // Agregar turnos del usuario
+        //         turnos
+        //             .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio))
+        //             .forEach((turno, index) => {
+        //                 const row = worksheet.addRow([
+        //                     '', // Celda vacía para usuario
+        //                     '',
+        //                     '',
+        //                     turno.jornada || 'N/A',
+        //                     formatearFecha(turno.fechaInicio),
+        //                     formatearHora(turno.fechaInicio),
+        //                     formatearFecha(turno.fechaFin),
+        //                     formatearHora(turno.fechaFin),
+        //                     turno.horas || 0
+        //                 ]);
 
-                        // Aplicar bordes a todas las celdas de datos
-                        row.eachCell(cell => {
-                            cell.border = {
-                                top: { style: 'thin', color: { argb: 'FF000000' } },
-                                left: { style: 'thin', color: { argb: 'FF000000' } },
-                                bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                                right: { style: 'thin', color: { argb: 'FF000000' } }
-                            };
-                            // Fondo alternado
-                            if (index % 2 === 0) {
-                                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF8F9FA' } };
-                            }
-                        });
+        //                 // Aplicar bordes a todas las celdas de datos
+        //                 row.eachCell(cell => {
+        //                     cell.border = {
+        //                         top: { style: 'thin', color: { argb: 'FF000000' } },
+        //                         left: { style: 'thin', color: { argb: 'FF000000' } },
+        //                         bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //                         right: { style: 'thin', color: { argb: 'FF000000' } }
+        //                     };
+        //                     // Fondo alternado
+        //                     if (index % 2 === 0) {
+        //                         cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF8F9FA' } };
+        //                     }
+        //                 });
 
-                        // Centrar ciertas columnas
-                        row.getCell(4).alignment = { horizontal: 'center' }; // Jornada
-                        row.getCell(5).alignment = { horizontal: 'center' }; // Fecha Inicio
-                        row.getCell(6).alignment = { horizontal: 'center' }; // Hora Inicio
-                        row.getCell(7).alignment = { horizontal: 'center' }; // Fecha Fin
-                        row.getCell(8).alignment = { horizontal: 'center' }; // Hora Fin
-                        row.getCell(9).alignment = { horizontal: 'center' }; // Horas
-                    });
+        //                 // Centrar ciertas columnas
+        //                 row.getCell(4).alignment = { horizontal: 'center' }; // Jornada
+        //                 row.getCell(5).alignment = { horizontal: 'center' }; // Fecha Inicio
+        //                 row.getCell(6).alignment = { horizontal: 'center' }; // Hora Inicio
+        //                 row.getCell(7).alignment = { horizontal: 'center' }; // Fecha Fin
+        //                 row.getCell(8).alignment = { horizontal: 'center' }; // Hora Fin
+        //                 row.getCell(9).alignment = { horizontal: 'center' }; // Horas
+        //             });
 
-                // Fila vacía para separación con bordes
-                const separatorRow = worksheet.addRow(['', '', '', '', '', '', '', '', '']);
-                separatorRow.eachCell(cell => {
-                    cell.border = {
-                        top: { style: 'thin', color: { argb: 'FF000000' } },
-                        left: { style: 'thin', color: { argb: 'FF000000' } },
-                        bottom: { style: 'thin', color: { argb: 'FF000000' } },
-                        right: { style: 'thin', color: { argb: 'FF000000' } }
-                    };
-                });
-            });
+        //         // Fila vacía para separación con bordes
+        //         const separatorRow = worksheet.addRow(['', '', '', '', '', '', '', '', '']);
+        //         separatorRow.eachCell(cell => {
+        //             cell.border = {
+        //                 top: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 left: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 bottom: { style: 'thin', color: { argb: 'FF000000' } },
+        //                 right: { style: 'thin', color: { argb: 'FF000000' } }
+        //             };
+        //         });
+        //     });
 
-            // Ajustar ancho de columnas para nombres largos
-            worksheet.columns = [
-                { width: 35 }, // Usuario
-                { width: 15 }, // Total Turnos
-                { width: 15 }, // Total Horas
-                { width: 12 }, // Jornada
-                { width: 15 }, // Fecha Inicio
-                { width: 12 }, // Hora Inicio
-                { width: 15 }, // Fecha Fin
-                { width: 12 }, // Hora Fin
-                { width: 9 }   // Horas
-            ];
+        //     // Ajustar ancho de columnas para nombres largos
+        //     worksheet.columns = [
+        //         { width: 35 }, // Usuario
+        //         { width: 15 }, // Total Turnos
+        //         { width: 15 }, // Total Horas
+        //         { width: 12 }, // Jornada
+        //         { width: 15 }, // Fecha Inicio
+        //         { width: 12 }, // Hora Inicio
+        //         { width: 15 }, // Fecha Fin
+        //         { width: 12 }, // Hora Fin
+        //         { width: 9 }   // Horas
+        //     ];
 
-            // Ajustar altura de las filas
-            worksheet.eachRow((row, rowNumber) => {
-                row.height = rowNumber <= 3 ? 20 : 16; // Más alto para encabezados
-            });
+        //     // Ajustar altura de las filas
+        //     worksheet.eachRow((row, rowNumber) => {
+        //         row.height = rowNumber <= 3 ? 20 : 16; // Más alto para encabezados
+        //     });
 
-            // Pie de página con información adicional
-            const footerRowNum = worksheet.rowCount + 2;
-            worksheet.mergeCells(`A${footerRowNum}:I${footerRowNum}`);
-            const footerCell = worksheet.getCell(`A${footerRowNum}`);
-            footerCell.value = `Generado el ${new Date().toLocaleDateString('es-ES')} - Para uso exclusivo de trámites y servicios prestados por Hospital Universitario San José de Popayán`;
-            footerCell.font = { size: 10, italic: true };
-            footerCell.alignment = { horizontal: 'center' };
+        //     // Pie de página con información adicional
+        //     const footerRowNum = worksheet.rowCount + 2;
+        //     worksheet.mergeCells(`A${footerRowNum}:I${footerRowNum}`);
+        //     const footerCell = worksheet.getCell(`A${footerRowNum}`);
+        //     footerCell.value = `Generado el ${new Date().toLocaleDateString('es-ES')} - Para uso exclusivo de trámites y servicios prestados por Hospital Universitario San José de Popayán`;
+        //     footerCell.font = { size: 10, italic: true };
+        //     footerCell.alignment = { horizontal: 'center' };
 
-            // Generar archivo
-            const buffer = await workbook.xlsx.writeBuffer();
-            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            saveAs(blob, `ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.xlsx`);
+        //     // Generar archivo
+        //     const buffer = await workbook.xlsx.writeBuffer();
+        //     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        //     // saveAs(blob, `ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.xlsx`);
 
-        } catch (err) {
-            console.error('Error al exportar a Excel:', err);
-            exportToExcelFallback();
-        }
+        // } catch (err) {
+        //     console.error('Error al exportar a Excel:', err);
+        //     exportToExcelFallback();
+        // }
     };
 
     const exportToExcelFallback = async () => {
@@ -361,7 +356,7 @@ export default function ReportesFiltro() {
         XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte Turnos");
         const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
         const data = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        saveAs(data, `ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.xlsx`);
+        // saveAs(data, `ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.xlsx`);
     };
 
     // Exportación PDF (CÓDIGO COMPLETO)
@@ -371,217 +366,217 @@ export default function ReportesFiltro() {
             return;
         }
 
-        try {
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'A4' });
+        // try {
+        //     const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'A4' });
 
-            // Encabezado
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Hospital Universitario San José de Popayán', 40, 30);
-            doc.text('NIT 891580002-5', 40, 45);
+        //     // Encabezado
+        //     doc.setFontSize(12);
+        //     doc.setFont('helvetica', 'bold');
+        //     doc.text('Hospital Universitario San José de Popayán', 40, 30);
+        //     doc.text('NIT 891580002-5', 40, 45);
 
-            // título del cuadro
-            doc.setFontSize(14);
-            doc.setFont('helvetica', 'bold');
-            const cuadroSeleccionado = cuadros.find(c => c.idCuadroTurno == cuadroId);
-            const nombreMes = obtenerNombreMes(mes);
-            let nombreCuadro = cuadroSeleccionado ? cuadroSeleccionado.nombre : 'CUADRO DE TURNOS';
+        //     // título del cuadro
+        //     doc.setFontSize(14);
+        //     doc.setFont('helvetica', 'bold');
+        //     const cuadroSeleccionado = cuadros.find(c => c.idCuadroTurno == cuadroId);
+        //     const nombreMes = obtenerNombreMes(mes);
+        //     let nombreCuadro = cuadroSeleccionado ? cuadroSeleccionado.nombre : 'CUADRO DE TURNOS';
 
-            // Truncar el nombre del cuadro si es muy largo
-            if (nombreCuadro.length > 60) {
-                nombreCuadro = nombreCuadro.substring(0, 57) + '...';
-            }
+        //     // Truncar el nombre del cuadro si es muy largo
+        //     if (nombreCuadro.length > 60) {
+        //         nombreCuadro = nombreCuadro.substring(0, 57) + '...';
+        //     }
 
-            const tituloCompleto = `Reporte ${nombreMes} ${reporte.anio} - Cuadro ${nombreCuadro.toUpperCase()}`;
+        //     const tituloCompleto = `Reporte ${nombreMes} ${reporte.anio} - Cuadro ${nombreCuadro.toUpperCase()}`;
 
-            // Dividir el título en múltiples líneas si es necesario
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const maxWidth = pageWidth - 80; // Margen de 40 a cada lado
+        //     // Dividir el título en múltiples líneas si es necesario
+        //     const pageWidth = doc.internal.pageSize.getWidth();
+        //     const maxWidth = pageWidth - 80; // Margen de 40 a cada lado
 
-            // Verificar si el título cabe en una línea
-            const titleWidth = doc.getTextWidth(tituloCompleto);
-            if (titleWidth > maxWidth) {
-                // Dividir en dos líneas
-                const linea1 = `Reporte ${nombreMes} ${reporte.anio}`;
-                const linea2 = `Cuadro ${nombreCuadro.toUpperCase()}`;
-                doc.text(linea1, 40, 65);
-                doc.text(linea2, 40, 85);
-            } else {
-                // Título en una línea
-                doc.text(tituloCompleto, 40, 70);
-            }
+        //     // Verificar si el título cabe en una línea
+        //     const titleWidth = doc.getTextWidth(tituloCompleto);
+        //     if (titleWidth > maxWidth) {
+        //         // Dividir en dos líneas
+        //         const linea1 = `Reporte ${nombreMes} ${reporte.anio}`;
+        //         const linea2 = `Cuadro ${nombreCuadro.toUpperCase()}`;
+        //         doc.text(linea1, 40, 65);
+        //         doc.text(linea2, 40, 85);
+        //     } else {
+        //         // Título en una línea
+        //         doc.text(tituloCompleto, 40, 70);
+        //     }
 
-            // Ajustar la posición del resumen según las líneas del título
-            let yPosition = titleWidth > maxWidth ? 105 : 90;
+        //     // Ajustar la posición del resumen según las líneas del título
+        //     let yPosition = titleWidth > maxWidth ? 105 : 90;
 
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'normal');
-            const totalTurnos = reporte.detalleTurnos.length;
-            const totalHoras = reporte.detalleTurnos.reduce((sum, t) => sum + (t.horas || 0), 0);
+        //     doc.setFontSize(12);
+        //     doc.setFont('helvetica', 'normal');
+        //     const totalTurnos = reporte.detalleTurnos.length;
+        //     const totalHoras = reporte.detalleTurnos.reduce((sum, t) => sum + (t.horas || 0), 0);
 
-            doc.text(`Total Turnos: ${totalTurnos}`, 40, yPosition);
-            doc.text(`Total Horas: ${totalHoras}`, 220, yPosition);
-            doc.line(40, yPosition + 10, 800, yPosition + 10);
+        //     doc.text(`Total Turnos: ${totalTurnos}`, 40, yPosition);
+        //     doc.text(`Total Horas: ${totalHoras}`, 220, yPosition);
+        //     doc.line(40, yPosition + 10, 800, yPosition + 10);
 
-            yPosition += 25;
+        //     yPosition += 25;
 
-            const turnosPorUsuario = reporte.detalleTurnos.reduce((acc, turno) => {
-                const usuario = turno.usuario || "Sin asignar";
-                if (!acc[usuario]) acc[usuario] = [];
-                acc[usuario].push(turno);
-                return acc;
-            }, {});
+        //     const turnosPorUsuario = reporte.detalleTurnos.reduce((acc, turno) => {
+        //         const usuario = turno.usuario || "Sin asignar";
+        //         if (!acc[usuario]) acc[usuario] = [];
+        //         acc[usuario].push(turno);
+        //         return acc;
+        //     }, {});
 
-            const usuariosParaExportar = personaSeleccionada ?
-                { [personaSeleccionada]: turnosPorUsuario[personaSeleccionada] } :
-                turnosPorUsuario;
+        //     const usuariosParaExportar = personaSeleccionada ?
+        //         { [personaSeleccionada]: turnosPorUsuario[personaSeleccionada] } :
+        //         turnosPorUsuario;
 
-            Object.entries(usuariosParaExportar).forEach(([usuario, turnos]) => {
-                if (!turnos || turnos.length === 0) return;
+        //     Object.entries(usuariosParaExportar).forEach(([usuario, turnos]) => {
+        //         if (!turnos || turnos.length === 0) return;
 
-                const totalHorasUsuario = turnos.reduce((sum, t) => sum + (t.horas || 0), 0);
+        //         const totalHorasUsuario = turnos.reduce((sum, t) => sum + (t.horas || 0), 0);
 
-                // Verificar espacio disponible antes de agregar nueva sección
-                if (yPosition > 500) {
-                    doc.addPage();
-                    yPosition = 40;
-                }
+        //         // Verificar espacio disponible antes de agregar nueva sección
+        //         if (yPosition > 500) {
+        //             doc.addPage();
+        //             yPosition = 40;
+        //         }
 
-                doc.setFontSize(13);
-                doc.setFont('helvetica', 'bold');
+        //         doc.setFontSize(13);
+        //         doc.setFont('helvetica', 'bold');
 
-                // nombre de usuario
-                let nombreUsuario = usuario;
-                const maxUserNameWidth = 600; // Ancho máximo para el nombre
-                const userNameWidth = doc.getTextWidth(`${nombreUsuario} (${turnos.length} turnos) - ${totalHorasUsuario} horas`);
+        //         // nombre de usuario
+        //         let nombreUsuario = usuario;
+        //         const maxUserNameWidth = 600; // Ancho máximo para el nombre
+        //         const userNameWidth = doc.getTextWidth(`${nombreUsuario} (${turnos.length} turnos) - ${totalHorasUsuario} horas`);
 
-                if (userNameWidth > maxUserNameWidth) {
-                    // Truncar el nombre del usuario si es muy largo
-                    const availableWidth = maxUserNameWidth - doc.getTextWidth(` (${turnos.length} turnos) - ${totalHorasUsuario} horas`);
-                    while (doc.getTextWidth(nombreUsuario) > availableWidth && nombreUsuario.length > 10) {
-                        nombreUsuario = nombreUsuario.substring(0, nombreUsuario.length - 4) + '...';
-                    }
-                }
+        //         if (userNameWidth > maxUserNameWidth) {
+        //             // Truncar el nombre del usuario si es muy largo
+        //             const availableWidth = maxUserNameWidth - doc.getTextWidth(` (${turnos.length} turnos) - ${totalHorasUsuario} horas`);
+        //             while (doc.getTextWidth(nombreUsuario) > availableWidth && nombreUsuario.length > 10) {
+        //                 nombreUsuario = nombreUsuario.substring(0, nombreUsuario.length - 4) + '...';
+        //             }
+        //         }
 
-                doc.text(`${nombreUsuario} (${turnos.length} turnos) - ${totalHorasUsuario} horas`, 40, yPosition);
-                yPosition += 20;
+        //         doc.text(`${nombreUsuario} (${turnos.length} turnos) - ${totalHorasUsuario} horas`, 40, yPosition);
+        //         yPosition += 20;
 
-                const tableData = turnos
-                    .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio))
-                    .map(turno => [
-                        turno.jornada || 'N/A',
-                        formatearFecha(turno.fechaInicio),
-                        formatearHora(turno.fechaInicio),
-                        formatearFecha(turno.fechaFin),
-                        formatearHora(turno.fechaFin),
-                        (turno.horas || 0).toString()
-                    ]);
+        //         const tableData = turnos
+        //             .sort((a, b) => new Date(a.fechaInicio) - new Date(b.fechaInicio))
+        //             .map(turno => [
+        //                 turno.jornada || 'N/A',
+        //                 formatearFecha(turno.fechaInicio),
+        //                 formatearHora(turno.fechaInicio),
+        //                 formatearFecha(turno.fechaFin),
+        //                 formatearHora(turno.fechaFin),
+        //                 (turno.horas || 0).toString()
+        //             ]);
 
-                // Tabla más grande
-                autoTable(doc, {
-                    head: [['Jornada', 'Fecha Inicio', 'Hora Inicio', 'Fecha Fin', 'Hora Fin', 'Horas']],
-                    body: tableData,
-                    startY: yPosition,
-                    styles: {
-                        fontSize: 10,
-                        cellPadding: 4,
-                        lineColor: [68, 114, 196],
-                        lineWidth: 0.5
-                    },
-                    headStyles: {
-                        fillColor: [68, 114, 196],
-                        textColor: [255, 255, 255],
-                        fontSize: 11,
-                        fontStyle: 'bold',
-                        halign: 'center',
-                        cellPadding: 5
-                    },
-                    bodyStyles: {
-                        textColor: [51, 51, 51],
-                        alternateRowStyles: { fillColor: [248, 249, 250] }
-                    },
-                    alternateRowStyles: {
-                        fillColor: [248, 249, 250]
-                    },
-                    margin: { left: 40, right: 40 },
-                    tableWidth: 'auto',
-                    columnStyles: {
-                        0: { cellWidth: 90, halign: 'center' },
-                        1: { cellWidth: 95, halign: 'center' },
-                        2: { cellWidth: 75, halign: 'center' },
-                        3: { cellWidth: 95, halign: 'center' },
-                        4: { cellWidth: 75, halign: 'center' },
-                        5: { cellWidth: 55, halign: 'center', fontStyle: 'bold' }
-                    },
-                    // Dividir tabla automáticamente si no cabe en la página
-                    didDrawPage: function (data) {
-                        // Agregar numeración de página si hay múltiples páginas
-                        if (doc.internal.getNumberOfPages() > 1) {
-                            doc.setFontSize(8);
-                            doc.setTextColor(100);
-                            doc.text(`Página ${doc.internal.getCurrentPageInfo().pageNumber}`, data.settings.margin.left, doc.internal.pageSize.height - 20);
-                        }
-                    }
-                });
+        //         // Tabla más grande
+        //         autoTable(doc, {
+        //             head: [['Jornada', 'Fecha Inicio', 'Hora Inicio', 'Fecha Fin', 'Hora Fin', 'Horas']],
+        //             body: tableData,
+        //             startY: yPosition,
+        //             styles: {
+        //                 fontSize: 10,
+        //                 cellPadding: 4,
+        //                 lineColor: [68, 114, 196],
+        //                 lineWidth: 0.5
+        //             },
+        //             headStyles: {
+        //                 fillColor: [68, 114, 196],
+        //                 textColor: [255, 255, 255],
+        //                 fontSize: 11,
+        //                 fontStyle: 'bold',
+        //                 halign: 'center',
+        //                 cellPadding: 5
+        //             },
+        //             bodyStyles: {
+        //                 textColor: [51, 51, 51],
+        //                 alternateRowStyles: { fillColor: [248, 249, 250] }
+        //             },
+        //             alternateRowStyles: {
+        //                 fillColor: [248, 249, 250]
+        //             },
+        //             margin: { left: 40, right: 40 },
+        //             tableWidth: 'auto',
+        //             columnStyles: {
+        //                 0: { cellWidth: 90, halign: 'center' },
+        //                 1: { cellWidth: 95, halign: 'center' },
+        //                 2: { cellWidth: 75, halign: 'center' },
+        //                 3: { cellWidth: 95, halign: 'center' },
+        //                 4: { cellWidth: 75, halign: 'center' },
+        //                 5: { cellWidth: 55, halign: 'center', fontStyle: 'bold' }
+        //             },
+        //             // Dividir tabla automáticamente si no cabe en la página
+        //             didDrawPage: function (data) {
+        //                 // Agregar numeración de página si hay múltiples páginas
+        //                 if (doc.internal.getNumberOfPages() > 1) {
+        //                     doc.setFontSize(8);
+        //                     doc.setTextColor(100);
+        //                     doc.text(`Página ${doc.internal.getCurrentPageInfo().pageNumber}`, data.settings.margin.left, doc.internal.pageSize.height - 20);
+        //                 }
+        //             }
+        //         });
 
-                yPosition = doc.lastAutoTable.finalY + 25; // Más espacio entre secciones
-            });
+        //         yPosition = doc.lastAutoTable.finalY + 25; // Más espacio entre secciones
+        //     });
 
-            // Pie de página responsivo
-            const pageCount = doc.internal.getNumberOfPages();
-            for (let i = 1; i <= pageCount; i++) {
-                doc.setPage(i);
-                doc.setFontSize(8);
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(100);
+        //     // Pie de página responsivo
+        //     const pageCount = doc.internal.getNumberOfPages();
+        //     for (let i = 1; i <= pageCount; i++) {
+        //         doc.setPage(i);
+        //         doc.setFontSize(8);
+        //         doc.setFont('helvetica', 'normal');
+        //         doc.setTextColor(100);
 
-                // Información del pie
-                const fechaGeneracion = `Generado el ${new Date().toLocaleDateString('es-ES')}`;
-                const numeroPagina = `Página ${i} de ${pageCount}`;
-                const textoLegal = "Para uso exclusivo de trámites y servicios prestados por Hospital Universitario San José de Popayán";
+        //         // Información del pie
+        //         const fechaGeneracion = `Generado el ${new Date().toLocaleDateString('es-ES')}`;
+        //         const numeroPagina = `Página ${i} de ${pageCount}`;
+        //         const textoLegal = "Para uso exclusivo de trámites y servicios prestados por Hospital Universitario San José de Popayán";
 
-                // Línea superior del pie de página
-                doc.text(fechaGeneracion, 40, 575);
-                doc.text(numeroPagina, doc.internal.pageSize.getWidth() - 100, 575);
+        //         // Línea superior del pie de página
+        //         doc.text(fechaGeneracion, 40, 575);
+        //         doc.text(numeroPagina, doc.internal.pageSize.getWidth() - 100, 575);
 
-                // Verificar si el texto cabe en una línea
-                const legalWidth = doc.getTextWidth(textoLegal);
-                const availableWidth = doc.internal.pageSize.getWidth() - 80;
+        //         // Verificar si el texto cabe en una línea
+        //         const legalWidth = doc.getTextWidth(textoLegal);
+        //         const availableWidth = doc.internal.pageSize.getWidth() - 80;
 
-                if (legalWidth <= availableWidth) {
-                    doc.text(textoLegal, (doc.internal.pageSize.getWidth() - legalWidth) / 2, 590);
-                } else {
-                    // Dividir el texto en dos líneas si es muy largo
-                    const words = textoLegal.split(' ');
-                    let line1 = '';
-                    let line2 = '';
-                    let currentLine = 1;
+        //         if (legalWidth <= availableWidth) {
+        //             doc.text(textoLegal, (doc.internal.pageSize.getWidth() - legalWidth) / 2, 590);
+        //         } else {
+        //             // Dividir el texto en dos líneas si es muy largo
+        //             const words = textoLegal.split(' ');
+        //             let line1 = '';
+        //             let line2 = '';
+        //             let currentLine = 1;
 
-                    words.forEach(word => {
-                        const testLine = currentLine === 1 ? `${line1} ${word}` : `${line2} ${word}`;
-                        if (doc.getTextWidth(testLine) > availableWidth && currentLine === 1) {
-                            currentLine = 2;
-                            line2 = word;
-                        } else {
-                            if (currentLine === 1) {
-                                line1 += ` ${word}`;
-                            } else {
-                                line2 += ` ${word}`;
-                            }
-                        }
-                    });
+        //             words.forEach(word => {
+        //                 const testLine = currentLine === 1 ? `${line1} ${word}` : `${line2} ${word}`;
+        //                 if (doc.getTextWidth(testLine) > availableWidth && currentLine === 1) {
+        //                     currentLine = 2;
+        //                     line2 = word;
+        //                 } else {
+        //                     if (currentLine === 1) {
+        //                         line1 += ` ${word}`;
+        //                     } else {
+        //                         line2 += ` ${word}`;
+        //                     }
+        //                 }
+        //             });
 
-                    doc.text(line1.trim(), (doc.internal.pageSize.getWidth() - doc.getTextWidth(line1.trim())) / 2, 585);
-                    doc.text(line2.trim(), (doc.internal.pageSize.getWidth() - doc.getTextWidth(line2.trim())) / 2, 595);
-                }
-            }
+        //             doc.text(line1.trim(), (doc.internal.pageSize.getWidth() - doc.getTextWidth(line1.trim())) / 2, 585);
+        //             doc.text(line2.trim(), (doc.internal.pageSize.getWidth() - doc.getTextWidth(line2.trim())) / 2, 595);
+        //         }
+        //     }
 
-            doc.save(`ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.pdf`);
+        //     doc.save(`ReporteTurnos${reporte.anio}${String(reporte.mes).padStart(2, '0')}.pdf`);
 
-        } catch (err) {
-            console.error('Error al exportar PDF:', err);
-            alert(`Error al exportar el archivo PDF: ${err.message}`);
-        }
+        // } catch (err) {
+        //     console.error('Error al exportar PDF:', err);
+        //     alert(`Error al exportar el archivo PDF: ${err.message}`);
+        // }
     };
 
     const Tabla = ({ usuario, turnos, totalHoras }) => (
@@ -712,11 +707,11 @@ export default function ReportesFiltro() {
     const COLORS = ['#4CAF50', '#FF9800', '#2196F3'];
 
     return (
-        <div className="p-6 space-y-6 bg-primary-blue-content min-h-screen">
+        <div className="p-6 space-y-6 bg-slate-50 min-h-screen">
             {/* Filtros */}
             <Card className="shadow-lg border-0">
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FilePlus2 size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faFileAlt} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Reportes de Turnos
                     </h1>

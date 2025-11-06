@@ -1,34 +1,11 @@
-import axios from "axios";
-
-// Configuración de variables de entorno
-
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('API Error:', error.response?.data || error.message);
-        return Promise.reject(error);
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicios para PERSONAS
 export const personasService = {
     // Obtener todas las personas
     getAll: async () => {
         try {
-            const response = await api.get("/persona");
+            const response = await apiClienteTurnos.get("/persona");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar personas: ${error.response?.data?.message || error.message}`);
@@ -38,7 +15,7 @@ export const personasService = {
     // Obtener persona por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/persona/${id}`);
+            const response = await apiClienteTurnos.get(`/persona/${id}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar persona con ID ${id}: ${error.response?.data?.message || error.message}`);
@@ -48,7 +25,7 @@ export const personasService = {
     // Crear nueva persona
     create: async (personaData) => {
         try {
-            const response = await api.post("/persona", personaData);
+            const response = await apiClienteTurnos.post("/persona", personaData);
             return response.data;
         } catch (error) {
             throw new Error(`Error al crear persona: ${error.response?.data?.message || error.message}`);
@@ -58,7 +35,7 @@ export const personasService = {
     // Actualizar persona
     update: async (id, personaData) => {
         try {
-            const response = await api.put(`/persona/${id}`, personaData);
+            const response = await apiClienteTurnos.put(`/persona/${id}`, personaData);
             return response.data;
         } catch (error) {
             throw new Error(`Error al actualizar persona: ${error.response?.data?.message || error.message}`);
@@ -68,7 +45,7 @@ export const personasService = {
     // Eliminar persona
     delete: async (id) => {
         try {
-            const response = await api.delete(`/persona/${id}`);
+            const response = await apiClienteTurnos.delete(`/persona/${id}`);
             return response.data;
         } catch (error) {
             if (error.response?.status === 409) {
@@ -86,7 +63,7 @@ export const personasTitulosService = {
     // Obtener todas las relaciones personas-títulos
     getUsuariosTitulos: async () => {
         try {
-            const response = await api.get("/usuario/titulos");
+            const response = await apiClienteTurnos.get("/usuario/titulos");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar usuarios títulos: ${error.response?.data?.message || error.message}`);
@@ -96,7 +73,7 @@ export const personasTitulosService = {
     // Obtener títulos académicos
     getTitulos: async () => {
         try {
-            const response = await api.get("/titulosFormacionAcademica");
+            const response = await apiClienteTurnos.get("/titulosFormacionAcademica");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar títulos: ${error.response?.data?.message || error.message}`);
@@ -106,7 +83,7 @@ export const personasTitulosService = {
     // Agregar título a persona
     addTituloToPersona: async (personaId, tituloId) => {
         try {
-            const response = await api.post(`/usuario/${personaId}/titulo/${tituloId}`);
+            const response = await apiClienteTurnos.post(`/usuario/${personaId}/titulo/${tituloId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al agregar título a persona: ${error.response?.data?.message || error.message}`);
@@ -116,7 +93,7 @@ export const personasTitulosService = {
     // Eliminar relación persona-título
     removeTituloFromPersona: async (personaId, tituloId) => {
         try {
-            const response = await api.delete(`/usuario/${personaId}/titulo/${tituloId}`);
+            const response = await apiClienteTurnos.delete(`/usuario/${personaId}/titulo/${tituloId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al eliminar relación persona-título: ${error.response?.data?.message || error.message}`);
@@ -129,7 +106,7 @@ export const personasRolesService = {
     // Obtener todas las relaciones personas-roles
     getUsuariosRoles: async () => {
         try {
-            const response = await api.get("/usuario/roles");
+            const response = await apiClienteTurnos.get("/usuario/roles");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar usuarios roles: ${error.response?.data?.message || error.message}`);
@@ -139,7 +116,7 @@ export const personasRolesService = {
     // Obtener roles
     getRoles: async () => {
         try {
-            const response = await api.get("/roles");
+            const response = await apiClienteTurnos.get("/roles");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar roles: ${error.response?.data?.message || error.message}`);
@@ -149,7 +126,7 @@ export const personasRolesService = {
     // Agregar rol a persona
     addRolToPersona: async (personaId, rolId) => {
         try {
-            const response = await api.post(`/usuario/${personaId}/rol/${rolId}`);
+            const response = await apiClienteTurnos.post(`/usuario/${personaId}/rol/${rolId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al agregar rol a persona: ${error.response?.data?.message || error.message}`);
@@ -159,7 +136,7 @@ export const personasRolesService = {
     // Eliminar relación persona-rol
     removeRolFromPersona: async (personaId, rolId) => {
         try {
-            const response = await api.delete(`/usuarios/${personaId}/rol/${rolId}`);
+            const response = await apiClienteTurnos.delete(`/usuarios/${personaId}/rol/${rolId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al eliminar relación persona-rol: ${error.response?.data?.message || error.message}`);
@@ -172,7 +149,7 @@ export const personasEquiposService = {
     // Obtener todas las relaciones personas-equipos
     getUsuariosEquipos: async () => {
         try {
-            const response = await api.get("/usuario/equipos");
+            const response = await apiClienteTurnos.get("/usuario/equipos");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar usuarios equipos: ${error.response?.data?.message || error.message}`);
@@ -182,7 +159,7 @@ export const personasEquiposService = {
     // Obtener equipos
     getEquipos: async () => {
         try {
-            const response = await api.get("/equipo");
+            const response = await apiClienteTurnos.get("/equipo");
             return response.data;
         } catch (error) {
             throw new Error(`Error al cargar equipos: ${error.response?.data?.message || error.message}`);
@@ -192,7 +169,7 @@ export const personasEquiposService = {
     // Agregar equipo a persona
     addEquipoToPersona: async (personaId, equipoId) => {
         try {
-            const response = await api.post(`/usuario/${personaId}/equipo/${equipoId}`);
+            const response = await apiClienteTurnos.post(`/usuario/${personaId}/equipo/${equipoId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al agregar equipo a persona: ${error.response?.data?.message || error.message}`);
@@ -202,7 +179,7 @@ export const personasEquiposService = {
     // Eliminar relación persona-equipo
     removeEquipoFromPersona: async (personaId, equipoId) => {
         try {
-            const response = await api.delete(`/usuarios/${personaId}/equipo/${equipoId}`);
+            const response = await apiClienteTurnos.delete(`/usuarios/${personaId}/equipo/${equipoId}`);
             return response.data;
         } catch (error) {
             throw new Error(`Error al eliminar relación persona-equipo: ${error.response?.data?.message || error.message}`);

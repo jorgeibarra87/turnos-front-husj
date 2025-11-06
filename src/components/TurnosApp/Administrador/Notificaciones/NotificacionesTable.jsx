@@ -1,7 +1,16 @@
-import React from 'react';
-import { Eye, Edit, Trash2, CopyPlus, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faEye,
+    faEdit,
+    faTrash,
+    faPlus,
+    faUsers,
+    faCog,
+    faChevronLeft,
+    faChevronRight
+} from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { procesosService, macroprocesosService, procesoUtils } from '../../../../api/Services/apiProcesoService';
+import { procesosService, macroprocesosService, procesoUtils } from '../../../../api/turnos/apiProcesoService';
 
 export default function NotificacionesTable() {
     const [notificaciones, setNotificaciones] = useState([]);
@@ -206,7 +215,8 @@ export default function NotificacionesTable() {
                 onClick={handleNuevoProceso}
                 className="mb-1 px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2"
             >
-                <CopyPlus size={22} color="white" strokeWidth={2} />
+                {/* Usar FontAwesomeIcon en lugar de CopyPlus */}
+                <FontAwesomeIcon icon={faPlus} className="text-white w-5 h-5" />
                 Crear Proceso
             </button>
 
@@ -245,7 +255,8 @@ export default function NotificacionesTable() {
                         <th className="p-3">Macroproceso</th>
                         <th className="p-3">Estado</th>
                         <th className="p-3 flex items-center justify-centers gap-2">
-                            <Settings size={16} />
+                            {/* Icono de settings con FontAwesome */}
+                            <FontAwesomeIcon icon={faCog} className="w-4 h-4 mr-2" />
                             Acciones
                         </th>
                     </tr>
@@ -274,9 +285,9 @@ export default function NotificacionesTable() {
                                     title={`Ver proceso: ${proceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Eye
-                                        size={18}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2"
+                                    <FontAwesomeIcon
+                                        icon={faEye}
+                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2 w-4 h-4"
                                     />
                                 </button>
 
@@ -286,9 +297,9 @@ export default function NotificacionesTable() {
                                     title={`Editar proceso: ${proceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Edit
-                                        size={18}
-                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
+                                    <FontAwesomeIcon
+                                        icon={faEdit}
+                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors w-4 h-4"
                                     />
                                 </button>
 
@@ -298,9 +309,9 @@ export default function NotificacionesTable() {
                                     title={`Eliminar proceso: ${proceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Trash2
-                                        size={18}
-                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
+                                    <FontAwesomeIcon
+                                        icon={faTrash}
+                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors w-4 h-4"
                                     />
                                 </button>
                             </td>
@@ -329,7 +340,7 @@ export default function NotificacionesTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -358,7 +369,7 @@ export default function NotificacionesTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -368,7 +379,7 @@ export default function NotificacionesTable() {
             {/* Mensaje cuando no hay procesos */}
             {procesos.length === 0 && !loading && (
                 <div className="text-center py-8 text-gray-500">
-                    <Users size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="mx-auto mb-4 text-gray-300 w-12 h-12" />
                     <p className="text-lg">No hay procesos disponibles</p>
                     <p className="text-sm">Crea tu primer proceso usando el botón de arriba</p>
                 </div>
@@ -430,7 +441,7 @@ function CrearEditarProceso({ proceso, macroprocesos, modoEdicion, onVolver, onA
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className='text-3xl font-bold text-gray-800 text-center'>
                     {modoEdicion ? 'Editar Proceso' : 'Crear Nuevo Proceso'}
@@ -439,7 +450,8 @@ function CrearEditarProceso({ proceso, macroprocesos, modoEdicion, onVolver, onA
                 {modoEdicion && (
                     <div className='p-4 text-center bg-orange-50 border border-orange-200 rounded-lg w-full'>
                         <div className='flex items-center justify-center gap-2 mb-2'>
-                            <Edit size={16} className="text-orange-600" />
+                            {/* Edit icon reemplazado */}
+                            <FontAwesomeIcon icon={faEdit} className="text-orange-600 w-4 h-4" />
                             <span className='font-semibold text-orange-800'>Modificando proceso existente</span>
                         </div>
                         <div className='text-gray-700'>
@@ -547,7 +559,7 @@ function VerProceso({ proceso, macroprocesos, onVolver }) {
     const macroprocesoInfo = procesoUtils.getMacroprocesoInfo(proceso, macroprocesos);
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
@@ -600,7 +612,7 @@ function VerProceso({ proceso, macroprocesos, onVolver }) {
                         onClick={onVolver}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors"
                     >
-                        <Eye size={20} />
+                        <FontAwesomeIcon icon={faEye} className="w-5 h-5" />
                         Volver al Listado
                     </button>
                 </div>

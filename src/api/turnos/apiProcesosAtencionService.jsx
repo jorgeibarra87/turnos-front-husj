@@ -1,55 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        // Manejo personalizado de errores
-        if (error.response) {
-            // El servidor respondió con un código de error
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Proceso de atención no encontrado');
-                case 409:
-                    throw new Error('No se puede eliminar el proceso de atención porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            // La petición se hizo pero no se recibió respuesta
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            // Error en la configuración de la petición
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Procesos de Atención
 export const procesosAtencionService = {
     // Obtener todos los procesos de atención
     getAll: async () => {
         try {
-            const response = await api.get('/procesosAtencion');
+            const response = await apiClienteTurnos.get('/procesosAtencion');
             // Validar que retorne un array
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -67,7 +23,7 @@ export const procesosAtencionService = {
     // Obtener un proceso de atención por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/procesosAtencion/${id}`);
+            const response = await apiClienteTurnos.get(`/procesosAtencion/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener proceso de atención ${id}:`, error);
@@ -78,7 +34,7 @@ export const procesosAtencionService = {
     // Crear un nuevo proceso de atención
     create: async (procesoAtencionData) => {
         try {
-            const response = await api.post('/procesosAtencion', procesoAtencionData);
+            const response = await apiClienteTurnos.post('/procesosAtencion', procesoAtencionData);
             return response.data;
         } catch (error) {
             console.error('Error al crear proceso de atención:', error);
@@ -89,7 +45,7 @@ export const procesosAtencionService = {
     // Actualizar un proceso de atención existente
     update: async (id, procesoAtencionData) => {
         try {
-            const response = await api.put(`/procesosAtencion/${id}`, procesoAtencionData);
+            const response = await apiClienteTurnos.put(`/procesosAtencion/${id}`, procesoAtencionData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar proceso de atención ${id}:`, error);
@@ -100,7 +56,7 @@ export const procesosAtencionService = {
     // Eliminar un proceso de atención
     delete: async (id) => {
         try {
-            const response = await api.delete(`/procesosAtencion/${id}`);
+            const response = await apiClienteTurnos.delete(`/procesosAtencion/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar proceso de atención ${id}:`, error);
@@ -111,7 +67,7 @@ export const procesosAtencionService = {
     // Buscar procesos de atención por detalle
     searchByDetalle: async (detalle) => {
         try {
-            const response = await api.get(`/procesosAtencion/buscar?detalle=${encodeURIComponent(detalle)}`);
+            const response = await apiClienteTurnos.get(`/procesosAtencion/buscar?detalle=${encodeURIComponent(detalle)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar procesos de atención por detalle "${detalle}":`, error);
@@ -122,7 +78,7 @@ export const procesosAtencionService = {
     // Obtener procesos de atención activos
     getActivos: async () => {
         try {
-            const response = await api.get('/procesosAtencion/activos');
+            const response = await apiClienteTurnos.get('/procesosAtencion/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener procesos de atención activos:', error);
@@ -133,7 +89,7 @@ export const procesosAtencionService = {
     // Obtener procesos de atención por cuadro de turno
     getByCuadro: async (cuadroId) => {
         try {
-            const response = await api.get(`/procesosAtencion/cuadro/${cuadroId}`);
+            const response = await apiClienteTurnos.get(`/procesosAtencion/cuadro/${cuadroId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener procesos de atención del cuadro ${cuadroId}:`, error);
@@ -144,7 +100,7 @@ export const procesosAtencionService = {
     // Obtener procesos de atención por proceso
     getByProceso: async (procesoId) => {
         try {
-            const response = await api.get(`/procesosAtencion/proceso/${procesoId}`);
+            const response = await apiClienteTurnos.get(`/procesosAtencion/proceso/${procesoId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener procesos de atención del proceso ${procesoId}:`, error);
@@ -155,7 +111,7 @@ export const procesosAtencionService = {
     // Cambiar estado de un proceso de atención
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/procesosAtencion/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/procesosAtencion/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado del proceso de atención ${id}:`, error);
@@ -169,7 +125,7 @@ export const cuadrosTurnoService = {
     // Obtener todos los cuadros de turno (para el formulario)
     getAll: async () => {
         try {
-            const response = await api.get('/cuadro-turnos');
+            const response = await apiClienteTurnos.get('/cuadro-turnos');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -188,7 +144,7 @@ export const cuadrosTurnoService = {
     // Obtener cuadros de turno activos
     getActivos: async () => {
         try {
-            const response = await api.get('/cuadro-turnos/activos');
+            const response = await apiClienteTurnos.get('/cuadro-turnos/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener cuadros de turno activos:', error);
@@ -202,7 +158,7 @@ export const procesosService = {
     // Obtener todos los procesos (para el formulario)
     getAll: async () => {
         try {
-            const response = await api.get('/procesos');
+            const response = await apiClienteTurnos.get('/procesos');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -221,7 +177,7 @@ export const procesosService = {
     // Obtener procesos activos
     getActivos: async () => {
         try {
-            const response = await api.get('/procesos/activos');
+            const response = await apiClienteTurnos.get('/procesos/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener procesos activos:', error);

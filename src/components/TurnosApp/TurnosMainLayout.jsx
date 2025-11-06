@@ -58,7 +58,7 @@ const TurnosMainLayout = () => {
         <div className="flex-1 overflow-y-auto p-6 relative">
             <Routes>
                 {/* Ruta principal */}
-                <Route path="/" element={<TurnosTable />} />
+                <Route path="/cuadro-turnos" element={<TurnosTable />} />
 
                 {/* Rutas de Cuadros */}
                 <Route path="/crearCuadro" element={<CrearCuadro />} />

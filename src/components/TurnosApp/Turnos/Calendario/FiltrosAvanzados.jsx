@@ -1,11 +1,12 @@
 import React from 'react';
-import { Calendar, User, Settings } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faUser, faCog } from '@fortawesome/free-solid-svg-icons';
 
 const FiltrosAvanzados = ({ filtros, setFiltros, cuadrosTurno, procesos, perfiles }) => {
     return (
         <div className="mt-4 p-4 bg-gray-50 rounded-lg border">
             <h4 className="text-sm font-medium mb-3 flex items-center gap-2">
-                <Settings size={16} />
+                <FontAwesomeIcon icon={faCog} className="w-4 h-4" />
                 Filtros Avanzados
             </h4>
 

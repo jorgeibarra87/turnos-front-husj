@@ -1,60 +1,24 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const apiClient = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptores
-apiClient.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => Promise.reject(error)
-);
-
-apiClient.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            localStorage.removeItem('authToken');
-            window.location.href = '/login';
-        }
-        return Promise.reject(error);
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio de equipos
 export const apiEquipoService = {
     equipos: {
         // Obtener todos los equipos
         getAll: async () => {
-            const response = await apiClient.get('/equipo');
+            const response = await apiClienteTurnos.get('/equipo');
             return Array.isArray(response.data) ? response.data : response.data.equipos || [];
         },
 
         // Obtener equipos activos (filtrado)
         getEquiposActivos: async () => {
-            const response = await apiClient.get('/equipo');
+            const response = await apiClienteTurnos.get('/equipo');
             const allEquipos = Array.isArray(response.data) ? response.data : response.data.equipos || [];
             return allEquipos.filter(equipo => equipo.estado === true);
         },
 
         // Obtener equipo por ID
         getById: async (id) => {
-            const response = await apiClient.get(`/equipo/${id}`);
+            const response = await apiClienteTurnos.get(`/equipo/${id}`);
             return response.data; // Retorna el objeto completo del equipo
         },
 
@@ -64,62 +28,62 @@ export const apiEquipoService = {
         createCompleto: async ({ nombre, categoria, subcategoria }) => {
             const equipoData = { nombre, categoria, subcategoria };
             // Endpoint: POST /equipo/equipoNombre
-            const response = await apiClient.post('/equipo/equipoNombre', equipoData);
+            const response = await apiClienteTurnos.post('/equipo/equipoNombre', equipoData);
             return response.data;
         },
 
         // Actualizar el nombre del equipo
         updateNombre: async (id, equipoData) => {
             // Endpoint: PUT /equipo/{id}/actualizar-nombre
-            const response = await apiClient.put(`/equipo/${id}/actualizar-nombre`, equipoData);
+            const response = await apiClienteTurnos.put(`/equipo/${id}/actualizar-nombre`, equipoData);
             return response.data;
         },
 
         // Crear equipo
         create: async (equipoData) => {
-            const response = await apiClient.post('/equipo', equipoData);
+            const response = await apiClienteTurnos.post('/equipo', equipoData);
             return response.data;
         },
 
         // Actualizar equipo
         update: async (id, equipoData) => {
-            const response = await apiClient.put(`/equipo/${id}`, equipoData);
+            const response = await apiClienteTurnos.put(`/equipo/${id}`, equipoData);
             return response.data;
         },
 
         // Eliminar equipo
         delete: async (id) => {
-            const response = await apiClient.delete(`/equipo/${id}`);
+            const response = await apiClienteTurnos.delete(`/equipo/${id}`);
             return response.data;
         },
 
         // Obtener cuadros asociados a un equipo (antes de eliminar)
         getCuadros: async (id) => {
-            const response = await apiClient.get(`/equipo/${id}/cuadros`);
+            const response = await apiClienteTurnos.get(`/equipo/${id}/cuadros`);
             return response.data || [];
         },
 
         // Obtener miembros básicos del equipo
         getMiembros: async (id) => {
-            const response = await apiClient.get(`/equipo/${id}/miembros`);
+            const response = await apiClienteTurnos.get(`/equipo/${id}/miembros`);
             return response.data || [];
         },
 
         // Obtener miembros con perfil del equipo
         getMiembrosPerfil: async (id) => {
-            const response = await apiClient.get(`/equipo/${id}/miembros-perfil`);
+            const response = await apiClienteTurnos.get(`/equipo/${id}/miembros-perfil`);
             return response.data || [];
         },
 
         // Obtener usuarios del equipo (para edición)
         getUsuariosEquipo: async (idEquipo) => {
-            const response = await apiClient.get(`/usuario/equipo/${idEquipo}/usuarios`);
+            const response = await apiClienteTurnos.get(`/usuario/equipo/${idEquipo}/usuarios`);
             return response.data || [];
         },
 
         // Actualizar usuarios del equipo
         updateUsuariosEquipo: async (idEquipo, personasIds) => {
-            const response = await apiClient.put(`/usuario/equipo/${idEquipo}`, personasIds);
+            const response = await apiClienteTurnos.put(`/usuario/equipo/${idEquipo}`, personasIds);
             return response.data;
         },
 
@@ -142,19 +106,19 @@ export const apiEquipoService = {
         },
 
         createWithGeneratedName: async (selection) => {
-            const response = await apiClient.post('/equipo/with-generated-name', selection);
+            const response = await apiClienteTurnos.post('/equipo/with-generated-name', selection);
             return response.data;  // Solo devolver los datos
         },
 
         updateWithGeneratedName: async (id, selection) => {
-            const response = await apiClient.put(`/equipo/${id}/with-generated-name`, selection);
+            const response = await apiClienteTurnos.put(`/equipo/${id}/with-generated-name`, selection);
             return response.data;  // Solo devolver los datos
         },
 
         // Obtener historial de un equipo específico
         getHistorialEquipo: async (equipoId) => {
             try {
-                const response = await apiClient.get(`/cambios-equipo/historial/${equipoId}`);
+                const response = await apiClienteTurnos.get(`/cambios-equipo/historial/${equipoId}`);
                 return response.data;
             } catch (error) {
                 throw new Error(`Error al obtener historial del equipo: ${error.response?.data?.message || error.message}`);
@@ -164,7 +128,7 @@ export const apiEquipoService = {
         // Obtener historial de una persona específica
         getHistorialPersona: async (personaId) => {
             try {
-                const response = await apiClient.get(`/cambios-equipo/historial-persona/${personaId}`);
+                const response = await apiClienteTurnos.get(`/cambios-equipo/historial-persona/${personaId}`);
                 return response.data;
             } catch (error) {
                 throw new Error(`Error al obtener historial de la persona: ${error.response?.data?.message || error.message}`);
@@ -174,7 +138,7 @@ export const apiEquipoService = {
         // Obtener historial completo relacionado a un cuadro
         getHistorialCompleto: async (cuadroId) => {
             try {
-                const response = await apiClient.get(`/cambios-equipo/historial-cuadro/${cuadroId}`);
+                const response = await apiClienteTurnos.get(`/cambios-equipo/historial-cuadro/${cuadroId}`);
                 return response.data;
             } catch (error) {
                 throw new Error(`Error al obtener historial completo: ${error.response?.data?.message || error.message}`);
@@ -200,49 +164,49 @@ export const apiEquipoService = {
                 throw new Error(`Categoría no válida: ${categoria}`);
             }
 
-            const response = await apiClient.get(endpoint);
+            const response = await apiClienteTurnos.get(endpoint);
             return response.data || [];
         },
 
         // Obtener macroprocesos
         getMacroprocesos: async () => {
-            const response = await apiClient.get('/macroprocesos');
+            const response = await apiClienteTurnos.get('/macroprocesos');
             return response.data || [];
         },
 
         // Obtener procesos
         getProcesos: async () => {
-            const response = await apiClient.get('/procesos');
+            const response = await apiClienteTurnos.get('/procesos');
             return response.data || [];
         },
 
         // Obtener servicios
         getServicios: async () => {
-            const response = await apiClient.get('/servicio');
+            const response = await apiClienteTurnos.get('/servicio');
             return response.data || [];
         },
 
         // Obtener secciones de servicio
         getSeccionesServicio: async () => {
-            const response = await apiClient.get('/seccionesServicio');
+            const response = await apiClienteTurnos.get('/seccionesServicio');
             return response.data || [];
         },
 
         // Obtener subsecciones de servicio
         getSubseccionesServicio: async () => {
-            const response = await apiClient.get('/subseccionesServicio');
+            const response = await apiClienteTurnos.get('/subseccionesServicio');
             return response.data || [];
         },
 
         // Obtener perfiles/títulos (para asignación de personas)
         getPerfiles: async () => {
-            const response = await apiClient.get('/titulosFormacionAcademica');
+            const response = await apiClienteTurnos.get('/titulosFormacionAcademica');
             return response.data || [];
         },
 
         // Obtener usuarios por perfil/título
         getUsuariosPorPerfil: async (idTitulo) => {
-            const response = await apiClient.get(`/usuario/titulo/${idTitulo}/usuarios`);
+            const response = await apiClienteTurnos.get(`/usuario/titulo/${idTitulo}/usuarios`);
             return response.data || [];
         }
     }

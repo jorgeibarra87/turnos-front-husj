@@ -1,18 +1,7 @@
-import React from 'react';
-import { Eye, Edit, Trash2, CopyPlus, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEye,
-    faEdit,
-    faTrash,
-    faCopy,
-    faUsers,
-    faCog,
-    faChevronLeft,
-    faChevronRight
-} from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { macroprocesosService } from '../../../../api/Services/apiMacroprocesoService';
+import { macroprocesosService } from '../../../../api/turnos/apiMacroprocesoService';
 
 export default function MacroprocesosTable() {
     const [macroprocesos, setMacroprocesos] = useState([]);
@@ -199,7 +188,7 @@ export default function MacroprocesosTable() {
                 onClick={handleNuevoMacroproceso}
                 className="mb-1 px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2"
             >
-                <FontAwesomeIcon icon={faCopy} size="xl" color="white" strokeWidth={2} />
+                <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-white" />
                 Crear Macroproceso
             </button>
 
@@ -237,7 +226,7 @@ export default function MacroprocesosTable() {
                         <th className="p-3">Nombre</th>
                         <th className="p-3">Estado</th>
                         <th className="p-3 flex items-center justify-centers gap-2">
-                            <FontAwesomeIcon icon={faCog} size="sm" />
+                            <FontAwesomeIcon icon={faCog} className="w-4 h-4 mr-2" />
                             Acciones
                         </th>
                     </tr>
@@ -263,9 +252,7 @@ export default function MacroprocesosTable() {
                                     title={`Ver macroproceso: ${macroproceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <FontAwesomeIcon icon={faEye}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2"
-                                    />
+                                    <FontAwesomeIcon icon={faEye} className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2 w-4 h-4" />
                                 </button>
 
                                 {/* Botón Editar */}
@@ -274,10 +261,7 @@ export default function MacroprocesosTable() {
                                     title={`Editar macroproceso: ${macroproceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <FontAwesomeIcon icon={faEdit}
-                                        size="lg"
-                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faEdit} className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors" />
                                 </button>
 
                                 {/* Botón Eliminar */}
@@ -286,10 +270,7 @@ export default function MacroprocesosTable() {
                                     title={`Eliminar macroproceso: ${macroproceso.nombre}`}
                                     className="inline-block"
                                 >
-                                    <FontAwesomeIcon icon={faTrash}
-                                        size="lg"
-                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faTrash} className="text-red-600 hover:text-red-800 cursor-pointer transition-colors" />
                                 </button>
                             </td>
                         </tr>
@@ -317,7 +298,7 @@ export default function MacroprocesosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <FontAwesomeIcon icon={faChevronLeft} size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4" />
                             </button>
 
                             {/* Números de página */}
@@ -346,7 +327,7 @@ export default function MacroprocesosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <FontAwesomeIcon icon={faChevronRight} size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4" />
                             </button>
                         </div>
                     )}
@@ -356,7 +337,7 @@ export default function MacroprocesosTable() {
             {/* Mensaje cuando no hay macroprocesos */}
             {macroprocesos.length === 0 && !loading && (
                 <div className="text-center py-8 text-gray-500">
-                    <FontAwesomeIcon icon={faUsers} size="3x" className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="mx-auto mb-4 text-gray-300" />
                     <p className="text-lg">No hay macroprocesos disponibles</p>
                     <p className="text-sm">Crea tu primer macroproceso usando el botón de arriba</p>
                 </div>
@@ -416,7 +397,7 @@ function CrearEditarMacroproceso({ macroproceso, modoEdicion, onVolver, onActual
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className='text-3xl font-bold text-gray-800 text-center'>
                     {modoEdicion ? 'Editar Macroproceso' : 'Crear Nuevo Macroproceso'}
@@ -425,7 +406,7 @@ function CrearEditarMacroproceso({ macroproceso, modoEdicion, onVolver, onActual
                 {modoEdicion && (
                     <div className='p-4 text-center bg-orange-50 border border-orange-200 rounded-lg w-full'>
                         <div className='flex items-center justify-center gap-2 mb-2'>
-                            <FontAwesomeIcon icon={faEdit} size="lg" className="text-orange-600" />
+                            <FontAwesomeIcon icon={faEdit} className="text-orange-600" />
                             <span className='font-semibold text-orange-800'>Modificando macroproceso existente</span>
                         </div>
                         <div className='text-gray-700'>
@@ -510,7 +491,7 @@ function VerMacroproceso({ macroproceso, onVolver }) {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
@@ -553,7 +534,7 @@ function VerMacroproceso({ macroproceso, onVolver }) {
                         onClick={onVolver}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors"
                     >
-                        <FontAwesomeIcon icon={faEye} size={20} />
+                        <FontAwesomeIcon icon={faEye} className="w-4 h-4" />
                         Volver al Listado
                     </button>
                 </div>

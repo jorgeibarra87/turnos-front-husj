@@ -1,55 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        // Manejo personalizado de errores
-        if (error.response) {
-            // El servidor respondió con un código de error
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Recurso no encontrado');
-                case 409:
-                    throw new Error('No se puede eliminar el registro porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            // La petición se hizo pero no se recibió respuesta
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            // Error en la configuración de la petición
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Servicios
 export const serviciosService = {
     // Obtener todos los servicios
     getAll: async () => {
         try {
-            const response = await api.get('/servicio');
+            const response = await apiClienteTurnos.get('/servicio');
 
             // Asegurar que siempre retorne un array
             if (Array.isArray(response.data)) {
@@ -68,7 +24,7 @@ export const serviciosService = {
     // Obtener un servicio por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/servicio/${id}`);
+            const response = await apiClienteTurnos.get(`/servicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener servicio ${id}:`, error);
@@ -79,7 +35,7 @@ export const serviciosService = {
     // Crear un nuevo servicio
     create: async (servicioData) => {
         try {
-            const response = await api.post('/servicio', servicioData);
+            const response = await apiClienteTurnos.post('/servicio', servicioData);
             return response.data;
         } catch (error) {
             console.error('Error al crear servicio:', error);
@@ -90,7 +46,7 @@ export const serviciosService = {
     // Actualizar un servicio existente
     update: async (id, servicioData) => {
         try {
-            const response = await api.put(`/servicio/${id}`, servicioData);
+            const response = await apiClienteTurnos.put(`/servicio/${id}`, servicioData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar servicio ${id}:`, error);
@@ -101,7 +57,7 @@ export const serviciosService = {
     // Eliminar un servicio
     delete: async (id) => {
         try {
-            const response = await api.delete(`/servicio/${id}`);
+            const response = await apiClienteTurnos.delete(`/servicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar servicio ${id}:`, error);
@@ -112,7 +68,7 @@ export const serviciosService = {
     // Buscar servicios por nombre
     searchByName: async (nombre) => {
         try {
-            const response = await api.get(`/servicio/buscar?nombre=${encodeURIComponent(nombre)}`);
+            const response = await apiClienteTurnos.get(`/servicio/buscar?nombre=${encodeURIComponent(nombre)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar servicios por nombre "${nombre}":`, error);
@@ -123,7 +79,7 @@ export const serviciosService = {
     // Obtener servicios activos
     getActivos: async () => {
         try {
-            const response = await api.get('/servicio/activos');
+            const response = await apiClienteTurnos.get('/servicio/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener servicios activos:', error);
@@ -134,7 +90,7 @@ export const serviciosService = {
     // Obtener servicios por bloque
     getByBloque: async (bloqueId) => {
         try {
-            const response = await api.get(`/servicio/bloque/${bloqueId}`);
+            const response = await apiClienteTurnos.get(`/servicio/bloque/${bloqueId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener servicios del bloque ${bloqueId}:`, error);
@@ -145,7 +101,7 @@ export const serviciosService = {
     // Obtener servicios por proceso
     getByProceso: async (procesoId) => {
         try {
-            const response = await api.get(`/servicio/proceso/${procesoId}`);
+            const response = await apiClienteTurnos.get(`/servicio/proceso/${procesoId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener servicios del proceso ${procesoId}:`, error);
@@ -156,7 +112,7 @@ export const serviciosService = {
     // Cambiar estado de un servicio
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/servicio/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/servicio/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado del servicio ${id}:`, error);
@@ -170,7 +126,7 @@ export const bloquesServicioService = {
     // Obtener todos los bloques de servicio
     getAll: async () => {
         try {
-            const response = await api.get('/bloqueServicio');
+            const response = await apiClienteTurnos.get('/bloqueServicio');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -188,7 +144,7 @@ export const bloquesServicioService = {
     // Obtener un bloque de servicio por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/bloqueServicio/${id}`);
+            const response = await apiClienteTurnos.get(`/bloqueServicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener bloque de servicio ${id}:`, error);
@@ -199,7 +155,7 @@ export const bloquesServicioService = {
     // Crear un nuevo bloque de servicio
     create: async (bloqueData) => {
         try {
-            const response = await api.post('/bloqueServicio', bloqueData);
+            const response = await apiClienteTurnos.post('/bloqueServicio', bloqueData);
             return response.data;
         } catch (error) {
             console.error('Error al crear bloque de servicio:', error);
@@ -210,7 +166,7 @@ export const bloquesServicioService = {
     // Actualizar un bloque de servicio existente
     update: async (id, bloqueData) => {
         try {
-            const response = await api.put(`/bloqueServicio/${id}`, bloqueData);
+            const response = await apiClienteTurnos.put(`/bloqueServicio/${id}`, bloqueData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar bloque de servicio ${id}:`, error);
@@ -221,7 +177,7 @@ export const bloquesServicioService = {
     // Eliminar un bloque de servicio
     delete: async (id) => {
         try {
-            const response = await api.delete(`/bloqueServicio/${id}`);
+            const response = await apiClienteTurnos.delete(`/bloqueServicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar bloque de servicio ${id}:`, error);
@@ -232,7 +188,7 @@ export const bloquesServicioService = {
     // Buscar bloques de servicio por nombre
     searchByName: async (nombre) => {
         try {
-            const response = await api.get(`/bloqueServicio/buscar?nombre=${encodeURIComponent(nombre)}`);
+            const response = await apiClienteTurnos.get(`/bloqueServicio/buscar?nombre=${encodeURIComponent(nombre)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar bloques de servicio por nombre "${nombre}":`, error);
@@ -243,7 +199,7 @@ export const bloquesServicioService = {
     // Obtener bloques de servicio activos
     getActivos: async () => {
         try {
-            const response = await api.get('/bloqueServicio/activos');
+            const response = await apiClienteTurnos.get('/bloqueServicio/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener bloques de servicio activos:', error);
@@ -254,7 +210,7 @@ export const bloquesServicioService = {
     // Cambiar estado de un bloque de servicio
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/bloqueServicio/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/bloqueServicio/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado del bloque de servicio ${id}:`, error);
@@ -268,7 +224,7 @@ export const procesosService = {
     // Obtener todos los procesos (para el formulario)
     getAll: async () => {
         try {
-            const response = await api.get('/procesos');
+            const response = await apiClienteTurnos.get('/procesos');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -287,7 +243,7 @@ export const procesosService = {
     // Obtener procesos activos
     getActivos: async () => {
         try {
-            const response = await api.get('/procesos/activos');
+            const response = await apiClienteTurnos.get('/procesos/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener procesos activos:', error);

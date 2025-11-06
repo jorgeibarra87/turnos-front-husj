@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Eye, Edit, Trash2, CopyPlus, Users, Settings, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faCog, faFileAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiService } from '../../../api/Services/apiContratoService';
+import { apiService } from '../../../api/turnos/apiContratoService';
 
 export default function ContratosTable() {
     const [contratos, setContratos] = useState([]);
@@ -165,7 +166,7 @@ export default function ContratosTable() {
         return (
             <div className="m-8 p-6 bg-white shadow rounded">
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FileText size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-10 h-10" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Ver Todos los Contratos
                     </h1>
@@ -181,7 +182,7 @@ export default function ContratosTable() {
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
             <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <FileText size={40} className="text-primary-green-husj" />
+                <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-10 h-10" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Ver Todos los Contratos
                 </h1>
@@ -189,8 +190,8 @@ export default function ContratosTable() {
 
             <div className="flex justify-between items-center mb-4">
                 <Link to="/crearContrato">
-                    <button className="px-4 py-2 bg-primary-green-husj text-white rounded-2xl hover:bg-green-600 flex items-center gap-2 transition-colors">
-                        <CopyPlus size={22} />
+                    <button className="px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2 transition-colors">
+                        <FontAwesomeIcon icon={faPlus} className="w-5 h-5" />
                         Crear Contrato
                     </button>
                 </Link>
@@ -240,7 +241,7 @@ export default function ContratosTable() {
                             <th className="p-3">Procesos</th>
                             <th className="p-3">
                                 <div className="flex items-center gap-2">
-                                    <Settings size={16} />
+                                    <FontAwesomeIcon icon={faCog} className="w-4 h-4" />
                                     Acciones
                                 </div>
                             </th>
@@ -266,10 +267,7 @@ export default function ContratosTable() {
                                         title={`Ver contrato: ${contrato.numContrato}`}
                                         className="inline-block"
                                     >
-                                        <Eye
-                                            size={18}
-                                            className="text-primary-green-husj hover:text-green-600 cursor-pointer transition-colors"
-                                        />
+                                        <FontAwesomeIcon icon={faEye} className="text-primary-green-husj hover:text-green-600 cursor-pointer transition-colors w-4 h-4" />
                                     </Link>
 
                                     {/* Editar */}
@@ -278,10 +276,7 @@ export default function ContratosTable() {
                                         title={`Editar contrato: ${contrato.numContrato}`}
                                         className="inline-block"
                                     >
-                                        <Edit
-                                            size={18}
-                                            className="text-primary-blue1-husj hover:text-primary-blue2-husj cursor-pointer transition-colors"
-                                        />
+                                        <FontAwesomeIcon icon={faEdit} className="text-primary-blue1-husj hover:text-primary-blue2-husj cursor-pointer transition-colors w-4 h-4" />
                                     </Link>
 
                                     {/* Eliminar */}
@@ -322,7 +317,7 @@ export default function ContratosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -351,7 +346,7 @@ export default function ContratosTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -361,7 +356,7 @@ export default function ContratosTable() {
             {/* Mensaje cuando no hay contratos */}
             {contratos.length === 0 && !loading && (
                 <div className="text-center py-12 text-gray-500">
-                    <Users size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="mx-auto mb-4 text-gray-300 w-12 h-12" />
                     <p className="text-lg font-medium">No hay contratos disponibles</p>
                     <p className="text-sm">Crea tu primer contrato usando el botón de arriba</p>
                 </div>

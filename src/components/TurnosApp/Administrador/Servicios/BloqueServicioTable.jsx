@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Eye, Edit, Trash2, CopyPlus, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import {
     bloquesServicioService,
     bloquesValidation,
     bloquesUtils
-} from '../../../../api/Services/apiServiciosService';
+} from '../../../../api/turnos/apiServiciosService';
 
 export default function BloqueServicioTable() {
     const [bloqueservicio, setBloqueServicio] = useState([]);
@@ -191,7 +192,7 @@ export default function BloqueServicioTable() {
                 onClick={handleNuevoBloqueServicio}
                 className="mb-1 px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2"
             >
-                <CopyPlus size={22} color="white" strokeWidth={2} />
+                <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-white" />
                 Crear Bloque
             </button>
 
@@ -229,7 +230,7 @@ export default function BloqueServicioTable() {
                         <th className="p-3">Nombre</th>
                         <th className="p-3">Estado</th>
                         <th className="p-3 flex items-center justify-centers gap-2">
-                            <Settings size={16} />
+                            <FontAwesomeIcon icon={faCog} className="w-4 h-4 mr-2" />
                             Acciones
                         </th>
                     </tr>
@@ -255,10 +256,7 @@ export default function BloqueServicioTable() {
                                     title={`Ver bloque de servicio: ${bloqueservicio.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Eye
-                                        size={18}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2"
-                                    />
+                                    <FontAwesomeIcon icon={faEye} className="w-5 h-5 text-green-600 hover:text-green-800 cursor-pointer transition-colors ml-2" />
                                 </button>
 
                                 {/* Botón Editar */}
@@ -267,10 +265,7 @@ export default function BloqueServicioTable() {
                                     title={`Editar bloque de servicio: ${bloqueservicio.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Edit
-                                        size={18}
-                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faEdit} className="w-5 h-5 text-blue-600 hover:text-blue-800 cursor-pointer transition-colors" />
                                 </button>
 
                                 {/* Botón Eliminar */}
@@ -279,10 +274,7 @@ export default function BloqueServicioTable() {
                                     title={`Eliminar bloque de servicio: ${bloqueservicio.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Trash2
-                                        size={18}
-                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faTrash} className="w-5 h-5 text-red-600 hover:text-red-800 cursor-pointer transition-colors" />
                                 </button>
                             </td>
                         </tr>
@@ -310,7 +302,7 @@ export default function BloqueServicioTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -339,7 +331,7 @@ export default function BloqueServicioTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -349,7 +341,7 @@ export default function BloqueServicioTable() {
             {/* Mensaje cuando no hay bloqueservicio */}
             {bloqueservicio.length === 0 && !loading && (
                 <div className="text-center py-8 text-gray-500">
-                    <Users size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                     <p className="text-lg">No hay Bloques disponibles</p>
                     <p className="text-sm">Crea tu primer bloque usando el botón de arriba</p>
                 </div>
@@ -416,7 +408,7 @@ function CrearEditarBloqueServicio({ bloqueservicio, modoEdicion, onVolver, onAc
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                 <div className='text-3xl font-bold text-gray-800 text-center'>
                     {modoEdicion ? 'Editar Bloque Servicio' : 'Crear Nuevo Bloque Servicio'}
@@ -425,7 +417,7 @@ function CrearEditarBloqueServicio({ bloqueservicio, modoEdicion, onVolver, onAc
                 {modoEdicion && (
                     <div className='p-4 text-center bg-orange-50 border border-orange-200 rounded-lg w-full'>
                         <div className='flex items-center justify-center gap-2 mb-2'>
-                            <Edit size={16} className="text-orange-600" />
+                            <FontAwesomeIcon icon={faEdit} className="w-4 h-4 text-orange-600" />
                             <span className='font-semibold text-orange-800'>Modificando bloque de servicio existente</span>
                         </div>
                         <div className='text-gray-700'>
@@ -510,7 +502,7 @@ function VerBloqueServicio({ bloqueservicio, onVolver }) {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
@@ -553,7 +545,7 @@ function VerBloqueServicio({ bloqueservicio, onVolver }) {
                         onClick={onVolver}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors"
                     >
-                        <Eye size={20} />
+                        <FontAwesomeIcon icon={faEye} className="w-5 h-5" />
                         Volver al Listado
                     </button>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, Clock, Calendar } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faSave, faClock, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
     const [formData, setFormData] = useState({
@@ -99,7 +100,7 @@ const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
                         className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                         disabled={loading}
                     >
-                        <X size={24} />
+                        <FontAwesomeIcon icon={faTimes} className="w-6 h-6" />
                     </button>
                 </div>
 
@@ -124,7 +125,7 @@ const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
                         {/* Campos editables */}
                         <div className="space-y-4">
                             <h3 className="text-lg font-semibold flex items-center gap-2">
-                                <Calendar className="text-blue-600" size={20} />
+                                <FontAwesomeIcon icon={faCalendarAlt} className="text-blue-600 w-5 h-5" />
                                 Fechas y Horarios
                             </h3>
 
@@ -247,7 +248,7 @@ const ModalEditarTurno = ({ turno, isOpen, onClose, onSave }) => {
                                 </>
                             ) : (
                                 <>
-                                    <Save size={16} />
+                                    <FontAwesomeIcon icon={faSave} className="w-4 h-4" />
                                     Guardar Cambios
                                 </>
                             )}

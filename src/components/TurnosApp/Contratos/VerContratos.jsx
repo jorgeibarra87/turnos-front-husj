@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { FileText, ArrowLeft, Eye, Calendar, User, Building, BookOpen } from 'lucide-react';
-import { apiService } from '../../../api/Services/apiContratoService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileAlt, faArrowLeft, faEye, faCalendar, faUser, faBuilding, faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { apiService } from '../../../api/turnos/apiContratoService';
 
 export default function VerContrato() {
     const { id } = useParams();
@@ -83,7 +84,7 @@ export default function VerContrato() {
 
     if (loading) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg'>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
                     <p className="text-lg text-gray-500">Cargando información del contrato...</p>
@@ -94,12 +95,12 @@ export default function VerContrato() {
 
     if (error || !contrato) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg text-center'>
                     <p className="text-lg text-red-600 mb-4">{error || 'Contrato no encontrado'}</p>
                     <Link to="/contratos">
                         <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 mx-auto">
-                            <ArrowLeft size={20} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver al Listado
                         </button>
                     </Link>
@@ -109,13 +110,13 @@ export default function VerContrato() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
                 <div className='text-center border-b pb-4'>
                     <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
-                        <FileText size={30} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Información de Contrato
                         </h1>
@@ -250,7 +251,7 @@ export default function VerContrato() {
                 <div className='flex justify-center gap-4 pt-4 border-t'>
                     <Link to="/contratos">
                         <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2">
-                            <ArrowLeft size={20} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver al Listado
                         </button>
                     </Link>

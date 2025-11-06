@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, CircleXIcon, User, Edit, CalendarClock } from 'lucide-react';
-import { apiCuadroService } from '../../../api/Services/apiCuadroService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faSave, faTimesCircle, faUser, faEdit, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { apiCuadroService } from '../../../api/turnos/apiCuadroService';
 
 export default function CrearCuadroMulti3() {
     const [searchParams] = useSearchParams();
@@ -173,11 +174,11 @@ export default function CrearCuadroMulti3() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4'>
                 {/* Header */}
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <CalendarClock size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         {isEditMode ? 'Editando Cuadro Multiproceso' : 'Crear Cuadro Multiproceso'}
                     </h1>
@@ -187,7 +188,7 @@ export default function CrearCuadroMulti3() {
                 {isEditMode && cuadroOriginal && (
                     <div className='text-sm bg-orange-50 border border-orange-200 px-4 py-2 rounded-lg'>
                         <div className='flex items-center justify-center gap-2 mb-1'>
-                            <Edit size={14} className="text-orange-600" />
+                            <FontAwesomeIcon icon={faEdit} className="w-3.5 h-3.5 text-orange-600" />
                             <span className='font-semibold text-orange-800'>Modificando cuadro existente</span>
                         </div>
                         <div className='space-y-1 text-gray-700'>
@@ -251,7 +252,7 @@ export default function CrearCuadroMulti3() {
                                     {miembros.map((miembro, index) => (
                                         <tr key={index} className='border-t border-gray-200 hover:bg-gray-50'>
                                             <td className='px-4 py-3 text-center'>
-                                                <User size={22} className='text-gray-600 mx-auto' />
+                                                <FontAwesomeIcon icon={faUser} className='w-6 h-6 text-gray-600 mx-auto' />
                                             </td>
                                             <td className='px-4 py-3 text-gray-700'>
                                                 {miembro.titulos?.join(', ') || 'Sin perfil'}
@@ -266,7 +267,7 @@ export default function CrearCuadroMulti3() {
                         </div>
                     ) : (
                         <div className="w-full p-8 text-center">
-                            <User size={48} className="mx-auto mb-4 text-gray-300" />
+                            <FontAwesomeIcon icon={faUser} className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                             <p className="text-gray-500 text-lg">No se encontraron miembros en el equipo</p>
                         </div>
                     )}
@@ -295,7 +296,7 @@ export default function CrearCuadroMulti3() {
                             : 'bg-blue-500 hover:bg-blue-600'
                             }`}
                     >
-                        <Save size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faSave} className="w-5 h-5 text-white" />
                         {saving
                             ? (isEditMode ? 'Actualizando...' : 'Guardando...')
                             : (isEditMode ? 'Actualizar Cuadro' : 'Guardar Cuadro')
@@ -304,14 +305,14 @@ export default function CrearCuadroMulti3() {
 
                     <Link to={getBackUrl()}>
                         <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors">
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver
                         </button>
                     </Link>
 
-                    <Link to="/">
+                    <Link to="/cuadro-turnos">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                            <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                             Cancelar
                         </button>
                     </Link>

@@ -16,7 +16,10 @@ export default function RutasConfig() {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    // Verificar si estamos en modo desarrollo
+    const isDevMode = window.env?.VITE_DEV_MODE === "true";
+
+    /* useEffect(() => {
         setLoading(true);
         dispatch(obtenerToken());
         setLoading(false);
@@ -28,13 +31,54 @@ export default function RutasConfig() {
         } else {
             setIsLogged(false);
         }
-    }, [state]);
+    }, [state]); */
+
+    useEffect(() => {
+        if (isDevMode) {
+            // En modo desarrollo, simular login automático
+            const fakeLoginState = {
+                token: "dev-token",
+                usuario: "dev-user",
+                authorities: "ADMINISTRADOR",
+                decodeToken: {
+                    name_user: "Usuario Desarrollo",
+                    authorities: "ADMINISTRADOR",
+                    sub: "dev-user"
+                }
+            };
+
+            // Solo simular login si no hay token
+            if (!state.token) {
+                dispatch({ type: 'INICIAR_SESION', payload: fakeLoginState });
+            }
+
+            setIsLogged(true);
+            setLoading(false);
+        } else {
+            // Modo producción - lógica original
+            setLoading(true);
+            dispatch(obtenerToken());
+            setLoading(false);
+        }
+    }, [dispatch, isDevMode, state.token]);
+
+    useEffect(() => {
+        if (isDevMode) {
+            setIsLogged(true);
+        } else {
+            if (state.token !== null) {
+                setIsLogged(true);
+            } else {
+                setIsLogged(false);
+            }
+        }
+    }, [state, isDevMode]);
 
     return (
         <Router>
             <Routes>
                 {/* Login */}
-                <Route path='/login' element={isLogged ? <Navigate to='/' /> : <Login />} />
+                <Route path='/login' element={isLogged ? <Navigate to='/crear-turnos' /> : <Login />} />
 
                 {/* Otras rutas existentes */}
                 <Route path='/innProduc'>
@@ -48,12 +92,25 @@ export default function RutasConfig() {
                 </Route>
 
                 {/* Ruta principal con TurnosMainLayout */}
-                <Route path='*' element={
+                {/* <Route path='*' element={
                     <RequireAuth isLogged={isLogged} loading={loading}>
                         <ProtectedWithIdle>
                             <Sidebar componente={TurnosMainLayout} />
                         </ProtectedWithIdle>
                     </RequireAuth>
+                } /> */}
+
+                {/* Ruta principal con TurnosMainLayout */}
+                <Route path='*' element={
+                    isDevMode ? (
+                        <Sidebar componente={TurnosMainLayout} />
+                    ) : (
+                        <RequireAuth isLogged={isLogged} loading={loading}>
+                            <ProtectedWithIdle>
+                                <Sidebar componente={TurnosMainLayout} />
+                            </ProtectedWithIdle>
+                        </RequireAuth>
+                    )
                 } />
 
                 {/* Error 404 */}

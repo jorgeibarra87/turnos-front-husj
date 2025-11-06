@@ -1,55 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        // Manejo personalizado de errores
-        if (error.response) {
-            // El servidor respondió con un código de error
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Sección no encontrada');
-                case 409:
-                    throw new Error('No se puede eliminar la sección porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            // La petición se hizo pero no se recibió respuesta
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            // Error en la configuración de la petición
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Secciones
 export const seccionesService = {
     // Obtener todas las secciones
     getAll: async () => {
         try {
-            const response = await api.get('/seccionesServicio');
+            const response = await apiClienteTurnos.get('/seccionesServicio');
 
             // Validar que retorne un array
             if (Array.isArray(response.data)) {
@@ -68,7 +24,7 @@ export const seccionesService = {
     // Obtener una sección por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/seccionesServicio/${id}`);
+            const response = await apiClienteTurnos.get(`/seccionesServicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener sección ${id}:`, error);
@@ -79,7 +35,7 @@ export const seccionesService = {
     // Crear una nueva sección
     create: async (seccionData) => {
         try {
-            const response = await api.post('/seccionesServicio', seccionData);
+            const response = await apiClienteTurnos.post('/seccionesServicio', seccionData);
             return response.data;
         } catch (error) {
             console.error('Error al crear sección:', error);
@@ -90,7 +46,7 @@ export const seccionesService = {
     // Actualizar una sección existente
     update: async (id, seccionData) => {
         try {
-            const response = await api.put(`/seccionesServicio/${id}`, seccionData);
+            const response = await apiClienteTurnos.put(`/seccionesServicio/${id}`, seccionData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar sección ${id}:`, error);
@@ -101,7 +57,7 @@ export const seccionesService = {
     // Eliminar una sección
     delete: async (id) => {
         try {
-            const response = await api.delete(`/seccionesServicio/${id}`);
+            const response = await apiClienteTurnos.delete(`/seccionesServicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar sección ${id}:`, error);
@@ -112,7 +68,7 @@ export const seccionesService = {
     // Buscar secciones por nombre
     searchByName: async (nombre) => {
         try {
-            const response = await api.get(`/seccionesServicio/buscar?nombre=${encodeURIComponent(nombre)}`);
+            const response = await apiClienteTurnos.get(`/seccionesServicio/buscar?nombre=${encodeURIComponent(nombre)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar secciones por nombre "${nombre}":`, error);
@@ -123,7 +79,7 @@ export const seccionesService = {
     // Obtener secciones activas
     getActivas: async () => {
         try {
-            const response = await api.get('/seccionesServicio/activas');
+            const response = await apiClienteTurnos.get('/seccionesServicio/activas');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener secciones activas:', error);
@@ -134,7 +90,7 @@ export const seccionesService = {
     // Obtener secciones por servicio
     getByServicio: async (servicioId) => {
         try {
-            const response = await api.get(`/seccionesServicio/servicio/${servicioId}`);
+            const response = await apiClienteTurnos.get(`/seccionesServicio/servicio/${servicioId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener secciones del servicio ${servicioId}:`, error);
@@ -145,7 +101,7 @@ export const seccionesService = {
     // Cambiar estado de una sección
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/seccionesServicio/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/seccionesServicio/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado de la sección ${id}:`, error);
@@ -159,7 +115,7 @@ export const serviciosService = {
     // Obtener todos los servicios (para el formulario)
     getAll: async () => {
         try {
-            const response = await api.get('/servicio');
+            const response = await apiClienteTurnos.get('/servicio');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -178,7 +134,7 @@ export const serviciosService = {
     // Obtener servicios activos
     getActivos: async () => {
         try {
-            const response = await api.get('/servicio/activos');
+            const response = await apiClienteTurnos.get('/servicio/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener servicios activos:', error);

@@ -1,51 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        if (error.response) {
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Recurso no encontrado');
-                case 409:
-                    throw new Error('No se puede eliminar el registro porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Subsecciones
 export const subseccionesService = {
     // Obtener todas las subsecciones
     getAll: async () => {
         try {
-            const response = await api.get('/subseccionesServicio');
+            const response = await apiClienteTurnos.get('/subseccionesServicio');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -63,7 +23,7 @@ export const subseccionesService = {
     // Obtener una subsección por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/subseccionesServicio/${id}`);
+            const response = await apiClienteTurnos.get(`/subseccionesServicio/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener subsección ${id}:`, error);
@@ -74,7 +34,7 @@ export const subseccionesService = {
     // Crear una nueva subsección
     create: async (subseccionData) => {
         try {
-            const response = await api.post('/subseccionesServicio', subseccionData);
+            const response = await apiClienteTurnos.post('/subseccionesServicio', subseccionData);
             return response.data;
         } catch (error) {
             console.error('Error al crear subsección:', error);
@@ -85,7 +45,7 @@ export const subseccionesService = {
     // Actualizar una subsección existente
     update: async (id, subseccionData) => {
         try {
-            const response = await api.put(`/subseccionesServicio/${id}`, subseccionData);
+            const response = await apiClienteTurnos.put(`/subseccionesServicio/${id}`, subseccionData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar subsección ${id}:`, error);
@@ -96,7 +56,7 @@ export const subseccionesService = {
     // Eliminar una subsección
     delete: async (id) => {
         try {
-            const response = await api.delete(`/subseccionesServicio/${id}`);;
+            const response = await apiClienteTurnos.delete(`/subseccionesServicio/${id}`);;
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar subsección ${id}:`, error);
@@ -110,7 +70,7 @@ export const seccionesService = {
     // Obtener todas las secciones
     getAll: async () => {
         try {
-            const response = await api.get('/seccionesServicio');
+            const response = await apiClienteTurnos.get('/seccionesServicio');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -129,7 +89,7 @@ export const seccionesService = {
     // Obtener secciones activas
     getActivas: async () => {
         try {
-            const response = await api.get('/seccionesServicio/activas');
+            const response = await apiClienteTurnos.get('/seccionesServicio/activas');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener secciones activas:', error);

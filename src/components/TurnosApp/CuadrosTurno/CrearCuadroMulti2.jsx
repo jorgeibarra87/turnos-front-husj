@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { ArrowLeft, CalendarClock, CheckIcon, CircleXIcon, Edit } from 'lucide-react';
-import { apiCuadroService } from '../../../api/Services/apiCuadroService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faCalendarAlt, faCheck, faTimesCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { apiCuadroService } from '../../../api/turnos/apiCuadroService';
 
 export default function SiguientePaso() {
     const [searchParams] = useSearchParams();
@@ -167,7 +168,7 @@ export default function SiguientePaso() {
 
     if (loadingCuadro) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando datos del cuadro...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -177,10 +178,10 @@ export default function SiguientePaso() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <CalendarClock size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         {isEditMode ? 'Editar Cuadro de Turno' : 'Crear Cuadro de Turno'}
                     </h1>
@@ -189,7 +190,7 @@ export default function SiguientePaso() {
                 {isEditMode && cuadroOriginal && (
                     <div className='text-sm bg-blue-50 border border-blue-200 rounded px-4 py-2 w-full'>
                         <div className='flex items-center gap-2 mb-2'>
-                            <Edit size={16} className="text-blue-600" />
+                            <FontAwesomeIcon icon={faEdit} className="w-4 h-4 text-blue-600" />
                             <span className='font-semibold text-blue-800'>Editando Cuadro Multiproceso</span>
                         </div>
                         <div className='text-xs text-gray-700'>
@@ -284,21 +285,21 @@ export default function SiguientePaso() {
                                 }`}
                             disabled={!selectedEquipo.id}
                         >
-                            <CheckIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faCheck} className="w-5 h-5 text-white" />
                             {isEditMode ? 'Continuar' : 'Aceptar'}
                         </button>
                     </Link>
 
                     <Link to={getBackUrl()}>
                         <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors">
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver
                         </button>
                     </Link>
 
-                    <Link to="/">
+                    <Link to="/cuadro-turnos">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                            <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                             Cancelar
                         </button>
                     </Link>

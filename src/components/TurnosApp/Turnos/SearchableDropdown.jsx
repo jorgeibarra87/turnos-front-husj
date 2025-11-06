@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, ChevronDown, CircleXIcon } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faChevronDown, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const SearchableDropdown = ({
     options = [],
@@ -117,13 +118,13 @@ const SearchableDropdown = ({
                                 className="text-gray-400 hover:text-gray-600 p-1 pointer-events-auto"
                                 type="button"
                             >
-                                <CircleXIcon size={16} />
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-4 h-4" />
                             </button>
                         )}
-                        <Search size={16} className="text-gray-400" />
-                        <ChevronDown
-                            size={16}
-                            className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                        <FontAwesomeIcon icon={faSearch} className="text-gray-400 w-4 h-4" />
+                        <FontAwesomeIcon
+                            icon={faChevronDown}
+                            className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''} w-4 h-4`}
                         />
                     </div>
 

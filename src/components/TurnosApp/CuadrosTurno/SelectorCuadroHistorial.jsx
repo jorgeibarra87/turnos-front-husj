@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { CalendarClock, CheckIcon, CircleXIcon, Search, ChevronDown } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faCheck, faTimesCircle, faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiTurnoService } from '../../../api/Services/apiTurnoService';
+import { apiTurnoService } from '../../../api/turnos/apiTurnoService';
 import SearchableDropdown from '../Turnos/SearchableDropdown';
 
 export function SelectorCuadroHistorial() {
@@ -106,11 +107,11 @@ export function SelectorCuadroHistorial() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             {/* referencia aquí */}
             <div ref={containerRef} className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-2xl w-full mx-4'>
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <CalendarClock size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Historial de Cuadros
                     </h1>
@@ -196,13 +197,13 @@ export function SelectorCuadroHistorial() {
                             }`}
                         disabled={!selectedCuadro.id}
                     >
-                        <CheckIcon size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faCheck} className="w-5 h-5 text-white" />
                         Ver Historial
                     </button>
 
-                    <Link to="/">
+                    <Link to="/cuadro-turnos">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                            <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                             Cancelar
                         </button>
                     </Link>

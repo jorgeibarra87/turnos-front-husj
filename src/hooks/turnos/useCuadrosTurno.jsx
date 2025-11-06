@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { apiTurnoService } from '../api/Services/apiTurnoService';
+import { apiTurnoService } from '../../api/turnos/apiTurnoService';
 
 export const useCuadrosTurno = () => {
     const [cuadrosTurno, setCuadrosTurno] = useState([]);

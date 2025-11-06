@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Mail, Send, Plus, Trash2, Check, AlertCircle } from 'lucide-react';
-import { apiNotificacionService } from '../../../api/Services/apiNotificacionService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPaperPlane, faPlus, faTrash, faCheck, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { apiNotificacionService } from '../../../api/turnos/apiNotificacionService';
 
 export default function GestionNotificaciones() {
     // Estados
@@ -200,7 +201,7 @@ export default function GestionNotificaciones() {
 
     if (loading) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5'>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
                     <p>Cargando configuración de correos...</p>
@@ -210,12 +211,12 @@ export default function GestionNotificaciones() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
                 <div className='flex items-center justify-center gap-3 border-b pb-4'>
-                    <Mail size={32} className="text-blue-600" />
+                    <FontAwesomeIcon icon={faEnvelope} className="w-8 h-8 text-blue-600" />
                     <h1 className="text-2xl font-bold text-gray-800">
                         Sistema de Notificaciones por Correo
                     </h1>
@@ -227,7 +228,7 @@ export default function GestionNotificaciones() {
                         ? 'bg-green-100 text-green-800 border border-green-200'
                         : 'bg-red-100 text-red-800 border border-red-200'
                         }`}>
-                        {tipo_mensaje === 'success' ? <Check size={20} /> : <AlertCircle size={20} />}
+                        {tipo_mensaje === 'success' ? <FontAwesomeIcon icon={faCheck} className="w-5 h-5" /> : <FontAwesomeIcon icon={faExclamationCircle} className="w-5 h-5" />}
                         {mensaje_estado}
                     </div>
                 )}
@@ -278,7 +279,7 @@ export default function GestionNotificaciones() {
                                 onClick={agregarCorreo}
                                 className='px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors'
                             >
-                                <Plus size={16} />
+                                <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
                             </button>
                         </div>
 
@@ -368,7 +369,7 @@ export default function GestionNotificaciones() {
                             </>
                         ) : (
                             <>
-                                <Send size={20} />
+                                <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5" />
                                 Enviar Notificaciones
                             </>
                         )}

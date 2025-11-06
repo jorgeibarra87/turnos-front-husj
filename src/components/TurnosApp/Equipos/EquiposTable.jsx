@@ -1,9 +1,10 @@
 import React from 'react';
-import { Eye, Edit, Trash2, CopyPlusIcon, CopyPlus, UsersIcon, BoxesIcon, Users, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash, faPlus, faUsers, faBoxes, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { apiEquipoService } from '../../../api/Services/apiEquipoService';
+import { apiEquipoService } from '../../../api/turnos/apiEquipoService';
 
 
 export default function EquiposTable() {
@@ -108,7 +109,7 @@ export default function EquiposTable() {
         return (
             <div className="m-8 p-6 bg-white shadow rounded">
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <Users size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Gestión de Equipos
                     </h1>
@@ -182,7 +183,7 @@ export default function EquiposTable() {
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
             <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <Users size={40} className="text-primary-green-husj" />
+                <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Gestión de Equipos
                 </h1>
@@ -192,7 +193,7 @@ export default function EquiposTable() {
             <div className="flex justify-between items-center mb-4">
                 <Link to="/crearEquipo">
                     <button className="px-4 py-2 bg-green-500 text-white rounded-2xl hover:bg-green-600 flex items-center gap-2">
-                        <CopyPlus size={22} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faPlus} className="w-5 h-5 text-white" />
                         Crear Equipo
                     </button>
                 </Link>
@@ -239,7 +240,7 @@ export default function EquiposTable() {
                         <th className="p-3">Nombre del Equipo</th>
                         <th className="p-3">Observaciones</th>
                         <th className="p-3 flex items-center gap-2">
-                            <Settings size={16} />
+                            <FontAwesomeIcon icon={faCog} className="w-4 h-4" />
                             Acciones
                         </th>
                     </tr>
@@ -270,10 +271,7 @@ export default function EquiposTable() {
                                     title={`Ver equipo: ${equipo.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Eye
-                                        size={18}
-                                        className="text-green-600 hover:text-green-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faEye} className="text-green-600 hover:text-green-800 cursor-pointer transition-colors w-4 h-4" />
                                 </Link>
 
                                 {/* Botón Editar - Link dinámico con ID */}
@@ -282,10 +280,7 @@ export default function EquiposTable() {
                                     title={`Editar equipo: ${equipo.nombre}`}
                                     className="inline-block"
                                 >
-                                    <Edit
-                                        size={18}
-                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
-                                    />
+                                    <FontAwesomeIcon icon={faEdit} className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors w-4 h-4" />
                                 </Link>
                                 {/* Botón Eliminar */}
                                 {/* <button
@@ -324,7 +319,7 @@ export default function EquiposTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -353,7 +348,7 @@ export default function EquiposTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -363,7 +358,7 @@ export default function EquiposTable() {
             {/* Mensaje cuando no hay equipos */}
             {equipos.length === 0 && !loading && (
                 <div className="text-center py-8 text-gray-500">
-                    <Users size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="mx-auto mb-4 text-gray-300 w-12 h-12" />
                     <p className="text-lg">No hay equipos disponibles</p>
                     <p className="text-sm">Crea tu primer equipo usando el botón de arriba</p>
                 </div>

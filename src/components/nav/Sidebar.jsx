@@ -44,7 +44,7 @@ export default function Sidebar({ componente: Componente }) {
           nombre: 'Gestores',
           submenuAdicional: [
             { nombre: 'Equipo Talento Humano', ruta: '/equipos' },
-            { nombre: 'Cuadros de Turno', ruta: '/' },
+            { nombre: 'Cuadros de Turno', ruta: '/cuadro-turnos' },
             { nombre: 'Turnos', ruta: '/selector-cuadro-turno' },
             { nombre: 'Calendario de Turno', ruta: '/calendarioturnos' }
           ]

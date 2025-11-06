@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
-import { CircleXIcon, Save, User, ArrowLeft, Edit, Plus, UserPlus, X, Users } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faSave, faUser, faArrowLeft, faEdit, faPlus, faUserPlus, faTimes, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiEquipoService } from '../../../api/Services/apiEquipoService';
+import { apiEquipoService } from '../../../api/turnos/apiEquipoService';
 import SincronizarPersona from './SincronizarPersona';
 
 export default function CrearEquipo() {
@@ -331,12 +332,12 @@ export default function CrearEquipo() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-50  flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-50  flex justify-center items-center'>
             {!showPersonasManager ? (
                 // Vista de selecciones inicial
                 <div className='bg-white p-4 rounded-lg flex flex-col justify-center items-center gap-4 max-w-xl w-full mx-4'>
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <Users size={40} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Equipo' : 'Gestión de Equipos'}
                         </h1>
@@ -348,7 +349,7 @@ export default function CrearEquipo() {
                     {isEditMode && equipoId && (
                         <div className='text-xs bg-blue-50 border border-blue-200 rounded px-3 py-2 w-full'>
                             <div className='flex items-center gap-2 mb-2'>
-                                <Edit size={16} className="text-blue-600" />
+                                <FontAwesomeIcon icon={faEdit} className="w-3.5 h-3.5 text-blue-600" />
                                 <span className='font-semibold text-blue-800'>Modo Edición Equipo</span>
                             </div>
                             <div className='text-xs text-gray-700'>
@@ -448,12 +449,12 @@ export default function CrearEquipo() {
                                 }`}
                             disabled={!selectedOption}
                         >
-                            <UserPlus size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faUserPlus} className="w-4 h-4" />
                             Gestionar Personas
                         </button>
                         <Link to="/equipos">
                             <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>
@@ -463,7 +464,7 @@ export default function CrearEquipo() {
                 // VISTA DEL GESTOR DE PERSONAS
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <Users size={40} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editando Equipo' : 'Creando Nuevo Equipo'}
                         </h1>
@@ -472,7 +473,7 @@ export default function CrearEquipo() {
                     {isEditMode && (
                         <div className='text-sm bg-orange-50 border border-orange-200 px-4 py-2 rounded-lg'>
                             <div className='flex items-center justify-center gap-2 mb-1'>
-                                <Edit size={14} className="text-orange-600" />
+                                <FontAwesomeIcon icon={faEdit} className="w-3.5 h-3.5 text-orange-600" />
                                 <span className='font-semibold text-orange-800'>Modificando equipo existente</span>
                             </div>
                             <div className='text-gray-700'>
@@ -498,14 +499,14 @@ export default function CrearEquipo() {
                                 onClick={handleMostrarSelectorPerfil}
                                 className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2 transition-colors"
                             >
-                                <UserPlus size={16} />
+                                <FontAwesomeIcon icon={faUserPlus} className="w-4 h-4" />
                                 Agregar Persona
                             </button>
                         </div>
 
                         {personasEquipo.length === 0 ? (
                             <div className='bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center'>
-                                <User size={48} className="mx-auto text-gray-400 mb-4" />
+                                <FontAwesomeIcon icon={faUser} className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                                 <p className='text-gray-500'>No hay personas asignadas al equipo</p>
                                 <p className='text-sm text-gray-400'>Haz clic en "Agregar Persona" para comenzar</p>
                             </div>
@@ -524,7 +525,7 @@ export default function CrearEquipo() {
                                         <div key={index} className='px-4 py-3 hover:bg-gray-50'>
                                             <div className='grid grid-cols-4 gap-4 items-center'>
                                                 <div className='flex items-center gap-2'>
-                                                    <User size={16} className="text-gray-400" />
+                                                    <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-gray-400" />
                                                     <span className='font-medium'>{persona.nombreCompleto}</span>
                                                 </div>
                                                 <div className='text-gray-600'>{persona.documento}</div>
@@ -538,7 +539,7 @@ export default function CrearEquipo() {
                                                         onClick={() => handleRemoverPersonaDelEquipo(persona.idPersona)}
                                                         className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
                                                     >
-                                                        <X size={18} />
+                                                        <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -564,19 +565,19 @@ export default function CrearEquipo() {
                                 : 'bg-blue-500 hover:bg-blue-600'
                                 }`}
                         >
-                            <Save size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faSave} className="w-5 h-5 text-white" />
                             {saving ? (isEditMode ? 'Actualizando...' : 'Creando...') : (isEditMode ? 'Actualizar Equipo' : 'Crear Equipo')}
                         </button>
                         <button
                             onClick={handleVolver}
                             className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                         >
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver
                         </button>
                         <Link to="/equipos">
                             <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>
@@ -586,7 +587,7 @@ export default function CrearEquipo() {
                 // VISTA DEL SELECTOR DE PERFIL Y USUARIOS
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <Users size={40} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Seleccionar Perfil y Usuario
                         </h1>
@@ -632,7 +633,7 @@ export default function CrearEquipo() {
                                 onClick={() => setShowSincronizarPersona(true)}
                                 className="mx-auto px-4 py-2 my-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-2 transition-colors"
                             >
-                                <UserPlus size={16} />
+                                <FontAwesomeIcon icon={faUserPlus} className="w-4 h-4" />
                                 Sincronizar Persona
                             </button>
 
@@ -660,7 +661,7 @@ export default function CrearEquipo() {
                                             <div key={usuario.idPersona} className='px-4 py-3 hover:bg-gray-50'>
                                                 <div className='grid grid-cols-4 gap-4 items-center'>
                                                     <div className='flex items-center gap-2'>
-                                                        <User size={16} className="text-gray-400" />
+                                                        <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-gray-400" />
                                                         <span className='font-medium'>{usuario.nombreCompleto}</span>
                                                     </div>
                                                     <div className='text-gray-600'>{usuario.documento}</div>
@@ -674,7 +675,7 @@ export default function CrearEquipo() {
                                                             onClick={() => handleAgregarPersonaAlEquipo(usuario)}
                                                             className="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 flex items-center gap-1 mx-auto transition-colors"
                                                         >
-                                                            <Plus size={14} />
+                                                            <FontAwesomeIcon icon={faPlus} className="w-3.5 h-3.5" />
                                                             Agregar
                                                         </button>
                                                     </div>
@@ -692,12 +693,12 @@ export default function CrearEquipo() {
                             onClick={handleCerrarSelectorPerfil}
                             className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                         >
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                             Volver a Gestión
                         </button>
                         <Link to="/equipos">
                             <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                                <CircleXIcon size={20} color="white" strokeWidth={2} />
+                                <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                                 Cancelar
                             </button>
                         </Link>

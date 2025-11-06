@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Calendar, ChevronLeft, ChevronRight, Eye, Edit, User, Clock, Filter, CalendarClock, Calendar1 } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt, faChevronLeft, faChevronRight, faEye, faEdit, faUser, faClock, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { useCalendarioTurnos } from '../../../../hooks/useCalendarioTurnos';
-import { useCuadrosTurno } from '../../../../hooks/useCuadrosTurno';
-import { useProcesos } from '../../../../hooks/useProcesos';
-import { usePerfiles } from '../../../../hooks/usePerfiles';
+import { useCalendarioTurnos } from '../../../../hooks/turnos/useCalendarioTurnos';
+import { useCuadrosTurno } from '../../../../hooks/turnos/useCuadrosTurno';
+import { useProcesos } from '../../../../hooks/turnos/useProcesos';
+import { usePerfiles } from '../../../../hooks/turnos/usePerfiles';
 import SearchableDropdown from '../../Turnos/SearchableDropdown';
 import ModalDetalleTurno from './ModalDetalleTurno';
 
@@ -201,12 +202,12 @@ export default function CalendarioTurnos() {
     }
 
     return (
-        <div className="p-6 bg-primary-blue-content min-h-screen">
+        <div className="p-6 bg-slate-50 min-h-screen">
             {/* Header */}
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-4 w-fit mx-2">
-                        <Calendar1 size={40} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                         <h1 className="text-4xl font-extrabold text-gray-800">
                             Calendario de Turnos
                         </h1>
@@ -214,13 +215,13 @@ export default function CalendarioTurnos() {
 
                     <div className="flex items-center gap-4">
                         <button onClick={() => navegarMes(-1)} className="p-2 hover:bg-gray-100 rounded-lg">
-                            <ChevronLeft size={20} />
+                            <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                         </button>
                         <h2 className="text-xl font-semibold min-w-[200px] text-center">
                             {meses[fechaActual.getMonth()]} {fechaActual.getFullYear()}
                         </h2>
                         <button onClick={() => navegarMes(1)} className="p-2 hover:bg-gray-100 rounded-lg">
-                            <ChevronRight size={20} />
+                            <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                         </button>
                     </div>
                 </div>
@@ -316,7 +317,7 @@ export default function CalendarioTurnos() {
                         {loadingTurnos ? (
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                         ) : (
-                            <Eye size={18} />
+                            <FontAwesomeIcon icon={faEye} className="w-4 h-4" />
                         )}
                         {loadingTurnos ? 'Cargando...' : 'Ver Turnos'}
                     </button>
@@ -415,7 +416,7 @@ export default function CalendarioTurnos() {
                                                 >
                                                     {/* Nombre de la persona */}
                                                     <div className="flex items-center gap-1 mb-1">
-                                                        <User size={12} className="text-blue-600" />
+                                                        <FontAwesomeIcon icon={faUser} className="text-blue-600 w-3 h-3" />
                                                         <span className="font-bold text-blue-800 text-[10px] leading-tight">
                                                             {turno.nombrePersona || 'Sin asignar'}
                                                         </span>
@@ -423,7 +424,7 @@ export default function CalendarioTurnos() {
 
                                                     {/* Horario  */}
                                                     <div className="flex items-center justify-center bg-gray-100 rounded p-1 mb-1">
-                                                        <Clock size={12} className="text-gray-600 mr-1" />
+                                                        <FontAwesomeIcon icon={faClock} className="text-gray-600 mr-1 w-3 h-3" />
                                                         <span className="text-gray-800 font-medium text-[10px] pr-2">
                                                             {new Date(turno.fechaInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || 'N/A'}
                                                             -

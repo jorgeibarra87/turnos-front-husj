@@ -18,7 +18,7 @@ function OpcionesUsuario() {
     if (usuarios.length == 0) return;
     const data = usuarios.map((entry) => ({
       ...entry,
-      roles: entry.roles.map((role) => ({value: role.id,label: role.rol,})),
+      roles: entry.roles.map((role) => ({ value: role.id, label: role.rol, })),
     }));
     setTableData(data);
   }, [usuarios]);
@@ -30,12 +30,12 @@ function OpcionesUsuario() {
         if (u.username == dataUpdateU.username) {
           return {
             ...u,
-            roles: dataUpdateU.roles.map((role) => ({value: role.id,label: role.rol,})),
+            roles: dataUpdateU.roles.map((role) => ({ value: role.id, label: role.rol, })),
           };
         } else {
           return u;
         }
-      }))
+      }));
       setTableData(nuevosUsuario);
     }
   }, [dataUpdateU]);
@@ -44,28 +44,28 @@ function OpcionesUsuario() {
 
   // manejo el select roles, elimina o agrega los roles
   const handleRolesChange = (selectOption, usuario) => {
-    const rolesseleccionados = selectOption.map((option) => ({ id: option.value, rol: option.label}));
+    const rolesseleccionados = selectOption.map((option) => ({ id: option.value, rol: option.label }));
     const rolesActuales = tableData.find((u) => u.username === usuario).roles;
     const rolesQuitados = rolesActuales.filter((r) => !rolesseleccionados.some((r2) => r2.id === r.value));
     const rolesAgregados = rolesseleccionados.filter((r) => !rolesActuales.some((r2) => r2.value === r.id));
     if (rolesQuitados.length > 0) {
       const rolesfinales = rolesQuitados.map((r) => ({ id: r.value, rol: r.label }));
       updateUsuarioRoles(usuario, rolesfinales, 'eliminar');
-    }if (rolesAgregados.length > 0){
+    } if (rolesAgregados.length > 0) {
       updateUsuarioRoles(usuario, rolesAgregados, 'agregar');
     }
   };
 
   if (loadingU || loadingRoles) return <Loader />;
-  if (errorU || errorRoles)return ( <div> Error al cargar los {errorU ? 'usuarios' : 'roles'} {errorU?.message || errorRoles?.message} </div> );
+  if (errorU || errorRoles) return (<div> Error al cargar los {errorU ? 'usuarios' : 'roles'} {errorU?.message || errorRoles?.message} </div>);
 
-  
+
   return (
     <>
       <SincronizarUsuario show={showSincronizar} handleClose={() => setShowSincronizar(false)} />
       <div className="mt-4">
         <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded" onClick={() => setShowSincronizar(true)}>
-          Agregar Usuario 
+          Agregar Usuario
         </button>
       </div>
 

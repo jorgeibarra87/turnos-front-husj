@@ -1,4 +1,4 @@
-import useIdleTimer from "../../hooks/useInactivity";
+import useIdleTimer from "../../hooks/turnos/useInactivity";
 import { useDispatch } from "react-redux";
 import { cerrarSesionAction } from "../../actions/loginActions";
 
@@ -9,7 +9,7 @@ export default function ProtectedWithIdle({ children }) {
     localStorage.setItem("sessionExpiredReason", "inactivity");
     dispatch(cerrarSesionAction());
   });
-  
+
   return (
     <>
       {children}

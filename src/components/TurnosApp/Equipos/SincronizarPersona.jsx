@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { UserPlus, Search, Save, X, User, ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus, faSearch, faSave, faTimes, faUser, faArrowLeft, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { personasService, personasTitulosService } from '../../../api/Services/apiPersonasService';
-import { titulosService, tiposFormacionService } from '../../../api/Services/apiTitulosService';
+import { personasService, personasTitulosService } from '../../../api/turnos/apiPersonasService';
+import { titulosService, tiposFormacionService } from '../../../api/turnos/apiTitulosService';
 
 
 export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
@@ -342,7 +343,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
 
                 {/* Header */}
                 <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <UserPlus size={40} className="text-primary-green-husj" />
+                    <FontAwesomeIcon icon={faUserPlus} className="w-10 h-10 text-primary-green-husj" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         Sincronizar Persona
                     </h1>
@@ -351,7 +352,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                 {/* Sección de consulta por documento */}
                 <div className='bg-gray-50 p-4 rounded-lg border'>
                     <h3 className='text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2'>
-                        <Search size={20} className="text-blue-600" />
+                        <FontAwesomeIcon icon={faSearch} className="w-5 h-5 text-blue-600" />
                         Consultar por Documento
                     </h3>
 
@@ -378,7 +379,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                                 : 'bg-blue-500 hover:bg-blue-600 text-white'
                                 }`}
                         >
-                            <Search size={20} />
+                            <FontAwesomeIcon icon={faSearch} className="w-5 h-5" />
                             {loading ? 'Consultando...' : 'Sincronizar'}
                         </button>
                     </div>
@@ -403,7 +404,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                 {/* Mostrar error */}
                 {error && (
                     <div className='bg-red-50 border border-red-300 rounded-lg p-4 flex items-center gap-2 text-red-700'>
-                        <AlertCircle size={20} />
+                        <FontAwesomeIcon icon={faExclamationCircle} className="w-5 h-5" />
                         {error}
                     </div>
                 )}
@@ -411,7 +412,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                 {/* Mostrar loading */}
                 {loading && (
                     <div className='bg-blue-50 border border-blue-300 rounded-lg p-4 flex items-center gap-3'>
-                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
                         <span className='text-blue-700'>Consultando datos del personal médico...</span>
                     </div>
                 )}
@@ -420,7 +421,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                 {datosPersona && (
                     <div className='bg-green-50 border border-green-300 rounded-lg p-6'>
                         <div className='flex items-center gap-2 mb-4'>
-                            <CheckCircle size={20} className="text-green-600" />
+                            <FontAwesomeIcon icon={faCheckCircle} className="w-5 h-5 text-green-600" />
                             <h3 className='text-lg font-semibold text-green-800'>
                                 Datos Sincronizados Correctamente
                             </h3>
@@ -597,7 +598,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                                 : 'bg-green-500 hover:bg-green-600 text-white'
                                 }`}
                         >
-                            <Save size={20} />
+                            <FontAwesomeIcon icon={faSave} className='w-5 h-5' />
                             {saving ? 'Guardando...' : 'Guardar Persona'}
                         </button>
                     ) : null}
@@ -606,7 +607,7 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                         onClick={onClose}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors"
                     >
-                        <ArrowLeft size={20} />
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" />
                         Cancelar
                     </button>
                 </div>

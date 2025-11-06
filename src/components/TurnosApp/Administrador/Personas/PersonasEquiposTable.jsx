@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Edit, Trash2, CopyPlus, Users, ChevronLeft, ChevronRight } from "lucide-react";
-import { personasEquiposService, personasService } from '../../../../api/Services/apiPersonasService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faPlus, faUsers, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { personasEquiposService, personasService } from '../../../../api/turnos/apiPersonasService';
 
 export default function PersonasEquiposTable() {
     const [usuariosEquipos, setUsuariosEquipos] = useState([]);
@@ -132,7 +133,7 @@ export default function PersonasEquiposTable() {
                     }}
                     className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center gap-2"
                 >
-                    <CopyPlus size={18} /> Nueva Relación
+                    <FontAwesomeIcon icon={faPlus} className="w-4 h-4 text-white" /> Nueva Relación
                 </button>
             </div>
 
@@ -194,7 +195,7 @@ export default function PersonasEquiposTable() {
                                     }}
                                     className="text-blue-600 hover:underline"
                                 >
-                                    <Edit size={16} />
+                                    <FontAwesomeIcon icon={faEdit} className="w-4 h-4" />
                                 </button>
                                 {u.equipos.map((t) => (
                                     <button
@@ -202,7 +203,7 @@ export default function PersonasEquiposTable() {
                                         onClick={() => handleDelete(u.idPersona, t.idEquipo)}
                                         className="text-red-600 hover:underline"
                                     >
-                                        <Trash2 size={16} />
+                                        <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
                                     </button>
                                 ))}
                             </td>
@@ -231,7 +232,7 @@ export default function PersonasEquiposTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -260,7 +261,7 @@ export default function PersonasEquiposTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -269,7 +270,7 @@ export default function PersonasEquiposTable() {
 
             {usuariosEquipos.length === 0 && !loading && (
                 <div className="text-center py-6 text-gray-500">
-                    <Users size={40} className="mx-auto mb-2" />
+                    <FontAwesomeIcon icon={faUsers} className="w-10 h-10 mx-auto mb-2" />
                     No hay relaciones registradas
                 </div>
             )}

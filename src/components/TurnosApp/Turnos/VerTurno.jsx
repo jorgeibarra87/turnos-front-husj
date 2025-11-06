@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { ArrowLeft, CircleXIcon, User, Clock, Calendar, Edit, CalendarClock } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faTimesCircle, faUser, faClock, faCalendarAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiTurnoService } from '../../../api/Services/apiTurnoService';
+import { apiTurnoService } from '../../../api/turnos/apiTurnoService';
 
 export function VerTurno() {
     const { turnoId } = useParams();
@@ -51,7 +52,7 @@ export function VerTurno() {
 
     if (loading) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold'>Cargando turno...</div>
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -62,7 +63,7 @@ export function VerTurno() {
 
     if (error || !turno) {
         return (
-            <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+            <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-lg w-full mx-4'>
                     <div className='text-2xl font-bold text-red-600'>Error</div>
                     <div className='text-center text-gray-600'>{error || 'Turno no encontrado'}</div>
@@ -70,7 +71,7 @@ export function VerTurno() {
                         onClick={() => navigate(-1)}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                     >
-                        <ArrowLeft size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                         Volver
                     </button>
                 </div>
@@ -79,13 +80,13 @@ export function VerTurno() {
     }
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
                 <div className='text-center mb-6'>
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <CalendarClock size={40} className="text-primary-green-husj" />
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Detalles del Turno
                         </h1>
@@ -100,7 +101,7 @@ export function VerTurno() {
                     {/* Información General */}
                     <div className='bg-blue-50 border border-blue-200 rounded-lg p-2'>
                         <h3 className='text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2'>
-                            <Calendar size={20} />
+                            <FontAwesomeIcon icon={faCalendarAlt} className="w-5 h-5" />
                             Información General
                         </h3>
                         <div className='grid grid-cols-1 md:grid-cols-1 gap-4 text-sm'>
@@ -118,7 +119,7 @@ export function VerTurno() {
                     {/* Información de la Persona */}
                     <div className='bg-blue-50 border border-blue-200 rounded-lg p-2'>
                         <h3 className='text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2'>
-                            <User size={20} />
+                            <FontAwesomeIcon icon={faUser} className="w-5 h-5" />
                             Persona Asignada
                         </h3>
                         <div className='text-sm'>
@@ -132,7 +133,7 @@ export function VerTurno() {
                     {/* Horarios */}
                     <div className='bg-blue-50 border border-blue-200 rounded-lg p-2'>
                         <h3 className='text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2'>
-                            <Clock size={20} />
+                            <FontAwesomeIcon icon={faClock} className="w-5 h-5" />
                             Horarios
                         </h3>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-sm'>
@@ -147,7 +148,7 @@ export function VerTurno() {
                             <div>
                                 <span className='font-medium text-gray-700'>Total de Horas:</span>
                                 <div className='mt-1 text-gray-900 font-semibold text-lg flex items-center gap-2'>
-                                    <Clock size={16} />
+                                    <FontAwesomeIcon icon={faClock} className="w-4 h-4" />
                                     {turno.totalHoras || 0} horas
                                 </div>
                             </div>
@@ -199,13 +200,13 @@ export function VerTurno() {
                         onClick={() => navigate(-1)}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors"
                     >
-                        <ArrowLeft size={20} color="white" strokeWidth={2} />
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5 text-white" />
                         Volver
                     </button>
 
                     <Link to="/selector-cuadro-turno">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">
-                            <CircleXIcon size={20} color="white" strokeWidth={2} />
+                            <FontAwesomeIcon icon={faTimesCircle} className="w-5 h-5 text-white" />
                             Cancelar
                         </button>
                     </Link>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiTurnoService } from '../api/Services/apiTurnoService';
+import { apiTurnoService } from '../../api/turnos/apiTurnoService';
 
 export const usePerfiles = (cuadroId) => {
     const [perfiles, setPerfiles] = useState([]);

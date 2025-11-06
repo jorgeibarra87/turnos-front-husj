@@ -1,55 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        // Manejo personalizado de errores
-        if (error.response) {
-            // El servidor respondió con un código de error
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Macroproceso no encontrado');
-                case 409:
-                    throw new Error('No se puede eliminar el macroproceso porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            // La petición se hizo pero no se recibió respuesta
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            // Error en la configuración de la petición
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Macroprocesos
 export const macroprocesosService = {
     // Obtener todos los macroprocesos
     getAll: async () => {
         try {
-            const response = await api.get('/macroprocesos');
+            const response = await apiClienteTurnos.get('/macroprocesos');
             // Validar que retorne un array
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -67,7 +23,7 @@ export const macroprocesosService = {
     // Obtener un macroproceso por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/macroprocesos/${id}`);
+            const response = await apiClienteTurnos.get(`/macroprocesos/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener macroproceso ${id}:`, error);
@@ -78,7 +34,7 @@ export const macroprocesosService = {
     // Crear un nuevo macroproceso
     create: async (macroprocesoData) => {
         try {
-            const response = await api.post('/macroprocesos', macroprocesoData);
+            const response = await apiClienteTurnos.post('/macroprocesos', macroprocesoData);
             return response.data;
         } catch (error) {
             console.error('Error al crear macroproceso:', error);
@@ -89,7 +45,7 @@ export const macroprocesosService = {
     // Actualizar un macroproceso existente
     update: async (id, macroprocesoData) => {
         try {
-            const response = await api.put(`/macroprocesos/${id}`, macroprocesoData);
+            const response = await apiClienteTurnos.put(`/macroprocesos/${id}`, macroprocesoData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar macroproceso ${id}:`, error);
@@ -100,7 +56,7 @@ export const macroprocesosService = {
     // Eliminar un macroproceso
     delete: async (id) => {
         try {
-            const response = await api.delete(`/macroprocesos/${id}`);
+            const response = await apiClienteTurnos.delete(`/macroprocesos/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar macroproceso ${id}:`, error);
@@ -111,7 +67,7 @@ export const macroprocesosService = {
     // Buscar macroprocesos por nombre
     searchByName: async (nombre) => {
         try {
-            const response = await api.get(`/macroprocesos/buscar?nombre=${encodeURIComponent(nombre)}`);
+            const response = await apiClienteTurnos.get(`/macroprocesos/buscar?nombre=${encodeURIComponent(nombre)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar macroprocesos por nombre "${nombre}":`, error);
@@ -122,7 +78,7 @@ export const macroprocesosService = {
     // Obtener macroprocesos activos
     getActivos: async () => {
         try {
-            const response = await api.get('/macroprocesos/activos');
+            const response = await apiClienteTurnos.get('/macroprocesos/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener macroprocesos activos:', error);
@@ -133,7 +89,7 @@ export const macroprocesosService = {
     // Cambiar estado de un macroproceso
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/macroprocesos/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/macroprocesos/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado del macroproceso ${id}:`, error);

@@ -1,55 +1,11 @@
-import axios from 'axios';
-
-// Configuración de variables de entorno
-const API_BASE_URL = window.env.VITE_API_BASE_URL || 'http://localhost:8080';
-const API_TIMEOUT = parseInt(window.env.VITE_API_TIMEOUT || '10000', 10);
-
-// Crear instancia de axios
-const api = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: API_TIMEOUT,
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-
-// Interceptor para manejo de errores
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.error('Error en la petición:', error);
-
-        if (error.response) {
-            // El servidor respondió con un código de error
-            switch (error.response.status) {
-                case 404:
-                    throw new Error('Recurso no encontrado');
-                case 409:
-                    throw new Error('No se puede eliminar el registro porque tiene dependencias asociadas');
-                case 400:
-                    throw new Error(error.response.data?.message || 'Datos inválidos');
-                case 500:
-                    throw new Error('Error interno del servidor');
-                default:
-                    throw new Error(error.response.data?.message || 'Error en la operación');
-            }
-        } else if (error.request) {
-            // La petición se hizo pero no se recibió respuesta
-            throw new Error('No se pudo conectar con el servidor');
-        } else {
-            // Error en la configuración de la petición
-            throw new Error('Error en la configuración de la petición');
-        }
-    }
-);
+import apiClienteTurnos from "./apiClienteTurnos";
 
 // Servicio para Títulos de Formación Académica
 export const titulosService = {
     // Obtener todos los títulos
     getAll: async () => {
         try {
-            const response = await api.get('/titulosFormacionAcademica');
+            const response = await apiClienteTurnos.get('/titulosFormacionAcademica');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -67,7 +23,7 @@ export const titulosService = {
     // Obtener un título por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/titulosFormacionAcademica/${id}`);
+            const response = await apiClienteTurnos.get(`/titulosFormacionAcademica/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener título ${id}:`, error);
@@ -78,7 +34,7 @@ export const titulosService = {
     // Crear un nuevo título
     create: async (tituloData) => {
         try {
-            const response = await api.post('/titulosFormacionAcademica', tituloData);
+            const response = await apiClienteTurnos.post('/titulosFormacionAcademica', tituloData);
             return response.data;
         } catch (error) {
             console.error('Error al crear título:', error);
@@ -89,7 +45,7 @@ export const titulosService = {
     // Actualizar un título existente
     update: async (id, tituloData) => {
         try {
-            const response = await api.put(`/titulosFormacionAcademica/${id}`, tituloData);
+            const response = await apiClienteTurnos.put(`/titulosFormacionAcademica/${id}`, tituloData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar título ${id}:`, error);
@@ -100,7 +56,7 @@ export const titulosService = {
     // Eliminar un título
     delete: async (id) => {
         try {
-            const response = await api.delete(`/titulosFormacionAcademica/${id}`);
+            const response = await apiClienteTurnos.delete(`/titulosFormacionAcademica/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar título ${id}:`, error);
@@ -111,7 +67,7 @@ export const titulosService = {
     // Búsqueda de títulos por nombre
     searchByName: async (nombre) => {
         try {
-            const response = await api.get(`/titulosFormacionAcademica/buscar?nombre=${encodeURIComponent(nombre)}`);
+            const response = await apiClienteTurnos.get(`/titulosFormacionAcademica/buscar?nombre=${encodeURIComponent(nombre)}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al buscar títulos por nombre "${nombre}":`, error);
@@ -122,7 +78,7 @@ export const titulosService = {
     // Obtener títulos activos
     getActivos: async () => {
         try {
-            const response = await api.get('/titulosFormacionAcademica/activos');
+            const response = await apiClienteTurnos.get('/titulosFormacionAcademica/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener títulos activos:', error);
@@ -133,7 +89,7 @@ export const titulosService = {
     // Obtener títulos por tipo de formación
     getByTipoFormacion: async (tipoId) => {
         try {
-            const response = await api.get(`/titulosFormacionAcademica/tipo/${tipoId}`);
+            const response = await apiClienteTurnos.get(`/titulosFormacionAcademica/tipo/${tipoId}`);
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error(`Error al obtener títulos del tipo ${tipoId}:`, error);
@@ -144,7 +100,7 @@ export const titulosService = {
     // Cambiar estado de un título
     cambiarEstado: async (id, estado) => {
         try {
-            const response = await api.patch(`/titulosFormacionAcademica/${id}/estado`, { estado });
+            const response = await apiClienteTurnos.patch(`/titulosFormacionAcademica/${id}/estado`, { estado });
             return response.data;
         } catch (error) {
             console.error(`Error al cambiar estado del título ${id}:`, error);
@@ -158,7 +114,7 @@ export const tiposFormacionService = {
     // Obtener todos los tipos de formación
     getAll: async () => {
         try {
-            const response = await api.get('/tipoFormacionAcademica');
+            const response = await apiClienteTurnos.get('/tipoFormacionAcademica');
 
             if (Array.isArray(response.data)) {
                 return response.data;
@@ -177,7 +133,7 @@ export const tiposFormacionService = {
     // Obtener un tipo de formación por ID
     getById: async (id) => {
         try {
-            const response = await api.get(`/tipoFormacionAcademica/${id}`);
+            const response = await apiClienteTurnos.get(`/tipoFormacionAcademica/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al obtener tipo de formación ${id}:`, error);
@@ -188,7 +144,7 @@ export const tiposFormacionService = {
     // Crear un nuevo tipo de formación
     create: async (tipoData) => {
         try {
-            const response = await api.post('/tipoFormacionAcademica', tipoData);
+            const response = await apiClienteTurnos.post('/tipoFormacionAcademica', tipoData);
             return response.data;
         } catch (error) {
             console.error('Error al crear tipo de formación:', error);
@@ -199,7 +155,7 @@ export const tiposFormacionService = {
     // Actualizar un tipo de formación existente
     update: async (id, tipoData) => {
         try {
-            const response = await api.put(`/tipoFormacionAcademica/${id}`, tipoData);
+            const response = await apiClienteTurnos.put(`/tipoFormacionAcademica/${id}`, tipoData);
             return response.data;
         } catch (error) {
             console.error(`Error al actualizar tipo de formación ${id}:`, error);
@@ -210,7 +166,7 @@ export const tiposFormacionService = {
     // Eliminar un tipo de formación
     delete: async (id) => {
         try {
-            const response = await api.delete(`/tipoFormacionAcademica/${id}`);
+            const response = await apiClienteTurnos.delete(`/tipoFormacionAcademica/${id}`);
             return response.data;
         } catch (error) {
             console.error(`Error al eliminar tipo de formación ${id}:`, error);
@@ -221,7 +177,7 @@ export const tiposFormacionService = {
     // Obtener tipos de formación activos
     getActivos: async () => {
         try {
-            const response = await api.get('/tipoFormacionAcademica/activos');
+            const response = await apiClienteTurnos.get('/tipoFormacionAcademica/activos');
             return Array.isArray(response.data) ? response.data : [];
         } catch (error) {
             console.error('Error al obtener tipos de formación activos:', error);

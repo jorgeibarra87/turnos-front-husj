@@ -1,4 +1,4 @@
-import { apiNotificacionService } from '../Services/apiNotificacionService';
+import { apiNotificacionService } from './apiNotificacionService';
 
 export class NotificacionService {
 

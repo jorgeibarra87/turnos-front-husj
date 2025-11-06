@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Send, AlertCircle, Check, ArrowLeft, Settings, Users, Eye, Play, TestTube } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPaperPlane, faExclamationCircle, faCheck, faArrowLeft, faCog, faUsers, faEye, faPlay, faVial } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { apiNotificacionService } from '../../../api/Services/apiNotificacionService';
-import { NotificacionService } from '../../../api/Services/notificacionAutomaticaService';
+import { apiNotificacionService } from '../../../api/turnos/apiNotificacionService';
+import { NotificacionService } from '../../../api/turnos/notificacionAutomaticaService';
 
 export default function NotificacionAutomatica() {
     // Estados
@@ -182,13 +183,13 @@ export default function NotificacionAutomatica() {
     };
 
     return (
-        <div className='w-full mx-auto p-4 bg-primary-blue-content bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
+        <div className='w-full mx-auto p-4 bg-slate-50 bg-opacity-30 backdrop-blur-sm flex justify-center items-center'>
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
                 <div className='flex items-center justify-between border-b pb-4'>
                     <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-blue-500 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <Mail size={40} className="text-blue-600" />
+                        <FontAwesomeIcon icon={faEnvelope} className="w-10 h-10 text-blue-600" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Sistema de Notificaciones Automáticas
                         </h1>
@@ -201,7 +202,7 @@ export default function NotificacionAutomatica() {
                         ? 'bg-green-100 text-green-800 border border-green-200'
                         : 'bg-red-100 text-red-800 border border-red-200'
                         }`}>
-                        {tipoMensaje === 'success' ? <Check size={24} /> : <AlertCircle size={24} />}
+                        {tipoMensaje === 'success' ? <FontAwesomeIcon icon={faCheck} className="w-6 h-6" /> : <FontAwesomeIcon icon={faExclamationCircle} className="w-6 h-6" />}
                         <span className="font-medium">{mensaje}</span>
                     </div>
                 )}
@@ -209,7 +210,7 @@ export default function NotificacionAutomatica() {
                 {/* Información del sistema */}
                 <div className='bg-blue-50 rounded-lg p-5'>
                     <h2 className='text-lg font-semibold mb-4 text-blue-800 flex items-center gap-2'>
-                        <Eye size={24} />
+                        <FontAwesomeIcon icon={faEye} className="w-6 h-6" />
                         ¿Cómo funciona el sistema automático?
                     </h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -237,7 +238,7 @@ export default function NotificacionAutomatica() {
                 {/* Estado de correos activos */}
                 <div className='bg-gray-50 rounded-lg p-5'>
                     <h2 className='text-lg font-semibold mb-4 text-gray-800 flex items-center gap-2'>
-                        <Users size={24} />
+                        <FontAwesomeIcon icon={faUsers} className="w-6 h-6" />
                         Configuración Actual de Destinatarios
                     </h2>
 
@@ -276,7 +277,7 @@ export default function NotificacionAutomatica() {
                 {/* Simulaciones de Operaciones */}
                 <div className='bg-yellow-50 rounded-lg p-5 border border-yellow-200'>
                     <h2 className='text-lg font-semibold mb-4 text-yellow-800 flex items-center gap-2'>
-                        <Play size={24} />
+                        <FontAwesomeIcon icon={faPlay} className="w-6 h-6" />
                         Simulaciones de Operaciones Reales
                     </h2>
                     <p className='text-sm text-yellow-700 mb-4'>
@@ -301,7 +302,7 @@ export default function NotificacionAutomatica() {
                                 </>
                             ) : (
                                 <>
-                                    <Send size={24} />
+                                    <FontAwesomeIcon icon={faPaperPlane} className="w-6 h-6" />
                                     <span className="text-sm font-semibold">Simular Creación</span>
                                     <span className="text-xs opacity-90">de Cuadro</span>
                                 </>
@@ -324,7 +325,7 @@ export default function NotificacionAutomatica() {
                                 </>
                             ) : (
                                 <>
-                                    <Settings size={24} />
+                                    <FontAwesomeIcon icon={faCog} className="w-6 h-6" />
                                     <span className="text-sm font-semibold">Simular Modificación</span>
                                     <span className="text-xs opacity-90">de Cuadro</span>
                                 </>
@@ -347,7 +348,7 @@ export default function NotificacionAutomatica() {
                                 </>
                             ) : (
                                 <>
-                                    <Users size={24} />
+                                    <FontAwesomeIcon icon={faUsers} className="w-6 h-6" />
                                     <span className="text-sm font-semibold">Simular Cambio</span>
                                     <span className="text-xs opacity-90">de Turno</span>
                                 </>
@@ -360,7 +361,7 @@ export default function NotificacionAutomatica() {
                 <div className='flex flex-col items-center gap-4'>
                     <div className='text-center'>
                         <h3 className='text-lg font-semibold text-gray-800 mb-2 flex items-center justify-center gap-2'>
-                            <TestTube size={20} />
+                            <FontAwesomeIcon icon={faVial} className="w-5 h-5" />
                             Prueba Básica del Sistema
                         </h3>
                         <p className='text-sm text-gray-600 mb-4 max-w-md'>
@@ -384,12 +385,12 @@ export default function NotificacionAutomatica() {
                             </>
                         ) : correosActivos.length === 0 ? (
                             <>
-                                <AlertCircle size={24} />
+                                <FontAwesomeIcon icon={faExclamationCircle} className="w-6 h-6" />
                                 No hay correos configurados
                             </>
                         ) : (
                             <>
-                                <TestTube size={24} />
+                                <FontAwesomeIcon icon={faVial} className="w-5 h-5" />
                                 Enviar Prueba Básica ({correosActivos.length} destinatarios)
                             </>
                         )}
@@ -399,7 +400,7 @@ export default function NotificacionAutomatica() {
                 {/* Enlaces de configuración */}
                 <div className='bg-yellow-50 border border-yellow-200 rounded-lg p-4'>
                     <div className='flex items-start gap-3'>
-                        <Settings size={24} className="text-yellow-600 mt-1" />
+                        <FontAwesomeIcon icon={faCog} className="w-6 h-6 text-yellow-600 mt-1" />
                         <div>
                             <h3 className='font-semibold text-yellow-800 mb-2'>Configuración</h3>
                             <p className='text-sm text-yellow-700 mb-3'>
@@ -410,7 +411,7 @@ export default function NotificacionAutomatica() {
                                 to="/notificaionCorreo"
                                 className='inline-flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors text-sm'
                             >
-                                <Settings size={16} />
+                                <FontAwesomeIcon icon={faCog} className="w-4 h-4" />
                                 Ir a Gestión de Notificaciones
                             </Link>
                         </div>
@@ -419,9 +420,9 @@ export default function NotificacionAutomatica() {
 
                 {/* Botón de regresar */}
                 <div className='flex justify-center pt-4 border-t'>
-                    <Link to="/">
+                    <Link to="/cuadro-turnos">
                         <button className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors">
-                            <ArrowLeft size={20} />
+                            <FontAwesomeIcon icon={faArrowLeft} className="w-5 h-5" />
                             Volver al Dashboard
                         </button>
                     </Link>
