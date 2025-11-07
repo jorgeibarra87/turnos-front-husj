@@ -1,10 +1,7 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEdit, faTrash, faPlus, faUsers, faBoxes, faChevronLeft, faChevronRight, faCalendarTimes, faCalendarAlt, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import CrearCuadro from './CrearCuadro';
 import { apiCuadroService } from '../../../api/turnos/apiCuadroService';
 
 export default function TurnosTable() {
@@ -144,8 +141,8 @@ export default function TurnosTable() {
 
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
-            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Gestion Cuadros de Turno
                 </h1>

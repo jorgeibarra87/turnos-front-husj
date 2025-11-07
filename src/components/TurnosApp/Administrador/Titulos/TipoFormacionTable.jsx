@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import {
     tiposFormacionService,
     tiposFormacionValidation,
-    tiposFormacionUtils
 } from '../../../../api/turnos/apiTitulosService';
 
 export default function TipoFormacionTable() {
@@ -260,9 +259,8 @@ export default function TipoFormacionTable() {
                                     title={`Editar tipo de formación: ${tipoformacion.tipo}`}
                                     className="inline-block"
                                 >
-                                    <Edit
-                                        size={18}
-                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
+                                    <FontAwesomeIcon icon={faEdit}
+                                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors w-4 h-4"
                                     />
                                 </button>
 
@@ -272,9 +270,8 @@ export default function TipoFormacionTable() {
                                     title={`Eliminar tipo de formación: ${tipoformacion.tipo}`}
                                     className="inline-block"
                                 >
-                                    <Trash2
-                                        size={18}
-                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors"
+                                    <FontAwesomeIcon icon={faTrash}
+                                        className="text-red-600 hover:text-red-800 cursor-pointer transition-colors w-4 h-4"
                                     />
                                 </button>
                             </td>
@@ -303,7 +300,7 @@ export default function TipoFormacionTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronLeft size={20} />
+                                <FontAwesomeIcon icon={faChevronLeft} className="w-5 h-5" />
                             </button>
 
                             {/* Números de página */}
@@ -332,7 +329,7 @@ export default function TipoFormacionTable() {
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
-                                <ChevronRight size={20} />
+                                <FontAwesomeIcon icon={faChevronRight} className="w-5 h-5" />
                             </button>
                         </div>
                     )}
@@ -342,7 +339,7 @@ export default function TipoFormacionTable() {
             {/* Mensaje cuando no hay tipos de formación */}
             {tipoformacion.length === 0 && !loading && (
                 <div className="text-center py-8 text-gray-500">
-                    <Users size={48} className="mx-auto mb-4 text-gray-300" />
+                    <FontAwesomeIcon icon={faUsers} className="mx-auto mb-4 text-gray-300 w-12 h-12" />
                     <p className="text-lg">No hay tipos de formación disponibles</p>
                     <p className="text-sm">Crea tu primer tipo de formación usando el botón de arriba</p>
                 </div>
@@ -410,7 +407,7 @@ function CrearEditarTipoFormacion({ tipoformacion, modoEdicion, onVolver, onActu
                 {modoEdicion && (
                     <div className='p-4 text-center bg-orange-50 border border-orange-200 rounded-lg w-full'>
                         <div className='flex items-center justify-center gap-2 mb-2'>
-                            <Edit size={16} className="text-orange-600" />
+                            <FontAwesomeIcon icon={faEdit} className="text-orange-600 w-4 h-4" />
                             <span className='font-semibold text-orange-800'>Modificando tipo de formación existente</span>
                         </div>
                         <div className='text-gray-700'>
@@ -538,7 +535,7 @@ function VerTipoFormacion({ tipoformacion, onVolver }) {
                         onClick={onVolver}
                         className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2 transition-colors"
                     >
-                        <Eye size={20} />
+                        <FontAwesomeIcon icon={faEye} className="w-5 h-5" />
                         Volver al Listado
                     </button>
                 </div>

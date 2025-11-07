@@ -1,4 +1,3 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faUser, faClock, faCalendarAlt, faMapMarker, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -36,19 +35,6 @@ const ModalDetalleTurno = ({ turno, isOpen, onClose, cuadroNombre, equipoNombre 
                                 <label className="block text-sm font-medium text-gray-600">Persona Asignada:</label>
                                 <p className="text-sm font-medium">{turno.nombrePersona}</p>
                             </div>
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-600">Perfil:</label>
-                                <p className="text-lg">{turno.perfil}</p>
-                            </div> */}
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-600">Estado:</label>
-                                <span className={`px-2 py-1 rounded-full text-sm font-medium ${turno.estadoTurno === 'abierto'
-                                    ? 'bg-green-100 text-green-800'
-                                    : 'bg-gray-100 text-gray-800'
-                                    }`}>
-                                    {turno.estadoTurno}
-                                </span>
-                            </div> */}
                         </div>
                     </div>
 
@@ -67,20 +53,6 @@ const ModalDetalleTurno = ({ turno, isOpen, onClose, cuadroNombre, equipoNombre 
                                 <label className="block text-sm font-medium text-gray-600">Fecha Fin:</label>
                                 <p className="text-lg">{turno.fechaFin}</p>
                             </div>
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-600">Hora Inicio:</label>
-                                <p className="text-lg flex items-center gap-1">
-                                    <Clock size={16} />
-                                    {turno.horaInicio}
-                                </p>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-600">Hora Fin:</label>
-                                <p className="text-lg flex items-center gap-1">
-                                    <Clock size={16} />
-                                    {turno.horaFin}
-                                </p>
-                            </div> */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-600">Total Horas:</label>
                                 <p className="text-xl font-bold text-blue-600">{turno.totalHoras}h</p>
@@ -99,10 +71,6 @@ const ModalDetalleTurno = ({ turno, isOpen, onClose, cuadroNombre, equipoNombre 
                             Información Adicional
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {/* <div>
-                                <label className="block text-sm font-medium text-gray-600">Cuadro ID:</label>
-                                <p className="text-lg">{turno.idCuadroTurno}</p>
-                            </div> */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-600">Versión:</label>
                                 <p className="text-lg">{turno.version || 'N/A'}</p>

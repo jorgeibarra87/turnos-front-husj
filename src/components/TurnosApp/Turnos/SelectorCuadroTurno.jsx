@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faCheck, faTimesCircle, faSearch, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -108,8 +107,8 @@ export function SelectorCuadroTurno() {
         <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             {/* referencia aquí */}
             <div ref={containerRef} className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-5 max-w-2xl w-full mx-4'>
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Gestión de Turnos
                     </h1>

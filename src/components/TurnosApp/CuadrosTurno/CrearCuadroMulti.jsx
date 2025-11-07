@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCheck, faTimesCircle, faPlus, faTimes, faEdit, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import { apiCuadroService } from '../../../api/turnos/apiCuadroService';
 
 export default function CrearCuadroMulti() {
@@ -12,7 +11,6 @@ export default function CrearCuadroMulti() {
     // Detectar modo edición
     const isEditMode = searchParams.get('edit') === 'true';
     const cuadroId = searchParams.get('id');
-    const procesosFromUrl = searchParams.get('procesos');
 
     const [procesos, setProcesos] = useState([]);
     const [procesosDisponibles, setProcesosDisponibles] = useState([]);
@@ -116,8 +114,8 @@ export default function CrearCuadroMulti() {
     return (
         <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-2 max-w-3xl w-full mx-4'>
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         {isEditMode ? 'Editar Multiprocesos Cuadro de Turno' : 'Configurar Multiprocesos Cuadro de Turno'}
                     </h1>
@@ -210,13 +208,6 @@ export default function CrearCuadroMulti() {
                             Continuar
                         </button>
                     </Link>
-
-                    {/* <Link to={getBackUrl()}>
-                        <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex justify-center items-center gap-2 transition-colors">
-                            <ArrowLeft size={20} color="white" strokeWidth={2} />
-                            Volver
-                        </button>
-                    </Link> */}
 
                     <Link to="/cuadro-turnos">
                         <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex justify-center items-center gap-2 transition-colors">

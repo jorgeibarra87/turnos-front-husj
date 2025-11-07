@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimesCircle, faSave, faUser, faArrowLeft, faEdit, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
@@ -281,29 +281,6 @@ export default function CrearCuadro() {
         }
     };
 
-    // Función para generar el nombre del cuadro
-    const generaNombreCuadro = () => {
-        if (isEditMode && cuadroOriginal?.nombre) {
-            return (
-                <div>
-                    <div className='text-sm text-gray-500 mb-1'>Nombre actual:</div>
-                    <div className='font-medium'>{cuadroOriginal.nombre}</div>
-                    {selectedCategory && selectedOption && selectedEquipo.nombre && (
-                        <>
-                            <div className='text-sm text-gray-500 mt-2 mb-1'>Nuevo nombre al guardar:</div>
-                            <div className='font-medium'>
-                                {`CT_${selectedCategory}_${selectedOption.nombre}_${selectedEquipo.nombre}`}
-                            </div>
-                        </>
-                    )}
-                </div>
-            );
-        }
-
-        if (!selectedCategory || !selectedOption || !selectedEquipo.nombre) return '';
-        return `CT_${selectedCategory}_${selectedOption.nombre}_${selectedEquipo.nombre}`;
-    };
-
     // Función para mostrar el cuadro usando apiService
     const handleMostrarCuadro = async () => {
         setShowCuadro(true);
@@ -431,8 +408,8 @@ export default function CrearCuadro() {
             {!showCuadro ? (
                 // Vista de selecciones
                 <div className='bg-white p-4 rounded-lg flex flex-col justify-center items-center gap-4 max-w-xl w-full mx-4'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Cuadro de Turno' : 'Gestión Cuadros de Turno'}
                         </h1>
@@ -604,8 +581,8 @@ export default function CrearCuadro() {
                 // Vista del cuadro de turno
                 <div className='bg-white p-8 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4'>
                     {/* Header */}
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Cuadro de Turno' : 'Gestión Cuadros de Turno'}
                         </h1>
@@ -614,7 +591,6 @@ export default function CrearCuadro() {
 
                     {/* Cuadro de Turno Info */}
                     <div className='text-center'>
-                        {/* <div className='text-2xl font-bold text-gray-800'>Crear Cuadro de Turno:</div> */}
                         {/* Información de edición*/}
                         {isEditMode && (
                             <div className='text-sm bg-orange-50 border border-orange-200 px-4 py-2 rounded-lg mt-3'>

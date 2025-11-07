@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt, faChevronLeft, faChevronRight, faEye, faEdit, faUser, faClock, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -206,8 +206,8 @@ export default function CalendarioTurnos() {
             {/* Header */}
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-4 w-fit mx-2">
-                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-4 w-fit mx-2">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                         <h1 className="text-4xl font-extrabold text-gray-800">
                             Calendario de Turnos
                         </h1>
@@ -353,7 +353,6 @@ export default function CalendarioTurnos() {
                 </div>
             </div>
 
-            {/* Resto del código del calendario permanece igual... */}
             {/* Calendario */}
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                 {/* Header del calendario */}

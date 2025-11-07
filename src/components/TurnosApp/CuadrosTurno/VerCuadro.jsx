@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faArrowLeft, faEye, faCalendarAlt, faUsers, faTag } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -79,7 +78,7 @@ export default function VerCuadro() {
                     setLoadingProcesos(false);
                 }
             } else if (cuadroData && cuadroData.categoria !== 'multiproceso') {
-                // Si no es multiproceso, aseguramos que los procesos estén vacíos
+                // Si no es multiproceso, ver que los procesos estén vacíos
                 setProcesos([]);
                 setLoadingProcesos(false);
             }
@@ -144,8 +143,8 @@ export default function VerCuadro() {
 
                 {/* Header */}
                 <div className='flex items-center justify-between border-b pb-2'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faEye} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faEye} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Ver Cuadro de Turno
                         </h1>
@@ -258,7 +257,7 @@ export default function VerCuadro() {
                     </div>
                 )}
 
-                {/* Sección de Procesos individuales (solo no es 'multiproceso') */}
+                {/* Sección de Procesos individuales*/}
                 {cuadroData.categoria !== 'multiproceso' && (
                     <div className='bg-white rounded-lg border'>
                         <div className='bg-blue-50 px-6 py-2 border-b'>

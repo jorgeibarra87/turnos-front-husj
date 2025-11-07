@@ -374,8 +374,8 @@ export default function CrearContrato() {
             {showMainForm ? (
                 // Formulario principal del contrato
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
-                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
+                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Contrato' : 'Crear Nuevo Contrato'}
                         </h1>
@@ -559,8 +559,8 @@ export default function CrearContrato() {
                 // Gestor de elementos relacionados
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
-                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
+                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Gestión de Elementos Relacionados
                         </h1>
@@ -620,7 +620,7 @@ export default function CrearContrato() {
                                             <span className='text-sm'>{proceso.nombre}</span>
                                             <button
                                                 onClick={() => handleRemoverElemento(proceso.idProceso || proceso.id, 'proceso')}
-                                                className="text-primary-red2-husj hover:text-red-700"
+                                                className="text-red-700 hover:text-red-700"
                                             >
                                                 <FontAwesomeIcon icon={faTimes} className="w-4 h-4" />
                                             </button>
@@ -720,8 +720,8 @@ export default function CrearContrato() {
             ) : showSelector ? (
                 // Selector de elementos
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
-                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
+                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Seleccionar {selectorData.title}
                         </h1>

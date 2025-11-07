@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { apiTurnoService } from '../../api/turnos/apiTurnoService';
 
 export const useCuadrosTurno = () => {
@@ -13,7 +12,6 @@ export const useCuadrosTurno = () => {
                 setLoading(true);
                 setError(null);
                 const response = await apiTurnoService.auxiliares.getCuadrosFormateados();
-
                 // VALIDAR EL FORMATO DE LA RESPUESTA
                 let cuadros = [];
                 if (Array.isArray(response)) {

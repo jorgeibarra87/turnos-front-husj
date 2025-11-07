@@ -336,8 +336,8 @@ export default function CrearEquipo() {
             {!showPersonasManager ? (
                 // Vista de selecciones inicial
                 <div className='bg-white p-4 rounded-lg flex flex-col justify-center items-center gap-4 max-w-xl w-full mx-4'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editar Equipo' : 'Gestión de Equipos'}
                         </h1>
@@ -463,8 +463,8 @@ export default function CrearEquipo() {
             ) : showPersonasManager && !showPerfilSelector ? (
                 // VISTA DEL GESTOR DE PERSONAS
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-5xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             {isEditMode ? 'Editando Equipo' : 'Creando Nuevo Equipo'}
                         </h1>
@@ -486,9 +486,6 @@ export default function CrearEquipo() {
                     <div className='text-center text-sm text-gray-600 space-y-1'>
                         <div><strong>Categoría:</strong> {selectedCategory}</div>
                         <div><strong>{selectedCategory}:</strong> {selectedOption?.nombre}</div>
-                        {/* <div className='text-xs text-blue-600 bg-blue-50 p-2 rounded'>
-                            <em>📝 El nombre del equipo se generará automáticamente al guardar</em>
-                        </div> */}
                     </div>
 
                     {/* SECCIÓN DE PERSONAS DEL EQUIPO */}
@@ -586,8 +583,8 @@ export default function CrearEquipo() {
             ) : showPerfilSelector ? (
                 // VISTA DEL SELECTOR DE PERFIL Y USUARIOS
                 <div className='bg-white p-6 rounded-lg flex flex-col justify-center items-center gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Seleccionar Perfil y Usuario
                         </h1>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faArrowLeft, faEye, faUsers, faCalendarPlus, faCalendarAlt, faEdit, faSearch, faSyncAlt, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { apiTurnoService } from '../../../api/turnos/apiTurnoService';
@@ -287,8 +286,8 @@ export default function GestionTurnos() {
     return (
         <div className='w-full mx-auto p-4 bg-opacity-50 bg-blue-80 backdrop-blur-3xl flex justify-center items-center'>
             <div className='bg-white p-4 rounded-lg flex flex-col gap-2 max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faCalendarAlt} className="text-primary-green-husj w-10 h-10" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faCalendarAlt} className="text-green-500 w-10 h-10" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Gestion de Turnos
                     </h1>

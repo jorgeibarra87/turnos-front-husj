@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faArrowLeft, faEye, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { apiEquipoService } from '../../../api/turnos/apiEquipoService';
@@ -83,8 +82,8 @@ export default function VerEquipo() {
                 {/* Header */}
                 <div className='flex items-center justify-between border-b pb-2'>
                     <div className='flex items-center gap-4'>
-                        <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                            <FontAwesomeIcon icon={faEye} className="w-10 h-10 text-primary-green-husj" />
+                        <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                            <FontAwesomeIcon icon={faEye} className="w-10 h-10 text-green-500" />
                             <h1 className="text-2xl font-extrabold text-gray-800">
                                 Ver Equipo
                             </h1>

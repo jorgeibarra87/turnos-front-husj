@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimesCircle, faSave, faUser, faArrowLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';

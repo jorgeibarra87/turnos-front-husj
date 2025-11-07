@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEdit, faTrash, faPlus, faUsers, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import {
     bloquesServicioService,
     bloquesValidation,
-    bloquesUtils
 } from '../../../../api/turnos/apiServiciosService';
 
 export default function BloqueServicioTable() {

@@ -66,7 +66,7 @@ export default function Sidebar({ componente: Componente }) {
             { nombre: 'Títulos', ruta: '/titulos' },
             { nombre: 'Tipo Formación', ruta: '/tipoformacion' },
             { nombre: 'Turnos', ruta: '/selector-cuadro-turno' },
-            { nombre: 'Cuadros Turno', ruta: '/' },
+            { nombre: 'Cuadros Turno', ruta: '/cuadro-turnos' },
             { nombre: 'Historial Cuadro', ruta: '/selectorCuadroHistorial' },
             { nombre: 'Equipos', ruta: '/equipos' },
             { nombre: 'Bloque Servicio', ruta: '/bloqueservicio' },

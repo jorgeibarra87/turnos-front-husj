@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faTimesCircle, faUser, faClock, faCalendarAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -85,8 +84,8 @@ export function VerTurno() {
 
                 {/* Header */}
                 <div className='text-center mb-6'>
-                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-primary-green-husj" />
+                    <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="w-10 h-10 text-green-500" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Detalles del Turno
                         </h1>
@@ -188,12 +187,6 @@ export function VerTurno() {
 
                 {/* Botones de Acción */}
                 <div className='flex justify-center items-center gap-4 mt-8'>
-                    {/* <Link to={`/editar-turno/${turnoId}`}>
-                        <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex justify-center items-center gap-2 transition-colors">
-                            <Edit size={20} color="white" strokeWidth={2} />
-                            Editar Turno
-                        </button>
-                    </Link> */}
 
                     <button
                         onClick={() => navigate(-1)}

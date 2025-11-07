@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faEdit,
@@ -41,7 +41,7 @@ export default function PersonasRolesTable() {
 
             setUsuariosRoles(usuariosRolesData);
             setPersonas(personasData);
-            setRoles(rolesData);
+            setRoles(Array.isArray(rolesData) ? rolesData : rolesData?.roles || []);
         } catch (err) {
             setError(err.message);
             console.error('Error loading data:', err);

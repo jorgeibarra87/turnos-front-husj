@@ -165,8 +165,8 @@ export default function ContratosTable() {
     if (loading) {
         return (
             <div className="m-8 p-6 bg-white shadow rounded">
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-10 h-10" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-10 h-10" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Ver Todos los Contratos
                     </h1>
@@ -181,8 +181,8 @@ export default function ContratosTable() {
 
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
-            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-10 h-10" />
+            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-10 h-10" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Ver Todos los Contratos
                 </h1>
@@ -267,7 +267,7 @@ export default function ContratosTable() {
                                         title={`Ver contrato: ${contrato.numContrato}`}
                                         className="inline-block"
                                     >
-                                        <FontAwesomeIcon icon={faEye} className="text-primary-green-husj hover:text-green-600 cursor-pointer transition-colors w-4 h-4" />
+                                        <FontAwesomeIcon icon={faEye} className="text-green-500 hover:text-green-600 cursor-pointer transition-colors w-4 h-4" />
                                     </Link>
 
                                     {/* Editar */}
@@ -276,7 +276,7 @@ export default function ContratosTable() {
                                         title={`Editar contrato: ${contrato.numContrato}`}
                                         className="inline-block"
                                     >
-                                        <FontAwesomeIcon icon={faEdit} className="text-primary-blue1-husj hover:text-primary-blue2-husj cursor-pointer transition-colors w-4 h-4" />
+                                        <FontAwesomeIcon icon={faEdit} className="text-blue-600 hover:text-sky-800 cursor-pointer transition-colors w-4 h-4" />
                                     </Link>
 
                                     {/* Eliminar */}
@@ -285,9 +285,8 @@ export default function ContratosTable() {
                                         title={`Eliminar contrato: ${contrato.numContrato}`}
                                         className="inline-block"
                                     >
-                                        <Trash2
-                                            size={18}
-                                            className="text-red-500 hover:text-red-700 cursor-pointer transition-colors"
+                                        <FontAwesomeIcon icon={faTrash}
+                                            className="text-red-500 hover:text-red-700 cursor-pointer transition-colors w-4 h-4"
                                         />
                                     </button> */}
                                 </td>

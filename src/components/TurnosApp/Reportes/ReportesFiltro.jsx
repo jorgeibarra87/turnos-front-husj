@@ -710,8 +710,8 @@ export default function ReportesFiltro() {
         <div className="p-6 space-y-6 bg-blue-80 min-h-screen">
             {/* Filtros */}
             <Card className="shadow-lg border-0">
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faFileAlt} className="w-10 h-10 text-primary-green-husj" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faFileAlt} className="w-10 h-10 text-green-500" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Reportes de Turnos
                     </h1>

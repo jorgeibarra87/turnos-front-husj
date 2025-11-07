@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSearch, faSave, faTimes, faUser, faArrowLeft, faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import { personasService, personasTitulosService } from '../../../api/turnos/apiPersonasService';
-import { titulosService, tiposFormacionService } from '../../../api/turnos/apiTitulosService';
+import { titulosService } from '../../../api/turnos/apiTitulosService';
 
 
 export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
@@ -128,28 +127,6 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
         }
     };
 
-    // Función auxiliar para manejar la relación persona-título
-    const manejarRelacionPersonaTitulo = async (personaId, tituloId) => {
-        try {
-            // Obtener títulos actuales de la persona
-            const usuariosTitulos = await personasTitulosService.getUsuariosTitulos();
-            const relacionExistente = usuariosTitulos.find(
-                rel => rel.idPersona === personaId && rel.idTitulo === tituloId
-            );
-
-            if (!relacionExistente) {
-                // Solo agregar si no existe la relación
-                await personasTitulosService.addTituloToPersona(personaId, tituloId);
-                console.log('Relación persona-título creada exitosamente');
-            } else {
-                console.log('La relación persona-título ya existe');
-            }
-        } catch (error) {
-            // Log del error pero no fallar el proceso completo
-            console.error('Error al manejar relación persona-título:', error);
-        }
-    };
-
     // consulta GET
     const handleSincronizar = async () => {
         if (!documento.trim()) {
@@ -162,10 +139,6 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
         setDatosPersona(null);
 
         try {
-            // Simular delay de API
-            //await new Promise(resolve => setTimeout(resolve, 1500));
-            // Buscar datos simulados
-            //const datos = datosSimulados[documento.trim()];
             const response = await fetch(`/api/genusuario/informacionCompleta/${documento.trim()}`);
 
             // Verificar si la respuesta es exitosa
@@ -342,8 +315,8 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
             <div className='bg-white p-6 rounded-lg flex flex-col gap-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto'>
 
                 {/* Header */}
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faUserPlus} className="w-10 h-10 text-primary-green-husj" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4 border-green-600 pl-4 pr-4 pb-1 pt-1 mb-1 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faUserPlus} className="w-10 h-10 text-green-500" />
                     <h1 className="text-2xl font-extrabold text-gray-800">
                         Sincronizar Persona
                     </h1>
@@ -383,22 +356,6 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                             {loading ? 'Consultando...' : 'Sincronizar'}
                         </button>
                     </div>
-
-                    {/* Documentos de ejemplo */}
-                    {/* <div className='mt-4 text-sm text-gray-600'>
-                        <p className='font-medium mb-1'>Documentos de prueba disponibles:</p>
-                        <div className='flex gap-4 flex-wrap'>
-                            {Object.keys(datosSimulados).map(doc => (
-                                <button
-                                    key={doc}
-                                    onClick={() => setDocumento(doc)}
-                                    className='px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors text-xs'
-                                >
-                                    {doc}
-                                </button>
-                            ))}
-                        </div>
-                    </div> */}
                 </div>
 
                 {/* Mostrar error */}
@@ -574,16 +531,6 @@ export default function SincronizarPersona({ onClose, onPersonaSincronizada }) {
                                 />
                             </div>
                         </div>
-
-                        {/* Información adicional */}
-                        {/* <div className='mt-4 text-xs text-gray-600 bg-blue-50 p-3 rounded-lg'>
-                            <h4 className='font-semibold mb-2'>Información de la consulta:</h4>
-                            <div className='space-y-1'>
-                                <p><span className='font-medium'>ID Título:</span> {datosPersona.titulo.idTitulo}</p>
-                                <p><span className='font-medium'>Tipo Formación ID:</span> {datosPersona.titulo.idTipoFormacionAcademica}</p>
-                                <p><span className='font-medium'>Estado:</span> {datosPersona.titulo.estado ? 'Activo' : 'Inactivo'}</p>
-                            </div>
-                        </div> */}
                     </div>
                 )}
 

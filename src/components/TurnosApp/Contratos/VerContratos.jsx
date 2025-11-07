@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faArrowLeft, faEye, faCalendar, faUser, faBuilding, faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { apiService } from '../../../api/turnos/apiContratoService';
@@ -115,8 +114,8 @@ export default function VerContrato() {
 
                 {/* Header */}
                 <div className='text-center border-b pb-4'>
-                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-primary-green-husj w-7 h-7" />
+                    <div className="flex items-center justify-center gap-2 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb- pt-4 mb-6 w-fit mx-auto">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-green-500 w-7 h-7" />
                         <h1 className="text-2xl font-extrabold text-gray-800">
                             Información de Contrato
                         </h1>

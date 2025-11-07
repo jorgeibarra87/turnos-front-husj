@@ -1,8 +1,6 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEdit, faTrash, faPlus, faUsers, faBoxes, faCog, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { apiEquipoService } from '../../../api/turnos/apiEquipoService';
 
@@ -72,44 +70,11 @@ export default function EquiposTable() {
         loadEquipos();
     }, [loadEquipos]);
 
-    // Función para obtener el número de miembros
-    const getMiembrosCount = async (equipoId) => {
-        try {
-            const miembros = await apiEquipoService.equipos.getMiembros(equipoId);
-            return miembros.length || 0;
-        } catch (error) {
-            console.warn(`No se pudo obtener el número de miembros para el equipo ${equipoId}`);
-            return 0;
-        }
-    };
-
-    // Función para extraer la categoría del nombre del equipo
-    const extractCategory = (nombre) => {
-        if (!nombre) return 'N/A';
-
-        const parts = nombre.split('_');
-        if (parts.length >= 2 && parts[0] === 'Equipo') {
-            return parts[1]; // Retorna la categoría (Servicio, Proceso, etc.)
-        }
-        return 'Personalizado'; // Si no sigue
-    };
-
-    // Función para extraer el área/proceso
-    /* const extractArea = (nombre) => {
-        if (!nombre) return 'N/A';
-
-        const parts = nombre.split('_');
-        if (parts.length >= 3 && parts[0] === 'Equipo') {
-            return parts[2]; // Retorna el área/proceso (UCI1, etc.)
-        }
-        return nombre; // Si no sigue
-    }; */
-
     if (loading) {
         return (
             <div className="m-8 p-6 bg-white shadow rounded">
-                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                    <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
+                <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                    <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-green-500" />
                     <h1 className="text-4xl font-extrabold text-gray-800">
                         Gestión de Equipos
                     </h1>
@@ -122,7 +87,6 @@ export default function EquiposTable() {
             </div>
         );
     }
-
 
     // Lógica de paginación
     const totalPages = Math.ceil(equipos.length / itemsPerPage);
@@ -182,8 +146,8 @@ export default function EquiposTable() {
 
     return (
         <div className="m-8 p-6 bg-white shadow rounded">
-            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-primary-green-husj pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
-                <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-primary-green-husj" />
+            <div className="flex items-center justify-center gap-3 rounded-2xl border-b-4  border-green-600 pl-4 pr-4 pb-1 pt-1 mb-6 w-fit mx-auto">
+                <FontAwesomeIcon icon={faUsers} className="w-10 h-10 text-green-500" />
                 <h1 className="text-4xl font-extrabold text-gray-800">
                     Gestión de Equipos
                 </h1>
@@ -197,11 +161,6 @@ export default function EquiposTable() {
                         Crear Equipo
                     </button>
                 </Link>
-
-                {/* Información adicional */}
-                {/* <div className="text-sm text-gray-600">
-                    Total equipos: {equipos.length}
-                </div> */}
 
                 {/* Selector de elementos por página */}
                 <div className="flex items-center gap-2">
